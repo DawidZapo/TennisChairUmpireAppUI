@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="491.0" prefWidth="880.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tennischairumpireappui.firstWindowDialogController">
+   <children>
+      <MenuBar>
+         <Menu text="Nick Kyrgios">
+            <MenuItem text="Add Point" />
+            <MenuItem text="Subtract" />
+            <MenuItem text="Challenge" />
+            <MenuItem text="Code Viol" />
+            <MenuItem text="Time Viol" />
+            <MenuItem text="Time-Out" />
+         </Menu>
+         <Menu text="Dawid Zapoto">
+            <MenuItem text="Add Point" />
+            <MenuItem text="Subtract" />
+            <MenuItem text="Challenge" />
+            <MenuItem text="Code Viol" />
+            <MenuItem text="Time Viol" />
+            <MenuItem text="Time-Out" />
+         </Menu>
+      </MenuBar>
+
+      <BorderPane layoutX="-1.0" layoutY="25.0" prefHeight="485.0" prefWidth="880.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10px;">
+         <center>
+            <VBox>
+               <padding>
+                  <Insets top="10"/>
+               </padding>
+               <HBox spacing="90">
+                  <padding>
+                     <Insets left="45" />
+                  </padding>
+                  <ImageView fitHeight="120" fitWidth="120" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                     <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\30.png" />
+                  </ImageView>
+                  <ImageView fitHeight="120" fitWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\15.png" />
+                  </ImageView>
+               </HBox>
+               <HBox>
+                  <padding>
+                     <Insets left="65"/>
+                  </padding>
+                  <ImageView fitHeight="200.0" fitWidth="300.0">
+                     <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\tennis-court2.png" />
+                  </ImageView>
+               </HBox>
+
+
+            </VBox>
+         </center>
+         <left>
+            <GridPane hgap="10" prefHeight="424.0" prefWidth="228.0" style="-fx-background-color: #f5f5f5; -fx-padding: 10px; -fx-border-radius: 10px;" vgap="10" BorderPane.alignment="CENTER">
+               <Label alignment="CENTER" prefWidth="200.0" text="Nick" GridPane.columnIndex="0" GridPane.columnSpan="2">
+                  <style>
+                     -fx-font-size: 18px;
+                     -fx-text-fill: #333333;
+                  </style>
+               </Label>
+               <Label alignment="CENTER" prefWidth="200.0" text="Kyrgios" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                  <style>
+                     -fx-font-size: 24px;
+                     -fx-font-weight: bold;
+                     -fx-text-fill: #222222;
+                  </style>
+               </Label>
+               <Label text="Country" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-text-fill: #555555;
+                  </style>
+               </Label>
+               <Label text="Ranked" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-text-fill: #555555;
+                  </style>
+               </Label>
+               <ImageView GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <!-- ... ustawienie obrazka ... -->
+               </ImageView>
+               <Label text="#11" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-text-fill: #555555;
+                  </style>
+               </Label>
+               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Add point" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Subtract point" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Challenge" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Code Violation" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <Button prefHeight="31.0" prefWidth="121.0" text="Time Violation" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="8">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <Button prefHeight="31.0" prefWidth="121.0" text="Time-out" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <columnConstraints>
+                  <ColumnConstraints maxWidth="125.33333333333334" minWidth="54.33333333333334" prefWidth="121.0" />
+                  <ColumnConstraints maxWidth="135.66666666666666" minWidth="64.66666666666666" prefWidth="68.66666666666666" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+            </GridPane>
+         </left>
+         <right>
+            <GridPane hgap="10" prefHeight="424.0" prefWidth="228.0" style="-fx-background-color: #f5f5f5; -fx-padding: 10px; -fx-border-radius: 10px;" vgap="10" BorderPane.alignment="CENTER">
+               <Label alignment="CENTER" prefWidth="200.0" text="Dawid" GridPane.columnIndex="0" GridPane.columnSpan="2">
+                  <style>
+                     -fx-font-size: 18px;
+                     -fx-text-fill: #333333;
+                  </style>
+               </Label>
+               <Label alignment="CENTER" prefWidth="200.0" text="Zapoto" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                  <style>
+                     -fx-font-size: 24px;
+                     -fx-font-weight: bold;
+                     -fx-text-fill: #222222;
+                  </style>
+               </Label>
+               <Label text="Country" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-text-fill: #555555;
+                  </style>
+               </Label>
+               <Label text="Ranked" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-text-fill: #555555;
+                  </style>
+               </Label>
+               <ImageView GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <!-- ... ustawienie obrazka ... -->
+               </ImageView>
+               <Label text="#11" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-text-fill: #555555;
+                  </style>
+               </Label>
+               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Add point" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Subtract point" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Challenge" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Code Violation" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <Button prefHeight="31.0" prefWidth="121.0" text="Time Violation" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="8">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <Button prefHeight="31.0" prefWidth="121.0" text="Time-out" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                  <style>
+                     -fx-font-size: 14px;
+                     -fx-padding: 5px 10px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <columnConstraints>
+                  <ColumnConstraints maxWidth="134.0" minWidth="54.33333333333334" prefWidth="121.0" />
+                  <ColumnConstraints maxWidth="115.0" minWidth="56.666666666666686" prefWidth="69.66666666666669" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+            </GridPane>
+
+         </right>
+
+         <bottom>
+            <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10px;">
+               <Button fx:id="startMatchButton" text="Start Match">
+                  <style>
+                     -fx-font-size: 16px;
+                     -fx-padding: 8px 20px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+               <Button fx:id="exitButton" text="Exit">
+                  <style>
+                     -fx-font-size: 16px;
+                     -fx-padding: 8px 20px;
+                     -fx-background-color: #AAAAAA;
+                     -fx-text-fill: white;
+                     -fx-border-radius: 5px;
+                  </style>
+               </Button>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>
