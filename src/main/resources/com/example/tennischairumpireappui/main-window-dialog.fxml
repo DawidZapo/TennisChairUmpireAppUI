@@ -30,7 +30,7 @@
          <center>
             <VBox>
                <padding>
-                  <Insets top="10"/>
+                  <Insets top="10" />
                </padding>
                <HBox spacing="90">
                   <padding>
@@ -45,7 +45,7 @@
                </HBox>
                <HBox>
                   <padding>
-                     <Insets left="65"/>
+                     <Insets left="65" />
                   </padding>
                   <ImageView fitHeight="200.0" fitWidth="300.0">
                      <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\tennis-court2.png" />
@@ -56,7 +56,7 @@
             </VBox>
          </center>
          <left>
-            <GridPane hgap="10" prefHeight="424.0" prefWidth="228.0" style="-fx-background-color: #f5f5f5; -fx-padding: 10px; -fx-border-radius: 10px;" vgap="10" BorderPane.alignment="CENTER">
+            <GridPane hgap="10" prefHeight="424.0" prefWidth="228.0" style="-fx-background-color: #ECECECFF; -fx-padding: 10px; -fx-border-radius: 10px;" vgap="10" BorderPane.alignment="CENTER">
                <Label alignment="CENTER" prefWidth="200.0" text="Nick" GridPane.columnIndex="0" GridPane.columnSpan="2">
                   <style>
                      -fx-font-size: 18px;
@@ -76,6 +76,9 @@
                      -fx-text-fill: #555555;
                   </style>
                </Label>
+               <ImageView fitHeight="20" fitWidth="40" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\australia.png" />
+               </ImageView>
                <Label text="Ranked" GridPane.columnIndex="0" GridPane.rowIndex="3">
                   <style>
                      -fx-font-size: 14px;
@@ -164,112 +167,203 @@
             </GridPane>
          </left>
          <right>
-            <GridPane hgap="10" prefHeight="424.0" prefWidth="228.0" style="-fx-background-color: #f5f5f5; -fx-padding: 10px; -fx-border-radius: 10px;" vgap="10" BorderPane.alignment="CENTER">
-               <Label alignment="CENTER" prefWidth="200.0" text="Dawid" GridPane.columnIndex="0" GridPane.columnSpan="2">
+            <VBox prefHeight="424.0" prefWidth="228.0" spacing="5" style="-fx-background-color: #ececec; -fx-padding: 10px; -fx-border-radius: 10px;">
+               <Label alignment="CENTER" prefWidth="200.0" text="Dawid">
                   <style>
                      -fx-font-size: 18px;
                      -fx-text-fill: #333333;
                   </style>
                </Label>
-               <Label alignment="CENTER" prefWidth="200.0" text="Zapoto" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+               <Label alignment="CENTER" prefWidth="200.0" text="Zapotoczny">
                   <style>
                      -fx-font-size: 24px;
                      -fx-font-weight: bold;
                      -fx-text-fill: #222222;
                   </style>
                </Label>
-               <Label text="Country" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                  <style>
-                     -fx-font-size: 14px;
-                     -fx-text-fill: #555555;
-                  </style>
-               </Label>
-               <Label text="Ranked" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                  <style>
-                     -fx-font-size: 14px;
-                     -fx-text-fill: #555555;
-                  </style>
-               </Label>
-               <ImageView GridPane.columnIndex="1" GridPane.rowIndex="2">
-                  <!-- ... ustawienie obrazka ... -->
-               </ImageView>
-               <Label text="#11" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                  <style>
-                     -fx-font-size: 14px;
-                     -fx-text-fill: #555555;
-                  </style>
-               </Label>
-               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Add point" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4">
-                  <style>
-                     -fx-font-size: 14px;
-                     -fx-padding: 5px 10px;
-                     -fx-background-color: #AAAAAA;
-                     -fx-text-fill: white;
-                     -fx-border-radius: 5px;
-                  </style>
-               </Button>
-               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Subtract point" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5">
-                  <style>
-                     -fx-font-size: 14px;
-                     -fx-padding: 5px 10px;
-                     -fx-background-color: #AAAAAA;
-                     -fx-text-fill: white;
-                     -fx-border-radius: 5px;
-                  </style>
-               </Button>
-               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Challenge" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6">
-                  <style>
-                     -fx-font-size: 14px;
-                     -fx-padding: 5px 10px;
-                     -fx-background-color: #AAAAAA;
-                     -fx-text-fill: white;
-                     -fx-border-radius: 5px;
-                  </style>
-               </Button>
-               <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Code Violation" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7">
-                  <style>
-                     -fx-font-size: 14px;
-                     -fx-padding: 5px 10px;
-                     -fx-background-color: #AAAAAA;
-                     -fx-text-fill: white;
-                     -fx-border-radius: 5px;
-                  </style>
-               </Button>
-               <Button prefHeight="31.0" prefWidth="121.0" text="Time Violation" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="8">
-                  <style>
-                     -fx-font-size: 14px;
-                     -fx-padding: 5px 10px;
-                     -fx-background-color: #AAAAAA;
-                     -fx-text-fill: white;
-                     -fx-border-radius: 5px;
-                  </style>
-               </Button>
-               <Button prefHeight="31.0" prefWidth="121.0" text="Time-out" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="9">
-                  <style>
-                     -fx-font-size: 14px;
-                     -fx-padding: 5px 10px;
-                     -fx-background-color: #AAAAAA;
-                     -fx-text-fill: white;
-                     -fx-border-radius: 5px;
-                  </style>
-               </Button>
-               <columnConstraints>
-                  <ColumnConstraints maxWidth="134.0" minWidth="54.33333333333334" prefWidth="121.0" />
-                  <ColumnConstraints maxWidth="115.0" minWidth="56.666666666666686" prefWidth="69.66666666666669" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
-            </GridPane>
+               <HBox>
+                  <VBox>
+                     <Label text="Country">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-text-fill: #555555;
+                        </style>
+                     </Label>
+                     <padding>
+                        <Insets right="50" />
+                     </padding>
+                  </VBox>
+                  <VBox>
+                     <ImageView fitHeight="20" fitWidth="40">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\poland.png" />
+                     </ImageView>
+                  </VBox>
+               </HBox>
+
+               <HBox>
+                  <VBox>
+                     <Label text="Ranked">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-text-fill: #555555;
+                        </style>
+                     </Label>
+                     <padding>
+                        <Insets right="50" />
+                     </padding>
+                  </VBox>
+
+                  <VBox>
+                     <Label text="#11">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-text-fill: #555555;
+                        </style>
+                     </Label>
+                  </VBox>
+
+               </HBox>
+
+               <HBox>
+                  <Button alignment="CENTER" prefHeight="31.0" prefWidth="209.0" text="Add point">
+                     <style>
+                        -fx-font-size: 14px;
+                        -fx-padding: 5px 10px;
+                        -fx-background-color: #AAAAAA;
+                        -fx-text-fill: white;
+                        -fx-border-radius: 5px;
+                     </style>
+                  </Button>
+               </HBox>
+
+               <HBox>
+                  <Button alignment="CENTER" prefHeight="31.0" prefWidth="209.0" text="Subtract point">
+                     <style>
+                        -fx-font-size: 14px;
+                        -fx-padding: 5px 10px;
+                        -fx-background-color: #AAAAAA;
+                        -fx-text-fill: white;
+                        -fx-border-radius: 5px;
+                     </style>
+                  </Button>
+               </HBox>
+
+               <HBox>
+                  <VBox>
+                     <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Challenge">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #AAAAAA;
+                           -fx-text-fill: white;
+                           -fx-border-radius: 5px;
+                        </style>
+                     </Button>
+                     <padding>
+                        <Insets right="10" />
+                     </padding>
+                  </VBox>
+                  <VBox>
+                     <ImageView fitHeight="30" fitWidth="65">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\challenge3.png" />
+                     </ImageView>
+                  </VBox>
+
+               </HBox>
+
+               <HBox>
+                  <VBox>
+                     <Button alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Code Violation">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #AAAAAA;
+                           -fx-text-fill: white;
+                           -fx-border-radius: 5px;
+                        </style>
+                     </Button>
+                     <padding>
+                        <Insets right="10" />
+                     </padding>
+                  </VBox>
+
+                  <VBox>
+                     <ImageView fitHeight="30" fitWidth="65">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\code-violation3.png" />
+                     </ImageView>
+                  </VBox>
+               </HBox>
+
+               <HBox>
+                  <VBox>
+                     <Button prefHeight="31.0" prefWidth="121.0" text="Time Violation">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #AAAAAA;
+                           -fx-text-fill: white;
+                           -fx-border-radius: 5px;
+                        </style>
+                     </Button>
+                     <padding>
+                        <Insets right="10" />
+                     </padding>
+                  </VBox>
+
+                  <VBox>
+                     <ImageView fitHeight="30" fitWidth="65">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\time-violation3.png" />
+                     </ImageView>
+                  </VBox>
+               </HBox>
+
+               <HBox>
+                  <VBox>
+                     <Button prefHeight="31.0" prefWidth="121.0" text="Med.Time-out">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #AAAAAA;
+                           -fx-text-fill: white;
+                           -fx-border-radius: 5px;
+                        </style>
+                     </Button>
+                     <padding>
+                        <Insets right="10" />
+                     </padding>
+                  </VBox>
+                  <VBox>
+                     <ImageView fitHeight="30" fitWidth="65">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\time-out3.png" />
+                     </ImageView>
+                  </VBox>
+
+               </HBox>
+
+               <HBox>
+                  <VBox>
+                     <Button prefHeight="31.0" prefWidth="121.0" text="Hindrance">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #AAAAAA;
+                           -fx-text-fill: white;
+                           -fx-border-radius: 5px;
+                        </style>
+                     </Button>
+                     <padding>
+                        <Insets right="10" />
+                     </padding>
+                  </VBox>
+                  <VBox>
+                     <ImageView fitHeight="30" fitWidth="65">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\hindrance3.png" />
+                     </ImageView>
+                  </VBox>
+
+               </HBox>
+
+            </VBox>
 
          </right>
 
