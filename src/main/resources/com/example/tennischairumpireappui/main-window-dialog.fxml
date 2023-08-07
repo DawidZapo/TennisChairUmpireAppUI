@@ -118,17 +118,97 @@
                </HBox>
 
 
+               <HBox>
+                  <VBox>
+                     <ImageView fitHeight="61" fitWidth="61">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatarWithBall\australia.png" />
+                        <HBox.margin>
+                           <Insets top="10.0" />
+                        </HBox.margin>
+                        <VBox.margin>
+                           <Insets top="20.0" />
+                        </VBox.margin>
+                     </ImageView>
+                     <ImageView fitHeight="61" fitWidth="61">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatarWithBall\australia.png" />
+                     </ImageView>
+                  </VBox>
+                  <HBox>
+                     <ImageView fitHeight="165.0" fitWidth="300.0">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\tennis-court2.png" />
+                        <VBox.margin>
+                           <Insets top="10.0" />
+                        </VBox.margin>
+                     </ImageView>
+                  </HBox>
+
+                  <VBox>
+                     <ImageView fitHeight="61" fitWidth="61">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatars\poland.png" />
+                        <VBox.margin>
+                           <Insets top="20.0" />
+                        </VBox.margin>
+                     </ImageView>
+                     <ImageView fitHeight="61" fitWidth="61">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatars\poland.png" />
+                     </ImageView>
+                  </VBox>
+               </HBox>
+
                <VBox>
-                  <padding>
-                     <Insets left="62" />
-                  </padding>
-                  <ImageView fitHeight="165.0" fitWidth="300.0">
-                     <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\tennis-court2.png" />
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </ImageView>
+                  <GridPane>
+                     <padding>
+                        <Insets top="15"/>
+                     </padding>
+                     <Button text="ACE" GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth="106">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #ECECECFF; /* Szary */
+                           -fx-text-fill: black;
+                           -fx-border-radius: 5px;
+                           -fx-border-color: #689F38; /* Zielony */
+                           -fx-border-width: 2px;
+                        </style>
+                     </Button>
+                     <Button text="LET" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="106">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #ECECECFF; /* Szary */
+                           -fx-text-fill: black;
+                           -fx-border-radius: 5px;
+                           -fx-border-color: #FFC107; /* Żółty */
+                           -fx-border-width: 2px;
+                        </style>
+                     </Button>
+                     <Button text="FAULT" GridPane.columnIndex="2" GridPane.rowIndex="0" prefWidth="106">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #ECECECFF; /* Szary */
+                           -fx-text-fill: black;
+                           -fx-border-radius: 5px;
+                           -fx-border-color: #F44336; /* Czerwony */
+                           -fx-border-width: 2px;
+                        </style>
+                     </Button>
+                     <Button text="PLAY" GridPane.columnIndex="3" GridPane.rowIndex="0" prefWidth="106">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #ECECECFF; /* Szary */
+                           -fx-text-fill: black;
+                           -fx-border-radius: 5px;
+                           -fx-border-color: #689F38; /* Zielony */
+                           -fx-border-width: 2px;
+                        </style>
+                     </Button>
+                  </GridPane>
                </VBox>
+
+
+
 
 
             </VBox>
@@ -255,7 +335,7 @@
                <Label alignment="CENTER" prefWidth="200.0" text="Zapotoczny">
                   <graphic>
                      <ImageView fitHeight="30" fitWidth="30">
-                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\ball.png"/>
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\ball.png" />
                      </ImageView>
                   </graphic>
                   <style>
