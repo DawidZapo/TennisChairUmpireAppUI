@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="491.0" prefWidth="880.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tennischairumpireappui.firstWindowDialogController">
+<AnchorPane prefHeight="491.0" prefWidth="880.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tennischairumpireappui.mainWindowDialogController">
    <children>
       <MenuBar>
          <Menu text="Nick Kyrgios">
@@ -121,7 +121,7 @@
                <HBox>
                   <VBox>
                      <ImageView fx:id="leftAD" fitHeight="61" fitWidth="61">
-                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatarWithBall\australia.png" />
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatars\greece.png" />
                         <HBox.margin>
                            <Insets top="10.0" />
                         </HBox.margin>
@@ -130,7 +130,7 @@
                         </VBox.margin>
                      </ImageView>
                      <ImageView fx:id="leftDE" fitHeight="61" fitWidth="61">
-                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatarWithBall\australia.png" />
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatars\serbia.png" />
                      </ImageView>
                   </VBox>
                   <HBox>
@@ -144,13 +144,13 @@
 
                   <VBox>
                      <ImageView fx:id="rightDE" fitHeight="61" fitWidth="61">
-                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatars\poland.png" />
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatars\serbia.png" />
                         <VBox.margin>
                            <Insets top="20.0" />
                         </VBox.margin>
                      </ImageView>
                      <ImageView fx:id="rightAD" fitHeight="61" fitWidth="61">
-                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatars\poland.png" />
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countriesAvatarsWithBall\united-states.png" />
                      </ImageView>
                   </VBox>
                </HBox>
@@ -251,8 +251,8 @@
                      </padding>
                   </VBox>
                   <VBox>
-                     <ImageView fitHeight="20" fitWidth="40">
-                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\australia.png" />
+                     <ImageView fitHeight="25" fitWidth="25">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\spain.png" />
                      </ImageView>
                   </VBox>
                </HBox>
@@ -452,8 +452,8 @@
                      </padding>
                   </VBox>
                   <VBox>
-                     <ImageView fitHeight="20" fitWidth="40">
-                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\poland.png" />
+                     <ImageView fitHeight="25" fitWidth="25">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\serbia.png" />
                      </ImageView>
                   </VBox>
                </HBox>

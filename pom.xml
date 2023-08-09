@@ -129,7 +129,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.tennischairumpireappui/com.example.tennischairumpireappui.HelloApplication
+                                com.example.tennischairumpireappui/com.example.tennischairumpireappui.UmpireApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
