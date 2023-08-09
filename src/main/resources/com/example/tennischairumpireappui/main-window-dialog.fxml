@@ -220,15 +220,15 @@
 
          <left>
             <VBox prefHeight="424.0" prefWidth="228.0" spacing="5" style="-fx-background-color: #ececec; -fx-padding: 10px; -fx-border-radius: 10px;">
-               <Label alignment="CENTER" prefWidth="200.0" text="Nick">
+               <Label fx:id="nameLeft" alignment="CENTER" prefWidth="200.0" text="Nick">
                   <style>
                      -fx-font-size: 18px;
                      -fx-text-fill: #333333;
                   </style>
                </Label>
-               <Label alignment="CENTER" prefWidth="200.0" text="Kyrgios">
+               <Label fx:id="surnameLeft" alignment="CENTER" prefWidth="200.0" text="Kyrgios">
                   <graphic>
-                     <ImageView fitHeight="30" fitWidth="30">
+                     <ImageView fx:id="servingBallGraphicLeft" fitHeight="30" fitWidth="30">
                         <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\ball.png" />
                      </ImageView>
                   </graphic>
@@ -251,7 +251,7 @@
                      </padding>
                   </VBox>
                   <VBox>
-                     <ImageView fitHeight="25" fitWidth="25">
+                     <ImageView fx:id="countryGraphicLeft" fitHeight="25" fitWidth="25">
                         <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\spain.png" />
                      </ImageView>
                   </VBox>
@@ -271,7 +271,7 @@
                   </VBox>
 
                   <VBox>
-                     <Label text="#11">
+                     <Label fx:id="rankingLeft" text="#11">
                         <style>
                            -fx-font-size: 14px;
                            -fx-text-fill: #555555;
@@ -421,17 +421,17 @@
          </left>
          <right>
             <VBox prefHeight="424.0" prefWidth="228.0" spacing="5" style="-fx-background-color: #ececec; -fx-padding: 10px; -fx-border-radius: 10px;">
-               <Label alignment="CENTER" prefWidth="200.0" text="Dawid">
+               <Label fx:id="nameRight" alignment="CENTER" prefWidth="200.0" text="Dawid">
                   <style>
                      -fx-font-size: 18px;
                      -fx-text-fill: #333333;
                   </style>
                </Label>
-               <Label alignment="CENTER" prefWidth="200.0" text="Zapotoczny">
+               <Label fx:id="surnameRight" alignment="CENTER" prefWidth="200.0" text="Zapotoczny">
                   <graphic>
-<!--                     <ImageView fitHeight="30" fitWidth="30">-->
-<!--                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\ball.png" />-->
-<!--                     </ImageView>-->
+                     <ImageView fx:id="servingBallGraphicRight" fitHeight="30" fitWidth="30">
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\ball.png" />
+                     </ImageView>
                   </graphic>
                   <style>
                      -fx-font-size: 24px;
@@ -452,7 +452,7 @@
                      </padding>
                   </VBox>
                   <VBox>
-                     <ImageView fitHeight="25" fitWidth="25">
+                     <ImageView fx:id="countryGraphicRight" fitHeight="25" fitWidth="25">
                         <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\serbia.png" />
                      </ImageView>
                   </VBox>
@@ -472,7 +472,7 @@
                   </VBox>
 
                   <VBox>
-                     <Label text="#11">
+                     <Label fx:id="rankingRight" text="#11">
                         <style>
                            -fx-font-size: 14px;
                            -fx-text-fill: #555555;
@@ -623,16 +623,7 @@
 
          <bottom>
             <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10px;">
-               <Button fx:id="startMatchButton" text="">
-                  <style>
-                     -fx-font-size: 8px;
-                     -fx-padding: 8px 20px;
-                     -fx-background-color: #AAAAAA;
-                     -fx-text-fill: white;
-                     -fx-border-radius: 5px;
-                  </style>
-               </Button>
-               <Button fx:id="exitButton" text="">
+               <Button fx:id="startMatchButton" onAction="#handleStartMatchButton" text="Start Match">
                   <style>
                      -fx-font-size: 8px;
                      -fx-padding: 8px 20px;
