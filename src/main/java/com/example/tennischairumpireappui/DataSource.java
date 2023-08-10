@@ -15,10 +15,17 @@ public class DataSource {
     public static final String PLAYERS_COLUMN_HEIGHT = "height";
     public static final String PLAYERS_COLUMN_BIRTH = "birth";
     public static final String PLAYERS_COLUMN_COUNTRY = "country";
+    public static final String QUERY_PLAYER = "SELECT " + PLAYERS_COLUMN_NAME + "," + PLAYERS_COLUMN_SURNAME +"," + PLAYERS_COLUMN_WEIGHT
+            + "," + PLAYERS_COLUMN_HEIGHT + "," + PLAYERS_COLUMN_BIRTH + "," + PLAYERS_COLUMN_COUNTRY + " FROM " + TABLE_PLAYERS + " WHERE " + PLAYERS_COLUMN_SURNAME + " = ?";
+
+    private PreparedStatement queryPlayer;
     Connection connection;
     public boolean open(){
         try{
             connection = DriverManager.getConnection(CONNECTION_STRING);
+
+            queryPlayer = connection.prepareStatement(QUERY_PLAYER);
+
             return true;
         }catch (SQLException e){
             System.out.println("No database connection: " + e.getMessage());
@@ -28,11 +35,35 @@ public class DataSource {
 
     public void close(){
         try{
+            if(queryPlayer != null){
+                queryPlayer.close();
+            }
             if(connection != null){
                 connection.close();
             }
         }catch(SQLException e){
             System.out.println("Couldn't close connection: " + e.getMessage());
+        }
+    }
+
+    public Player queryPlayer(String surname){
+        try{
+            queryPlayer.setString(1, (String) surname);
+            ResultSet results = queryPlayer.executeQuery();
+
+            if (results.next()){
+                Player player = new Player(results.getString(1), results.getString(2), results.getInt(3),
+                        results.getInt(4), results.getString(5), results.getString(6));
+                return player;
+            }
+            else{
+                System.out.println("No player found");
+                return null;
+            }
+
+        }catch (SQLException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+            return null;
         }
     }
 

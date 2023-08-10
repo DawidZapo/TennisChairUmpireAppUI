@@ -2,8 +2,6 @@ package com.example.tennischairumpireappui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -17,30 +15,33 @@ public class MainWindowController {
     public AnchorPane mainWindow;
     @FXML
     public Button startMatchButton;
-    public Label nameLeft, nameRight, surnameLeft, surnameRight;
-    public ImageView servingBallGraphicLeft, servingBallGraphicRight;
-    public ImageView countryGraphicLeft, countryGraphicRight;
-    public Label rankingRight, rankingLeft;
     @FXML
-    private ImageView leftAD, leftDE, rightAD, rightDE;
+    public Label nameLeft, nameRight, surnameLeft, surnameRight;
+    @FXML
+    public ImageView servingBallGraphicLeft, servingBallGraphicRight;
+    @FXML
+    public ImageView countryGraphicLeft, countryGraphicRight;
+    @FXML
+    public Label heightLeft, heightRight;
+    @FXML
+    private ImageView leftAD, leftDE, rightAD, rightDE, scoringLeft, scoringRight,
+            firstSetLeft, firstSetRight, secondSetLeft, secondSetRight, thirdSetLeft, thirdSetRight,
+            fourthSetLeft, fourthSetRight, fifthSetLeft, fifthSetRight, tennisCourt,
+            challengeLeft, codeViolationLeft, timeViolationLeft, timeOutLeft, hindranceLeft,
+            challengeRight, codeViolationRight, timeViolationRight, timeOutRight, hindranceRight;
 
     @FXML
     public void initialize() throws IOException {
-
-        leftAD.setVisible(false);
-        rightAD.setVisible(false);
 
 
     }
 
     public void handleOnFaultClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("first-window-dialog.fxml"));
-        Parent root = loader.load();
-        FirstWindowDialogController firstWindowDialogController = loader.getController();
 
         DataSingleton data = DataSingleton.getInstance();
         System.out.println(data.getServer());
         System.out.println(data.getSide());
+
 
     }
 
@@ -49,14 +50,25 @@ public class MainWindowController {
 
         DataSingleton data = DataSingleton.getInstance();
 
-        if(data.getServer().equals(data.getPlayer1())){
-            System.out.println("Serwujacy to player1");
+//        if(data.getServer().equals(data.getPlayer1())){
+//            System.out.println("Serwujacy to player1");
+//        }
+//        else{
+//            System.out.println("serwujacy to player2");
+//        }
+//        if(data.getPlayer1().equals("Kyrgios")) System.out.println("Tak to kyrgios porownało stringi!!!!!! :))))");
+//        if(data.getPlayer2().equals("Kyrgios")) System.out.println("Tak to kyrgios porownało stringi!!!!! :)))");
+//
+        DataSource dataSource = new DataSource();
+        if(!dataSource.open()){
+            System.out.println("Problems with opening database");
+            return;
         }
-        else{
-            System.out.println("serwujacy to player2");
-        }
-        if(data.getPlayer1().equals("Kyrgios")) System.out.println("Tak to kyrgios porownało stringi!!!!!! :))))");
-        if(data.getPlayer2().equals("Kyrgios")) System.out.println("Tak to kyrgios porownało stringi!!!!! :)))");
+
+        Player player1 = dataSource.queryPlayer((String)data.getPlayer1());
+        Player player2 = dataSource.queryPlayer((String) data.getPlayer2());
+        System.out.println(player1.getFullName());
+        System.out.println(player2.getFullName());
 
     }
 }

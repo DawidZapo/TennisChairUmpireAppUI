@@ -51,6 +51,23 @@ public class Player {
         this.challenges = 3;
     }
 
+    public Player(String name, String surname, int weight, int height, String birth, String country){
+        this.name = name;
+        this.surname = surname;
+        this.weight = weight;
+        this.height = height;
+        this.birth = birth;
+        this.country = country;
+        this.serving = false;
+        this.retired = false;
+        this.sets = 0;
+        this.games = 0;
+        this.points = 0;
+        this.codeViolation = 0;
+        this.medicalTimout = 0;
+        this.challenges = 3;
+    }
+
     public int getID(){
         return ID;
     }
