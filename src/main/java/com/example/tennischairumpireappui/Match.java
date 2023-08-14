@@ -16,6 +16,11 @@ public class Match {
     private boolean gameOverEarly;
     private boolean gameStarted;
 
+    @Override
+    public String toString() {
+        return "%s : %s : %s".formatted(copiedPlayer1.getFullName(), copiedPlayer2.getFullName(), ((isGrandSlam())? "Grand-Slam" : "BestOf3") );
+    }
+
     public Match(Player player1, Player player2, boolean isGrandSlam){
         this.copiedPlayer1 = new Player(player1.getID(), player1.getName(), player1.getSurname(), player1.getWeight(), player1.getHeight(), player1.getBirth(), player1.getCountry());
         this.copiedPlayer2 = new Player(player2.getID(), player2.getName(), player2.getSurname(), player2.getWeight(), player2.getHeight(), player2.getBirth(), player2.getCountry());
@@ -24,6 +29,9 @@ public class Match {
         this.gameOverEarly = false;
         this.gameStarted = false;
         this.matchDuration = 0;
+
+
+
     }
 
     public Player getCopiedPlayer1() {

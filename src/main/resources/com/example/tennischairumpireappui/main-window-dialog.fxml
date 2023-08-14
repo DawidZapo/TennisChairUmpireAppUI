@@ -220,13 +220,13 @@
 
          <left>
             <VBox prefHeight="424.0" prefWidth="228.0" spacing="5" style="-fx-background-color: #ececec; -fx-padding: 10px; -fx-border-radius: 10px;">
-               <Label fx:id="nameLeft" alignment="CENTER" prefWidth="200.0" text="Nick">
+               <Label fx:id="nameLeft" alignment="CENTER" prefWidth="200.0" text="Name">
                   <style>
                      -fx-font-size: 18px;
                      -fx-text-fill: #333333;
                   </style>
                </Label>
-               <Label fx:id="surnameLeft" alignment="CENTER" prefWidth="200.0" text="Kyrgios">
+               <Label fx:id="surnameLeft" alignment="CENTER" prefWidth="200.0" text="Surname">
                   <graphic>
                      <ImageView fx:id="servingBallGraphicLeft" fitHeight="30" fitWidth="30">
                         <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\ball.png" />
@@ -252,7 +252,7 @@
                   </VBox>
                   <VBox>
                      <ImageView fx:id="countryGraphicLeft" fitHeight="25" fitWidth="25">
-                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\spain.png" />
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\blank.png" />
                      </ImageView>
                   </VBox>
                </HBox>
@@ -271,7 +271,7 @@
                   </VBox>
 
                   <VBox>
-                     <Label fx:id="heightLeft" text="193">
+                     <Label fx:id="heightLeft" text="180">
                         <style>
                            -fx-font-size: 14px;
                            -fx-text-fill: #555555;
@@ -421,13 +421,13 @@
          </left>
          <right>
             <VBox prefHeight="424.0" prefWidth="228.0" spacing="5" style="-fx-background-color: #ececec; -fx-padding: 10px; -fx-border-radius: 10px;">
-               <Label fx:id="nameRight" alignment="CENTER" prefWidth="200.0" text="Dawid">
+               <Label fx:id="nameRight" alignment="CENTER" prefWidth="200.0" text="Name">
                   <style>
                      -fx-font-size: 18px;
                      -fx-text-fill: #333333;
                   </style>
                </Label>
-               <Label fx:id="surnameRight" alignment="CENTER" prefWidth="200.0" text="Zapotoczny">
+               <Label fx:id="surnameRight" alignment="CENTER" prefWidth="200.0" text="Surname">
                   <graphic>
                      <ImageView fx:id="servingBallGraphicRight" fitHeight="30" fitWidth="30">
                         <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\ball.png" />
@@ -453,7 +453,7 @@
                   </VBox>
                   <VBox>
                      <ImageView fx:id="countryGraphicRight" fitHeight="25" fitWidth="25">
-                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\serbia.png" />
+                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\blank.png" />
                      </ImageView>
                   </VBox>
                </HBox>

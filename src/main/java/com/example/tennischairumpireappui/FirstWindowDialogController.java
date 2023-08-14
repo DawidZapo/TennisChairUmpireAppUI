@@ -106,16 +106,18 @@ public class FirstWindowDialogController {
                 String selectedSide = sideResult.get();
 
                 DataSingleton data = DataSingleton.getInstance();
+
                 data.setServer(selectedPlayer);
                 data.setSide(selectedSide);
                 data.setPlayer1(playersComboBox1.getValue());
                 data.setPlayer2(playersComboBox2.getValue());
+                data.setBestOf(bestOfComboBox.getValue());
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Summary");
                 alert.setHeaderText(null);
                 alert.setContentText("Server: " + selectedPlayer + "\n"
-                        + " will start on " + selectedSide);
+                        + "Will start on " + selectedSide);
                 alert.showAndWait();
             }
         }

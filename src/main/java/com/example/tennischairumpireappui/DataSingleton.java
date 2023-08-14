@@ -6,10 +6,28 @@ public class DataSingleton {
     private Object server;
     private Object player1;
     private Object player2;
+    private Object bestOf;
+    private Match match;
     private DataSingleton(){}
 
     public static DataSingleton getInstance(){
         return instance;
+    }
+
+    public void setMatch(Player player1, Player player2, boolean isGrandSlam){
+        match = new Match(player1, player2, isGrandSlam);
+    }
+
+    public Match getMatch() {
+        return match;
+    }
+
+    public Object getBestOf() {
+        return bestOf;
+    }
+
+    public void setBestOf(Object bestOf) {
+        this.bestOf = bestOf;
     }
 
     public String getSide(){
