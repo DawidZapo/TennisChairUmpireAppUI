@@ -25,6 +25,10 @@ public class MainWindowController {
     @FXML
     public Label heightLeft, heightRight;
     @FXML
+    public Button player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation, player1MedicalTimeOut, player1Hindrance,
+            player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation, player2MedicalTimeOut, player2Hindrance,
+            aceButton, faultButton, letButton, playButton;
+    @FXML
     private ImageView leftAD, leftDE, rightAD, rightDE, scoringLeft, scoringRight,
             firstSetLeft, firstSetRight, secondSetLeft, secondSetRight, thirdSetLeft, thirdSetRight,
             fourthSetLeft, fourthSetRight, fifthSetLeft, fifthSetRight, tennisCourt,
@@ -33,6 +37,28 @@ public class MainWindowController {
 
     @FXML
     public void initialize() throws IOException {
+        player1AddPoint.setDisable(true);
+        player1SubtractPoint.setDisable(true);
+        player1Challenge.setDisable(true);
+        player1CodeViolation.setDisable(true);
+        player1TimeViolation.setDisable(true);
+        player1MedicalTimeOut.setDisable(true);
+        player1MedicalTimeOut.setDisable(true);
+        player1Hindrance.setDisable(true);
+
+        player2AddPoint.setDisable(true);
+        player2SubtractPoint.setDisable(true);
+        player2Challenge.setDisable(true);
+        player2CodeViolation.setDisable(true);
+        player2TimeViolation.setDisable(true);
+        player2MedicalTimeOut.setDisable(true);
+        player2MedicalTimeOut.setDisable(true);
+        player2Hindrance.setDisable(true);
+
+        aceButton.setDisable(true);
+        letButton.setDisable(true);
+        faultButton.setDisable(true);
+        playButton.setDisable(true);
 
 
     }
@@ -133,6 +159,29 @@ public class MainWindowController {
                 leftAD.setVisible(false);
             }
         }
+
+        player1AddPoint.setDisable(false);
+        player1SubtractPoint.setDisable(false);
+        player1Challenge.setDisable(false);
+        player1CodeViolation.setDisable(false);
+        player1TimeViolation.setDisable(false);
+        player1MedicalTimeOut.setDisable(false);
+        player1MedicalTimeOut.setDisable(false);
+        player1Hindrance.setDisable(false);
+
+        player2AddPoint.setDisable(false);
+        player2SubtractPoint.setDisable(false);
+        player2Challenge.setDisable(false);
+        player2CodeViolation.setDisable(false);
+        player2TimeViolation.setDisable(false);
+        player2MedicalTimeOut.setDisable(false);
+        player2MedicalTimeOut.setDisable(false);
+        player2Hindrance.setDisable(false);
+
+        aceButton.setDisable(false);
+        letButton.setDisable(false);
+        faultButton.setDisable(false);
+        playButton.setDisable(false);
 
     }
 
