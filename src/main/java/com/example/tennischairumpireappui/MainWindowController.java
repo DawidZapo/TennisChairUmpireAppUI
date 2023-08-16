@@ -82,7 +82,7 @@ public class MainWindowController {
 
     }
 
-    private Image get15_30_40Image(int points1, int points2){
+    public static Image get15_30_40Image(int points1, int points2){
         if(points1 == 0) return scoring0;
         else if(points1 == 1) return scoring15;
         else if(points1 == 2) return scoring30;
@@ -219,6 +219,8 @@ public class MainWindowController {
     }
     @FXML
     private void onAceClick(){
+
+        /// DO ZMIANY TO PONIZEJ !!!!!!!!!!!!!!!!!!
         DataSingleton data = DataSingleton.getInstance();
 
         if(data.getMatch().getCopiedPlayer1().isServing()){
@@ -271,17 +273,17 @@ public class MainWindowController {
         DataSingleton data = DataSingleton.getInstance();
 
         if(actionEvent.getSource().equals(player1AddPoint)){
-            data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2());
+            data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight);
 
-            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
-            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
+//            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
+//            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
 
         }
         else if(actionEvent.getSource().equals(player2AddPoint)){
-            data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1());
+            data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft);
 
-            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
-            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
+//            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
+//            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
 
         }
         else{

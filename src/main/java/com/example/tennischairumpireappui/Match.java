@@ -1,9 +1,13 @@
 package com.example.tennischairumpireappui;
 
+import javafx.scene.image.ImageView;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Match {
@@ -309,6 +313,105 @@ public class Match {
             if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 4){
 
                 winner.setPoints(0); looser.setPoints(0);
+                winner.addGame();
+
+                games.get(games.size()-1).setWinner(winner);
+
+                if(winner.isServing()){
+                    winner.setServing(false);
+                    looser.setServing(true);
+                }
+                else{
+                    winner.setServing(true);
+                    looser.setServing(false);
+                }
+
+                if(winner.getGames() - looser.getGames() >= 2 && winner.getGames() >= 6){
+                    winner.getSavedSets().add(winner.getGames());
+                    looser.getSavedSets().add(looser.getGames());
+
+                    winner.setGames(0); looser.setGames(0);
+                    winner.addSet();
+
+                    if(winner.getSets() == ((grandSlam)? 3 : 2)){
+                        gameOver = true;
+                        winner.setWinner(true);
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    public void addPoint(Player winner, Player looser, ImageView winnerScoring, ImageView looserScoring){
+        gameStarted = true;
+        if(winner.getGames() == looser.getGames() && winner.getGames() == 6){
+
+            if(winner.getPoints() == 0 && looser.getPoints() == 0){
+                winner.incrementChallenges();
+                looser.incrementChallenges();
+                if(winner.isServing()){
+                    games.add(new Game (winner, true));
+                }
+                else{
+                    games.add(new Game(looser, true));
+                }
+            }
+
+            winner.addPoint();
+
+            if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 7){
+
+                winner.setPoints(0); looser.setPoints(0);
+                winner.addGame();
+
+                games.get(games.size()-1).setWinner(winner);
+
+                if(winner.isServing()){
+                    winner.setServing(false);
+                    looser.setServing(true);
+                }
+                else{
+                    winner.setServing(true);
+                    looser.setServing(false);
+                }
+
+                if(winner.getGames() == 7){
+                    winner.getSavedSets().add(winner.getGames());
+                    looser.getSavedSets().add(looser.getGames());
+
+                    winner.setGames(0); looser.setGames(0);
+                    winner.addSet();
+
+                    if(winner.getSets() == ((grandSlam)? 3 : 2)){
+                        gameOver = true;
+                        winner.setWinner(true);
+                    }
+                }
+            }
+        }
+        else{
+
+            if(winner.getPoints() == 0 && looser.getPoints() == 0){
+                if(winner.isServing()){
+                    games.add(new Game (winner, false));
+                }
+                else{
+                    games.add(new Game(looser, false));
+                }
+            }
+
+            winner.addPoint();
+            winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
+            looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), looser.getPoints()));
+
+            if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 4){
+
+                winner.setPoints(0); looser.setPoints(0);
+                winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
+                looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), winner.getPoints()));
+
                 winner.addGame();
 
                 games.get(games.size()-1).setWinner(winner);
