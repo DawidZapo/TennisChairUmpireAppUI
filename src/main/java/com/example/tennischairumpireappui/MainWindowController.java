@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -11,6 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 public class MainWindowController {
+    @FXML
+    public Menu player1Menu, player2Menu;
 
     @FXML
     public AnchorPane mainWindow;
@@ -22,6 +25,13 @@ public class MainWindowController {
     public ImageView servingBallGraphicLeft, servingBallGraphicRight;
     @FXML
     public ImageView countryGraphicLeft, countryGraphicRight;
+    public static Image scoring0 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\scoring\\0.png");
+    public static Image scoring15 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\scoring\\15.png");
+    public static Image scoring30 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\scoring\\30.png");
+    public static Image scoring40 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\scoring\\40.png");
+    public static Image scoringAD = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\scoring\\AD.png");
+    public static Image scoringBlank = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\scoring\\blank.png");
+
     @FXML
     public Label heightLeft, heightRight;
     @FXML
@@ -72,7 +82,20 @@ public class MainWindowController {
 
     }
 
-    public void handleStartMatchButton(ActionEvent actionEvent) {
+    private Image get15_30_40Image(int points1, int points2){
+        if(points1 == 0) return scoring0;
+        else if(points1 == 1) return scoring15;
+        else if(points1 == 2) return scoring30;
+        else if(points1 == 3) return scoring40;
+        else if(points1 > 3 && points1 == points2) return scoring40;
+        else if(points1 > 3 && points1 - points2 == 1) return scoringAD;
+        else if(points1 > 3 && points2 - points1 == 1) return scoring40;
+        else return scoringBlank;
+
+    }
+
+    @FXML
+    private void handleStartMatchButton(ActionEvent actionEvent) {
         startMatchButton.setDisable(true);
 
         DataSingleton data = DataSingleton.getInstance();
@@ -102,11 +125,13 @@ public class MainWindowController {
         surnameLeft.setText(player1.getSurname());
         heightLeft.setText(Integer.toString(player1.getHeight()));
         countryGraphicLeft.setImage(new Image(getCountryPath(player1.getCountry())));
+        player1Menu.setText(player1.getSurname());
 
         nameRight.setText(player2.getName());
         surnameRight.setText(player2.getSurname());
         heightRight.setText(Integer.toString(player2.getHeight()));
         countryGraphicRight.setImage(new Image(getCountryPath(player2.getCountry())));
+        player2Menu.setText(player2.getSurname());
 
         if(data.getServer().equals(data.getPlayer1())) {
             data.getMatch().getCopiedPlayer1().setServing(true);
@@ -185,6 +210,50 @@ public class MainWindowController {
 
     }
 
+    @FXML
+    private void onPlayClick(){
+        aceButton.setDisable(true);
+        faultButton.setDisable(true);
+        letButton.setDisable(true);
+        playButton.setDisable(true);
+    }
+    @FXML
+    private void onAceClick(){
+        DataSingleton data = DataSingleton.getInstance();
+
+        if(data.getMatch().getCopiedPlayer1().isServing()){
+            data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2());
+            System.out.println("CopiedPlayer1 is serving");
+
+            if(servingBallGraphicLeft.isVisible()){
+                System.out.println("Server on the left");
+                scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
+                scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
+            }
+            else{
+                System.out.println("Server on the right");
+                scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
+                scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
+            }
+        }
+        else{
+            data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1());
+            System.out.println("CopiedPlayer2 is serving");
+
+            if(servingBallGraphicLeft.isVisible()){
+                System.out.println("Server on the left");
+                scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
+                scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
+            }
+            else{
+                System.out.println("Server on the right");
+                scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
+                scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
+            }
+        }
+    }
+
+
     private String getCountryPath(String country){
         return "C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\countries\\" + country + ".png";
     }
@@ -194,6 +263,29 @@ public class MainWindowController {
         }
         else{
             return "C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\countriesAvatars\\" + country + ".png";
+        }
+    }
+
+    @FXML
+    private void onAddPointClick(ActionEvent actionEvent) {
+        DataSingleton data = DataSingleton.getInstance();
+
+        if(actionEvent.getSource().equals(player1AddPoint)){
+            data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2());
+
+            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
+            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
+
+        }
+        else if(actionEvent.getSource().equals(player2AddPoint)){
+            data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1());
+
+            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
+            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
+
+        }
+        else{
+            System.out.println("No button found");
         }
     }
 }

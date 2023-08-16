@@ -8,7 +8,7 @@
 <AnchorPane fx:id="mainWindow" prefHeight="491.0" prefWidth="880.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tennischairumpireappui.MainWindowController">
    <children>
       <MenuBar>
-         <Menu text="Player 1">
+         <Menu fx:id="player1Menu" text="Player 1">
             <MenuItem text="Add Point" />
             <MenuItem text="Subtract" />
             <MenuItem text="Challenge" />
@@ -16,7 +16,7 @@
             <MenuItem text="Time Viol" />
             <MenuItem text="Time-Out" />
          </Menu>
-         <Menu text="Player 2">
+         <Menu fx:id="player2Menu" text="Player 2">
             <MenuItem text="Add Point" />
             <MenuItem text="Subtract" />
             <MenuItem text="Challenge" />
@@ -160,7 +160,7 @@
                      <padding>
                         <Insets top="15" />
                      </padding>
-                     <Button fx:id="aceButton" prefWidth="106" text="ACE" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                     <Button fx:id="aceButton" onAction="#onAceClick" prefWidth="106" text="ACE" GridPane.columnIndex="0" GridPane.rowIndex="0">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -193,7 +193,7 @@
                            -fx-border-width: 2px;
                         </style>
                      </Button>
-                     <Button fx:id="playButton" prefWidth="106" text="PLAY" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                     <Button fx:id="playButton" onAction="#onPlayClick" prefWidth="106" text="PLAY" GridPane.columnIndex="3" GridPane.rowIndex="0">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -282,7 +282,7 @@
                </HBox>
 
                <HBox>
-                  <Button fx:id="player1AddPoint" alignment="CENTER" prefHeight="31.0" prefWidth="209.0" text="Add point">
+                  <Button fx:id="player1AddPoint" onAction="#onAddPointClick" alignment="CENTER" prefHeight="31.0" prefWidth="209.0" text="Add point">
                      <style>
                         -fx-font-size: 14px;
                         -fx-padding: 5px 10px;
@@ -482,7 +482,7 @@
                </HBox>
 
                <HBox>
-                  <Button fx:id="player2AddPoint" alignment="CENTER" prefHeight="31.0" prefWidth="209.0" text="Add point">
+                  <Button fx:id="player2AddPoint" onAction="#onAddPointClick" alignment="CENTER" prefHeight="31.0" prefWidth="209.0" text="Add point">
                      <style>
                         -fx-font-size: 14px;
                         -fx-padding: 5px 10px;
