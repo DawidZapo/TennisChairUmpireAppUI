@@ -39,6 +39,28 @@ public class MainWindowController {
     public static Image game5 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbersBlured\\number-5.png");
     public static Image game6 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbersBlured\\number-6.png");
     public static Image game7 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbersBlured\\number-7.png");
+    public static Image tieBreakScoring0 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-0.png");
+    public static Image tieBreakScoring1 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-1.png");
+    public static Image tieBreakScoring2 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-2.png");
+    public static Image tieBreakScoring3 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-3.png");
+    public static Image tieBreakScoring4 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-4.png");
+    public static Image tieBreakScoring5 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-5.png");
+    public static Image tieBreakScoring6 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-6.png");
+    public static Image tieBreakScoring7 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-7.png");
+    public static Image tieBreakScoring8 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-8.png");
+    public static Image tieBreakScoring9 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-9.png");
+    public static Image tieBreakScoring10 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-10.png");
+    public static Image tieBreakScoring11 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-11.png");
+    public static Image tieBreakScoring12 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-12.png");
+    public static Image tieBreakScoring13 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-13.png");
+    public static Image tieBreakScoring14 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-14.png");
+    public static Image tieBreakScoring15 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-15.png");
+    public static Image tieBreakScoring16 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-16.png");
+    public static Image tieBreakScoring17 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-17.png");
+    public static Image tieBreakScoring18 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-18.png");
+    public static Image tieBreakScoring19 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-19.png");
+    public static Image tieBreakScoring20 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-20.png");
+
 
     @FXML
     public Label heightLeft, heightRight;
@@ -102,6 +124,32 @@ public class MainWindowController {
 
     }
 
+    public static Image getTieBreakScoring(int points){
+        switch(points){
+            case 0 -> {return tieBreakScoring0;}
+            case 1 -> {return tieBreakScoring1;}
+            case 2 -> {return tieBreakScoring2;}
+            case 3 -> {return tieBreakScoring3;}
+            case 4 -> {return tieBreakScoring4;}
+            case 5 -> {return tieBreakScoring5;}
+            case 6 -> {return tieBreakScoring6;}
+            case 7 -> {return tieBreakScoring7;}
+            case 8 -> {return tieBreakScoring8;}
+            case 9 -> {return tieBreakScoring9;}
+            case 10 -> {return tieBreakScoring10;}
+            case 11 -> {return tieBreakScoring11;}
+            case 12 -> {return tieBreakScoring12;}
+            case 13 -> {return tieBreakScoring13;}
+            case 14 -> {return tieBreakScoring14;}
+            case 15 -> {return tieBreakScoring15;}
+            case 16 -> {return tieBreakScoring16;}
+            case 17 -> {return tieBreakScoring17;}
+            case 18 -> {return tieBreakScoring18;}
+            case 19 -> {return tieBreakScoring19;}
+            case 20 -> {return tieBreakScoring20;}
+            default -> {return tieBreakScoring0;}
+        }
+    }
     @FXML
     private void handleStartMatchButton(ActionEvent actionEvent) {
         startMatchButton.setDisable(true);
@@ -242,39 +290,20 @@ public class MainWindowController {
     }
     @FXML
     private void onAceClick(){
-
-        /// DO ZMIANY TO PONIZEJ !!!!!!!!!!!!!!!!!!
         DataSingleton data = DataSingleton.getInstance();
 
-        if(data.getMatch().getCopiedPlayer1().isServing()){
-            data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2());
-            System.out.println("CopiedPlayer1 is serving");
+        if(data.getMatch().getCopiedPlayer1().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer1().getAvatarWithBall())){
 
-            if(servingBallGraphicLeft.isVisible()){
-                System.out.println("Server on the left");
-                scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
-                scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
-            }
-            else{
-                System.out.println("Server on the right");
-                scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
-                scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
-            }
+            data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
+                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight);
+        }
+        else if(data.getMatch().getCopiedPlayer2().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer2().getAvatarWithBall())){
+
+            data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
+                    fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight);
         }
         else{
-            data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1());
-            System.out.println("CopiedPlayer2 is serving");
-
-            if(servingBallGraphicLeft.isVisible()){
-                System.out.println("Server on the left");
-                scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
-                scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
-            }
-            else{
-                System.out.println("Server on the right");
-                scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
-                scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
-            }
+            System.out.println("Error");
         }
     }
 

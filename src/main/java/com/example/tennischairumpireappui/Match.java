@@ -368,14 +368,14 @@ public class Match {
             }
 
             winner.addPoint();
+            winnerScoring.setImage(MainWindowController.getTieBreakScoring(winner.getPoints()));
+            changeDeuceAdvantageSides(leftDE, leftAD, rightDE, rightAD);
+            if((winner.getPoints() + looser.getPoints()) % 6 == 0) changeSides(leftDE, leftAD, rightDE, rightAD);
 
-            if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 7){
 
-                winner.setPoints(0); looser.setPoints(0);
-                winner.addGame();
-
-                games.get(games.size()-1).setWinner(winner);
-
+            if((winner.getPoints() + looser.getPoints()) % 2 == 1){
+                changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
+                updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
                 if(winner.isServing()){
                     winner.setServing(false);
                     looser.setServing(true);
@@ -384,6 +384,31 @@ public class Match {
                     winner.setServing(true);
                     looser.setServing(false);
                 }
+            }
+
+
+            if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 7){
+
+                winner.setPoints(0); looser.setPoints(0);
+                winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
+                looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), winner.getPoints()));
+
+                winner.addGame();
+                changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
+
+                if(winner.isServing() && games.get(games.size()-1).getServer().equals(winner)){
+                    changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
+                    updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+                }
+                else if(looser.isServing() && games.get(games.size()-1).equals(looser)){
+                    changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
+                    updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+                }
+                changeSides(leftDE, leftAD, rightDE, rightAD);
+                resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
+
+                games.get(games.size()-1).setWinner(winner);
+
 
                 if(winner.getGames() == 7){
                     winner.getSavedSets().add(winner.getGames());
@@ -425,7 +450,9 @@ public class Match {
                 changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
                 changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
                 updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
-                changeSides(winner.getGames(), looser.getGames(), leftDE, leftAD, rightDE, rightAD);
+                if((winner.getGames() + looser.getGames()) % 2 == 1){
+                    changeSides(leftDE, leftAD, rightDE, rightAD);
+                }
                 resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
 
                 games.get(games.size()-1).setWinner(winner);
@@ -543,8 +570,7 @@ public class Match {
             System.out.println("UPPSSS");
         }
     }
-    private void changeSides(int games1, int games2, ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD){
-        if((games1 + games2) % 2 == 1){
+    private void changeSides(ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD){
             Image tempLeftDE = leftDE.getImage();
             Image tempLeftAD = leftAD.getImage();
 
@@ -552,7 +578,6 @@ public class Match {
             leftAD.setImage(rightAD.getImage());
             rightDE.setImage(tempLeftDE);
             rightAD.setImage(tempLeftAD);
-        }
     }
     private void changeGameImage(int size, int games, ImageView firstSet, ImageView secondSet, ImageView thirdSet, ImageView fourthSet, ImageView fifthSet){
         if(size < 1){
