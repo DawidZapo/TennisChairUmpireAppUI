@@ -344,7 +344,10 @@ public class Match {
 
     }
 
-    public void addPoint(Player winner, Player looser, ImageView winnerScoring, ImageView looserScoring){
+    public void addPoint(Player winner, Player looser, ImageView winnerScoring, ImageView looserScoring,
+                         ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD,
+                         ImageView firstSet, ImageView secondSet, ImageView thirdSet,
+                         ImageView fourthSet, ImageView fifthSet){
         gameStarted = true;
         if(winner.getGames() == looser.getGames() && winner.getGames() == 6){
 
@@ -405,6 +408,7 @@ public class Match {
             winner.addPoint();
             winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
             looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), looser.getPoints()));
+            changeDeuceAdvantageSides(leftDE, leftAD, rightDE, rightAD);
 
             if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 4){
 
@@ -413,6 +417,8 @@ public class Match {
                 looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), winner.getPoints()));
 
                 winner.addGame();
+                changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
+                resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
 
                 games.get(games.size()-1).setWinner(winner);
 
@@ -440,7 +446,54 @@ public class Match {
             }
         }
 
+        System.out.println(getScore(copiedPlayer1, copiedPlayer2));
+    }
 
+    private void changeDeuceAdvantageSides(ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD){
+        if(leftDE.isVisible()){
+            leftDE.setVisible(false);
+            leftAD.setVisible(true);
+
+            rightDE.setVisible(false);
+            rightAD.setVisible(true);
+        }
+        else if(leftAD.isVisible()){
+            leftDE.setVisible(true);
+            leftAD.setVisible(false);
+
+            rightDE.setVisible(true);
+            rightAD.setVisible(false);
+        }
+        else{
+            System.out.println("Error");
+        }
+    }
+
+    private void resetSidesAfterGame(ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD){
+        leftDE.setVisible(true);
+        leftAD.setVisible(false);
+        rightDE.setVisible(true);
+        rightAD.setVisible(false);
+    }
+    private void changeGameImage(int size, int games, ImageView firstSet, ImageView secondSet, ImageView thirdSet, ImageView fourthSet, ImageView fifthSet){
+        if(size < 1){
+            firstSet.setImage(MainWindowController.getGameImage(games));
+        }
+        else if(size < 2){
+            secondSet.setImage(MainWindowController.getGameImage(games));
+        }
+        else if(size < 3){
+            thirdSet.setImage(MainWindowController.getGameImage(games));
+        }
+        else if(size < 4){
+            fourthSet.setImage(MainWindowController.getGameImage(games));
+        }
+        else if(size < 5){
+            fifthSet.setImage(MainWindowController.getGameImage(games));
+        }
+        else{
+            System.out.println("Error");
+        }
     }
 
     public void codeViolation(Player player, Player opponent){
