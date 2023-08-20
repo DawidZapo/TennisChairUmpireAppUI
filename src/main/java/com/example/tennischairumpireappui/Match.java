@@ -33,6 +33,10 @@ public class Match {
         this.gameOverEarly = false;
         this.gameStarted = false;
         this.matchDuration = 0;
+        this.copiedPlayer1.setAvatar(player1.getAvatar());
+        this.copiedPlayer1.setAvatarWithBall(player1.getAvatarWithBall());
+        this.copiedPlayer2.setAvatar(player2.getAvatar());
+        this.copiedPlayer2.setAvatarWithBall(player2.getAvatarWithBall());
 
 
 
@@ -347,7 +351,7 @@ public class Match {
     public void addPoint(Player winner, Player looser, ImageView winnerScoring, ImageView looserScoring,
                          ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD,
                          ImageView firstSet, ImageView secondSet, ImageView thirdSet,
-                         ImageView fourthSet, ImageView fifthSet){
+                         ImageView fourthSet, ImageView fifthSet, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight){
         gameStarted = true;
         if(winner.getGames() == looser.getGames() && winner.getGames() == 6){
 
@@ -418,6 +422,8 @@ public class Match {
 
                 winner.addGame();
                 changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
+                changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
+                updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
                 resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
 
                 games.get(games.size()-1).setWinner(winner);
@@ -449,6 +455,47 @@ public class Match {
         System.out.println(getScore(copiedPlayer1, copiedPlayer2));
     }
 
+    private void changeServer(Player player1, Player player2, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight){
+//        if(player1.isServing()){
+//            if(player1.getAvatarWithBall().equals(leftAD.getImage()) || player1.getAvatarWithBall().equals(leftDE.getImage())){
+//                System.out.println("player 1 serving on left");
+//            }
+//            if(player1.getAvatarWithBall().equals(rightAD.getImage()) || player1.getAvatarWithBall().equals(rightDE.getImage())){
+//                System.out.println("player 1 serving on right");
+//            }
+//        }
+//        else if(player2.isServing()){
+//            if(player2.getAvatarWithBall().equals(leftAD.getImage()) || player2.getAvatarWithBall().equals(leftDE.getImage())){
+//                System.out.println("player 2 serving on left");
+//            }
+//            if(player2.getAvatarWithBall().equals(rightAD.getImage()) || player2.getAvatarWithBall().equals(rightDE.getImage())){
+//                System.out.println("player 2 serving on right");
+//            }
+//        }
+//        else{
+//            System.out.println("No-one serving?! HAAAAAAAALOOOOOOOOOO");
+//        }
+
+        if(player1.getCurrentAvatar().equals(player1.getAvatarWithBall())){
+            player1.setCurrentAvatar(player1.getAvatar());
+            servingBallGraphicLeft.setVisible(false);
+
+            player2.setCurrentAvatar(player2.getAvatarWithBall());
+            servingBallGraphicRight.setVisible(true);
+        }
+        else if(player2.getCurrentAvatar().equals(player2.getAvatarWithBall())){
+            player2.setCurrentAvatar(player2.getAvatar());
+            servingBallGraphicRight.setVisible(false);
+
+            player1.setCurrentAvatar(player1.getAvatarWithBall());
+            servingBallGraphicLeft.setVisible(true);
+        }
+        else{
+            System.out.println("uppss einen ERrorreren");
+        }
+
+
+    }
     private void changeDeuceAdvantageSides(ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD){
         if(leftDE.isVisible()){
             leftDE.setVisible(false);
@@ -474,6 +521,25 @@ public class Match {
         leftAD.setVisible(false);
         rightDE.setVisible(true);
         rightAD.setVisible(false);
+    }
+    private void updateAvatar(Player player1, Player player2, ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD){
+        if(player1.getAvatar().equals(leftDE.getImage()) || player1.getAvatar().equals(leftAD.getImage()) ||
+                player1.getAvatarWithBall().equals(leftDE.getImage()) || player1.getAvatarWithBall().equals(leftAD.getImage())){
+            leftDE.setImage(player1.getCurrentAvatar());
+            leftAD.setImage(player1.getCurrentAvatar());
+            rightDE.setImage(player2.getCurrentAvatar());
+            rightAD.setImage(player2.getCurrentAvatar());
+        }
+        else if(player1.getAvatar().equals(rightDE.getImage()) || player1.getAvatar().equals(rightAD.getImage()) ||
+                player1.getAvatarWithBall().equals(rightDE.getImage()) || player1.getAvatarWithBall().equals(rightAD.getImage())){
+            leftDE.setImage(player2.getCurrentAvatar());
+            leftAD.setImage(player2.getCurrentAvatar());
+            rightDE.setImage(player1.getCurrentAvatar());
+            rightAD.setImage(player1.getCurrentAvatar());
+        }
+        else{
+            System.out.println("UPPSSS");
+        }
     }
     private void changeGameImage(int size, int games, ImageView firstSet, ImageView secondSet, ImageView thirdSet, ImageView fourthSet, ImageView fifthSet){
         if(size < 1){

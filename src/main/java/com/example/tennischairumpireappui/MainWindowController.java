@@ -125,21 +125,28 @@ public class MainWindowController {
 
         Player player1 = dataSource.queryPlayer((String) data.getPlayer1());
         Player player2 = dataSource.queryPlayer((String) data.getPlayer2());
-        boolean isGrandSlam;
-        isGrandSlam = data.getBestOf().equals("5");
-        data.setMatch(player1, player2, isGrandSlam);
 
         nameLeft.setText(player1.getName());
         surnameLeft.setText(player1.getSurname());
         heightLeft.setText(Integer.toString(player1.getHeight()));
         countryGraphicLeft.setImage(new Image(getCountryPath(player1.getCountry())));
         player1Menu.setText(player1.getSurname());
+        player1.setAvatar(new Image(getCountryAvatarPath(player1.getCountry(), false)));
+        player1.setAvatarWithBall(new Image(getCountryAvatarPath(player1.getCountry(), true)));
+
 
         nameRight.setText(player2.getName());
         surnameRight.setText(player2.getSurname());
         heightRight.setText(Integer.toString(player2.getHeight()));
         countryGraphicRight.setImage(new Image(getCountryPath(player2.getCountry())));
         player2Menu.setText(player2.getSurname());
+        player2.setAvatar(new Image(getCountryAvatarPath(player2.getCountry(), false)));
+        player2.setAvatarWithBall(new Image(getCountryAvatarPath(player2.getCountry(), true)));
+
+
+        boolean isGrandSlam;
+        isGrandSlam = data.getBestOf().equals("5");
+        data.setMatch(player1, player2, isGrandSlam);
 
         if(data.getServer().equals(data.getPlayer1())) {
             data.getMatch().getCopiedPlayer1().setServing(true);
@@ -153,42 +160,50 @@ public class MainWindowController {
 
         if(data.getSide().equals("Left-Hand Side")){
             if(data.getMatch().getCopiedPlayer1().isServing()){
-                leftDE.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer1().getCountry(), true)));
-                leftAD.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer1().getCountry(), true)));
+                data.getMatch().getCopiedPlayer1().setCurrentAvatar(data.getMatch().getCopiedPlayer1().getAvatarWithBall());
+                leftDE.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                leftAD.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
                 leftAD.setVisible(false);
 
-                rightDE.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer2().getCountry(), false)));
-                rightAD.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer2().getCountry(), false)));
+                data.getMatch().getCopiedPlayer2().setCurrentAvatar(data.getMatch().getCopiedPlayer2().getAvatar());
+                rightDE.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                rightAD.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
                 rightAD.setVisible(false);
 
             }
             else{
-                leftDE.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer2().getCountry(), true)));
-                leftAD.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer2().getCountry(), true)));
+                data.getMatch().getCopiedPlayer2().setCurrentAvatar(data.getMatch().getCopiedPlayer2().getAvatarWithBall());
+                leftDE.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                leftAD.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
                 leftAD.setVisible(false);
 
-                rightDE.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer1().getCountry(), false)));
-                rightAD.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer1().getCountry(), false)));
+                data.getMatch().getCopiedPlayer1().setCurrentAvatar(data.getMatch().getCopiedPlayer1().getAvatar());
+                rightDE.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                rightAD.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
                 rightAD.setVisible(false);
             }
         }
         else{
             if(data.getMatch().getCopiedPlayer1().isServing()){
-                rightDE.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer1().getCountry(), true)));
-                rightAD.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer1().getCountry(), true)));
+                data.getMatch().getCopiedPlayer1().setCurrentAvatar(data.getMatch().getCopiedPlayer1().getAvatarWithBall());
+                rightDE.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                rightAD.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
                 rightAD.setVisible(false);
 
-                leftDE.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer2().getCountry(), false)));
-                leftAD.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer2().getCountry(), false)));
+                data.getMatch().getCopiedPlayer2().setCurrentAvatar(data.getMatch().getCopiedPlayer2().getAvatar());
+                leftDE.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                leftAD.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
                 leftAD.setVisible(false);
             }
             else{
-                rightDE.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer2().getCountry(), true)));
-                rightAD.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer2().getCountry(), true)));
+                data.getMatch().getCopiedPlayer2().setCurrentAvatar(data.getMatch().getCopiedPlayer2().getAvatarWithBall());
+                rightDE.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                rightAD.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
                 rightAD.setVisible(false);
 
-                leftDE.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer1().getCountry(), false)));
-                leftAD.setImage(new Image(getCountryAvatarPath(data.getMatch().getCopiedPlayer1().getCountry(), false)));
+                data.getMatch().getCopiedPlayer1().setCurrentAvatar(data.getMatch().getCopiedPlayer1().getAvatar());
+                leftDE.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                leftAD.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
                 leftAD.setVisible(false);
             }
         }
@@ -293,7 +308,7 @@ public class MainWindowController {
 
         if(actionEvent.getSource().equals(player1AddPoint)){
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                    fourthSetLeft, fifthSetLeft);
+                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight);
 
 //            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
 //            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
@@ -301,7 +316,7 @@ public class MainWindowController {
         }
         else if(actionEvent.getSource().equals(player2AddPoint)){
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                   fourthSetRight, fifthSetRight);
+                   fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight);
 
 //            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
 //            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));

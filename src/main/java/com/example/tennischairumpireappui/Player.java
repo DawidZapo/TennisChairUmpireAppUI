@@ -1,4 +1,7 @@
 package com.example.tennischairumpireappui;
+
+import javafx.scene.image.Image;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,6 +23,9 @@ public class Player {
     private int games;
     private int points;
     private int challenges;
+    private Image avatar;
+    private Image avatarWithBall;
+    private Image currentAvatar;
 
 //    public Player(String name, String surname){
 //        this.name = name;
@@ -66,6 +72,30 @@ public class Player {
         this.codeViolation = 0;
         this.medicalTimout = 0;
         this.challenges = 3;
+    }
+
+    public Image getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Image avatar) {
+        this.avatar = avatar;
+    }
+
+    public Image getAvatarWithBall() {
+        return avatarWithBall;
+    }
+
+    public void setAvatarWithBall(Image avatarWithBall) {
+        this.avatarWithBall = avatarWithBall;
+    }
+
+    public Image getCurrentAvatar() {
+        return currentAvatar;
+    }
+
+    public void setCurrentAvatar(Image currentAvatar) {
+        this.currentAvatar = currentAvatar;
     }
 
     public int getID(){
