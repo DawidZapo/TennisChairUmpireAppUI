@@ -1,5 +1,6 @@
 package com.example.tennischairumpireappui;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.BufferedReader;
@@ -424,6 +425,7 @@ public class Match {
                 changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
                 changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
                 updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+                changeSides(winner.getGames(), looser.getGames(), leftDE, leftAD, rightDE, rightAD);
                 resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
 
                 games.get(games.size()-1).setWinner(winner);
@@ -539,6 +541,17 @@ public class Match {
         }
         else{
             System.out.println("UPPSSS");
+        }
+    }
+    private void changeSides(int games1, int games2, ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD){
+        if((games1 + games2) % 2 == 1){
+            Image tempLeftDE = leftDE.getImage();
+            Image tempLeftAD = leftAD.getImage();
+
+            leftDE.setImage(rightDE.getImage());
+            leftAD.setImage(rightAD.getImage());
+            rightDE.setImage(tempLeftDE);
+            rightAD.setImage(tempLeftAD);
         }
     }
     private void changeGameImage(int size, int games, ImageView firstSet, ImageView secondSet, ImageView thirdSet, ImageView fourthSet, ImageView fifthSet){
