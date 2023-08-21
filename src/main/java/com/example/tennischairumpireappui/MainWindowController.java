@@ -2,14 +2,15 @@ package com.example.tennischairumpireappui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class MainWindowController {
     @FXML
@@ -67,7 +68,7 @@ public class MainWindowController {
     @FXML
     public Button player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation, player1MedicalTimeOut, player1Hindrance,
             player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation, player2MedicalTimeOut, player2Hindrance,
-            aceButton, faultButton, letButton, playButton;
+            aceButton, faultButton, letButton, suspendMatch, endMatch;
     @FXML
     private ImageView leftAD, leftDE, rightAD, rightDE, scoringLeft, scoringRight,
             firstSetLeft, firstSetRight, secondSetLeft, secondSetRight, thirdSetLeft, thirdSetRight,
@@ -77,28 +78,12 @@ public class MainWindowController {
 
     @FXML
     public void initialize() throws IOException {
-        player1AddPoint.setDisable(true);
-        player1SubtractPoint.setDisable(true);
-        player1Challenge.setDisable(true);
-        player1CodeViolation.setDisable(true);
-        player1TimeViolation.setDisable(true);
-        player1MedicalTimeOut.setDisable(true);
-        player1MedicalTimeOut.setDisable(true);
-        player1Hindrance.setDisable(true);
 
-        player2AddPoint.setDisable(true);
-        player2SubtractPoint.setDisable(true);
-        player2Challenge.setDisable(true);
-        player2CodeViolation.setDisable(true);
-        player2TimeViolation.setDisable(true);
-        player2MedicalTimeOut.setDisable(true);
-        player2MedicalTimeOut.setDisable(true);
-        player2Hindrance.setDisable(true);
-
-        aceButton.setDisable(true);
-        letButton.setDisable(true);
-        faultButton.setDisable(true);
-        playButton.setDisable(true);
+        List<Control> listOfControls = new ArrayList<>();
+        listOfControls.addAll(List.of(player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
+                player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
+                player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch));
+        listOfControls.forEach(s -> s.setDisable(true));
 
 
     }
@@ -156,15 +141,6 @@ public class MainWindowController {
 
         DataSingleton data = DataSingleton.getInstance();
 
-//        if(data.getServer().equals(data.getPlayer1())){
-//            System.out.println("Serwujacy to player1");
-//        }
-//        else{
-//            System.out.println("serwujacy to player2");
-//        }
-//        if(data.getPlayer1().equals("Kyrgios")) System.out.println("Tak to kyrgios porownało stringi!!!!!! :))))");
-//        if(data.getPlayer2().equals("Kyrgios")) System.out.println("Tak to kyrgios porownało stringi!!!!! :)))");
-//
         DataSource dataSource = new DataSource();
         if(!dataSource.open()){
             System.out.println("Problems with opening database");
@@ -256,38 +232,14 @@ public class MainWindowController {
             }
         }
 
-        player1AddPoint.setDisable(false);
-        player1SubtractPoint.setDisable(false);
-        player1Challenge.setDisable(false);
-        player1CodeViolation.setDisable(false);
-        player1TimeViolation.setDisable(false);
-        player1MedicalTimeOut.setDisable(false);
-        player1MedicalTimeOut.setDisable(false);
-        player1Hindrance.setDisable(false);
-
-        player2AddPoint.setDisable(false);
-        player2SubtractPoint.setDisable(false);
-        player2Challenge.setDisable(false);
-        player2CodeViolation.setDisable(false);
-        player2TimeViolation.setDisable(false);
-        player2MedicalTimeOut.setDisable(false);
-        player2MedicalTimeOut.setDisable(false);
-        player2Hindrance.setDisable(false);
-
-        aceButton.setDisable(false);
-        letButton.setDisable(false);
-        faultButton.setDisable(false);
-        playButton.setDisable(false);
+        List<Control> listOfControls = new ArrayList<>();
+        listOfControls.addAll(List.of(player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
+                player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
+                player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch));
+        listOfControls.forEach(s -> s.setDisable(false));
 
     }
 
-    @FXML
-    private void onPlayClick(){
-        aceButton.setDisable(true);
-        faultButton.setDisable(true);
-        letButton.setDisable(true);
-        playButton.setDisable(true);
-    }
     @FXML
     private void onAceClick(){
         DataSingleton data = DataSingleton.getInstance();
@@ -295,16 +247,75 @@ public class MainWindowController {
         if(data.getMatch().getCopiedPlayer1().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer1().getAvatarWithBall())){
 
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight);
+                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow);
         }
         else if(data.getMatch().getCopiedPlayer2().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer2().getAvatarWithBall())){
 
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                    fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight);
+                    fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow);
         }
         else{
             System.out.println("Error");
         }
+    }
+    @FXML
+    private void onLetClick(){
+        DataSingleton data = DataSingleton.getInstance();
+
+        if(data.getMatch().getCopiedPlayer1().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer1().getAvatarWithBall())){
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.CANCEL );
+            alert.setTitle("Let");
+            alert.setHeaderText("Let called on %s service".formatted(data.getMatch().getCopiedPlayer1().getFullName()));
+            alert.setContentText("Service let?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.isPresent() && (result.get() == ButtonType.YES)){
+
+                Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
+                alert2.setTitle("Service let");
+                alert2.setHeaderText("Service let called on %s service".formatted(data.getMatch().getCopiedPlayer1().getFullName()));
+                alert2.setContentText("Second let on second service, concede point?");
+                Optional<ButtonType> result2 = alert2.showAndWait();
+
+                if(result2.isPresent() && (result2.get() == ButtonType.YES)){
+                    data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
+                            fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow);
+                }
+            }
+
+        }
+        else if(data.getMatch().getCopiedPlayer2().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer2().getAvatarWithBall())){
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.CANCEL );
+            alert.setTitle("Let");
+            alert.setHeaderText("Let called on %s service".formatted(data.getMatch().getCopiedPlayer2().getFullName()));
+            alert.setContentText("Service let?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.isPresent() && (result.get() == ButtonType.YES)){
+
+                Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
+                alert2.setTitle("Service let");
+                alert2.setHeaderText("Service let called on %s service".formatted(data.getMatch().getCopiedPlayer2().getFullName()));
+                alert2.setContentText("Second let on second service, concede point?");
+                Optional<ButtonType> result2 = alert2.showAndWait();
+
+                if(result2.isPresent() && (result2.get() == ButtonType.YES)){
+                    data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
+                            fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow);
+                }
+            }
+
+        }
+        else{
+            System.out.println("Error");
+        }
+    }
+
+    @FXML
+    private void onFaultClick(){
+
     }
 
     public static Image getGameImage(int games){
@@ -337,7 +348,7 @@ public class MainWindowController {
 
         if(actionEvent.getSource().equals(player1AddPoint)){
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight);
+                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow);
 
 //            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
 //            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
@@ -345,7 +356,7 @@ public class MainWindowController {
         }
         else if(actionEvent.getSource().equals(player2AddPoint)){
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                   fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight);
+                   fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow);
 
 //            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
 //            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
@@ -355,4 +366,5 @@ public class MainWindowController {
             System.out.println("No button found");
         }
     }
+
 }

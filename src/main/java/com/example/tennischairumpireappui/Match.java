@@ -1,7 +1,9 @@
 package com.example.tennischairumpireappui;
 
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -114,14 +116,14 @@ public class Match {
         switch(player1.getSavedSets().size()){
             case 0->{
                 if(games.get(games.size()-1).isTieBreak()){
-                    return "%-17s: %d %d\n%-17s: %d %d\n".formatted(player1.getFullName(),
+                    return "%-20s: %d %d\n%-20s: %d %d\n".formatted(player1.getFullName(),
                             player1.getGames(), player1.getPoints(),
 
                             player2.getFullName(),
                             player2.getGames(), player2.getPoints());
                 }
                 else{
-                    return "%-17s: %d %s\n%-17s: %d %s\n".formatted(player1.getFullName(),
+                    return "%-20s: %d %s\n%-20s: %d %s\n".formatted(player1.getFullName(),
                             player1.getGames(), get15_30_40(player1.getPoints(),player2.getPoints()),
 
                             player2.getFullName(),
@@ -131,7 +133,7 @@ public class Match {
             }
             case 1 ->{
                 if(games.get(games.size()-1).isTieBreak()){
-                    return "%-17s: [%d] %d %d\n%-17s: [%d] %d %d\n".formatted(player1.getFullName(),
+                    return "%-20s: [%d] %d %d\n%-20s: [%d] %d %d\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getGames(),
                             player1.getPoints(),
 
@@ -140,7 +142,7 @@ public class Match {
                             player2.getPoints());
                 }
                 else{
-                    return "%-17s: [%d] %d %s\n%-17s: [%d] %d %s\n".formatted(player1.getFullName(),
+                    return "%-20s: [%d] %d %s\n%-20s: [%d] %d %s\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getGames(),
                             get15_30_40(player1.getPoints(),player2.getPoints()),
 
@@ -152,7 +154,7 @@ public class Match {
             }
             case 2->{
                 if(games.get(games.size()-1).isTieBreak()){
-                    return "%-17s: [%d %d] %d %d\n%-17s: [%d %d] %d %d\n".formatted(player1.getFullName(),
+                    return "%-20s: [%d %d] %d %d\n%-20s: [%d %d] %d %d\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getGames(), player1.getPoints(),
 
@@ -161,7 +163,7 @@ public class Match {
                             player2.getGames(), player2.getPoints());
                 }
                 else{
-                    return "%-17s: [%d %d] %d %s\n%-17s: [%d %d] %d %s\n".formatted(player1.getFullName(),
+                    return "%-20s: [%d %d] %d %s\n%-20s: [%d %d] %d %s\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getGames(), get15_30_40(player1.getPoints(),player2.getPoints()),
 
@@ -173,7 +175,7 @@ public class Match {
             }
             case 3 ->{
                 if(games.get(games.size()-1).isTieBreak()){
-                    return "%-17s: [%d %d %d] %d %d\n%-17s: [%d %d %d] %d %d\n".formatted(player1.getFullName(),
+                    return "%-20s: [%d %d %d] %d %d\n%-20s: [%d %d %d] %d %d\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getSavedSets().get(2), player1.getGames(),
                             player1.getPoints(),
@@ -184,7 +186,7 @@ public class Match {
                             player2.getPoints());
                 }
                 else{
-                    return "%-17s: [%d %d %d] %d %s\n%-17s: [%d %d %d] %d %s\n".formatted(player1.getFullName(),
+                    return "%-20s: [%d %d %d] %d %s\n%-20s: [%d %d %d] %d %s\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getSavedSets().get(2), player1.getGames(),
                             get15_30_40(player1.getPoints(),player2.getPoints()),
@@ -198,7 +200,7 @@ public class Match {
             }
             case 4->{
                 if(games.get(games.size()-1).isTieBreak()){
-                    return "%-17s: [%d %d %d %d] %d %d\n%-17s: [%d %d %d %d] %d %d\n".formatted(player1.getFullName(),
+                    return "%-20s: [%d %d %d %d] %d %d\n%-20s: [%d %d %d %d] %d %d\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getSavedSets().get(2),player1.getSavedSets().get(3),
                             player1.getGames(),player1.getPoints(),
@@ -209,7 +211,7 @@ public class Match {
                             player2.getGames(),player2.getPoints());
                 }
                 else{
-                    return "%-17s: [%d %d %d %d] %d %s\n%-17s: [%d %d %d %d] %d %s\n".formatted(player1.getFullName(),
+                    return "%-20s: [%d %d %d %d] %d %s\n%-20s: [%d %d %d %d] %d %s\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getSavedSets().get(2), player1.getSavedSets().get(3),
                             player1.getGames(),get15_30_40(player1.getPoints(),player2.getPoints()),
@@ -223,7 +225,7 @@ public class Match {
             }
             case 5->{
                 if(games.get(games.size()-1).isTieBreak()){
-                    return "%-17s: [%d %d %d %d %d] %d %d\n%-17s: [%d %d %d %d %d] %d %d\n".formatted(player1.getFullName(),
+                    return "%-20s: [%d %d %d %d %d] %d %d\n%-20s: [%d %d %d %d %d] %d %d\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getSavedSets().get(2), player1.getSavedSets().get(3),
                             player1.getSavedSets().get(4), player1.getGames(),
@@ -236,7 +238,7 @@ public class Match {
                             player2.getPoints());
                 }
                 else{
-                    return "%-17s: [%d %d %d %d %d] %d %s\n%-17s: [%d %d %d %d %d] %d %s\n".formatted(player1.getFullName(),
+                    return "%-20s: [%d %d %d %d %d] %d %s\n%-20s: [%d %d %d %d %d] %d %s\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getSavedSets().get(2), player1.getSavedSets().get(3),
                             player1.getSavedSets().get(4), player1.getGames(),
@@ -352,7 +354,8 @@ public class Match {
     public void addPoint(Player winner, Player looser, ImageView winnerScoring, ImageView looserScoring,
                          ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD,
                          ImageView firstSet, ImageView secondSet, ImageView thirdSet,
-                         ImageView fourthSet, ImageView fifthSet, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight){
+                         ImageView fourthSet, ImageView fifthSet, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight,
+                         AnchorPane mainWindow){
         gameStarted = true;
         if(winner.getGames() == looser.getGames() && winner.getGames() == 6){
 
@@ -400,7 +403,7 @@ public class Match {
                     changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
                     updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
                 }
-                else if(looser.isServing() && games.get(games.size()-1).equals(looser)){
+                else if(looser.isServing() && games.get(games.size()-1).getServer().equals(looser)){
                     changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
                     updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
                 }
@@ -420,6 +423,9 @@ public class Match {
                     if(winner.getSets() == ((grandSlam)? 3 : 2)){
                         gameOver = true;
                         winner.setWinner(true);
+
+                        showEndOfGameMessage(winner, mainWindow);
+
                     }
                 }
             }
@@ -476,6 +482,7 @@ public class Match {
                     if(winner.getSets() == ((grandSlam)? 3 : 2)){
                         gameOver = true;
                         winner.setWinner(true);
+                        showEndOfGameMessage(winner, mainWindow);
                     }
                 }
             }
@@ -484,6 +491,26 @@ public class Match {
         System.out.println(getScore(copiedPlayer1, copiedPlayer2));
     }
 
+    private void showEndOfGameMessage(Player winner, AnchorPane mainWindow){
+        mainWindow.setDisable(true);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Match has finished");
+        alert.setHeaderText("Winner: " + winner.getFullName());
+
+        StringBuilder score = new StringBuilder("%-20s : ".formatted(copiedPlayer1.getFullName()));
+        for(var games : copiedPlayer1.getSavedSets()){
+            score.append(games);
+            score.append(" ");
+        }
+        score.append("\n%-20s : ".formatted(copiedPlayer2.getFullName()));
+        for(var games : copiedPlayer2.getSavedSets()){
+            score.append(games);
+            score.append(" ");
+        }
+        alert.setContentText(score.toString());
+
+        alert.showAndWait();
+    }
     private void changeServer(Player player1, Player player2, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight){
 //        if(player1.isServing()){
 //            if(player1.getAvatarWithBall().equals(leftAD.getImage()) || player1.getAvatarWithBall().equals(leftDE.getImage())){
