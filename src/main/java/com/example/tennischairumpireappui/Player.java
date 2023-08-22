@@ -17,6 +17,7 @@ public class Player {
     private boolean retired;
     private int codeViolation;
     private int medicalTimout;
+    private int timeViolation;
     private int hindrance;
     private boolean winner;
     private List<Integer> savedSets = new LinkedList<>();
@@ -28,6 +29,7 @@ public class Player {
     private Image avatarWithBall;
     private Image currentAvatar;
     private int faultsInRow;
+    private boolean pointConceded;
 
 //    public Player(String name, String surname){
 //        this.name = name;
@@ -58,6 +60,7 @@ public class Player {
         this.medicalTimout = 0;
         this.challenges = 3;
         this.faultsInRow = 0;
+        this.pointConceded = false;
     }
 
     public Player(String name, String surname, int weight, int height, String birth, String country){
@@ -76,6 +79,15 @@ public class Player {
         this.medicalTimout = 0;
         this.challenges = 3;
         this.faultsInRow = 0;
+        this.pointConceded = false;
+    }
+
+    public boolean isPointConceded() {
+        return pointConceded;
+    }
+
+    public void setPointConceded(boolean pointConceded) {
+        this.pointConceded = pointConceded;
     }
 
     public int getFaultsInRow() {
@@ -88,6 +100,13 @@ public class Player {
 
     public void setFaultsInRow(int faultsInRow) {
         this.faultsInRow = faultsInRow;
+    }
+    public void incrementTimeViolation(){
+        this.timeViolation = this.timeViolation + 1;
+    }
+
+    public int getTimeViolation(){
+        return timeViolation;
     }
 
     public Image getAvatar() {
