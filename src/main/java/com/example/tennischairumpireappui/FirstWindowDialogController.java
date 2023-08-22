@@ -79,33 +79,31 @@ public class FirstWindowDialogController {
 //
 //        Optional<Object> result = dialog.showAndWait();
 //        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
+        DataSingleton data = DataSingleton.getInstance();
 
         List<Object> players = new ArrayList<>();
         players.add(playersComboBox1.getValue());
         players.add(playersComboBox2.getValue());
-
         ChoiceDialog<Object> playerDialog = new ChoiceDialog<>(playersComboBox1.getValue(), players);
         playerDialog.setTitle("Who starts the match?");
         playerDialog.setHeaderText(null);
         playerDialog.setContentText("Choose player who will serve first");
 
+        List<String> sides = new ArrayList<>();
+        sides.add("Left-Hand Side");
+        sides.add("Right-Hand Side");
+        ChoiceDialog<String> sideDialog = new ChoiceDialog<>("Left-Hand Side", sides);
+        sideDialog.setTitle("Which side?");
+        sideDialog.setHeaderText(null);
+        sideDialog.setContentText("Which side will the server start?");
+
         Optional<Object> playerResult = playerDialog.showAndWait();
         if (playerResult.isPresent()) {
-            List<String> sides = new ArrayList<>();
-            sides.add("Left-Hand Side");
-            sides.add("Right-Hand Side");
-
-            ChoiceDialog<String> sideDialog = new ChoiceDialog<>("Left-Hand Side", sides);
-            sideDialog.setTitle("Which side?");
-            sideDialog.setHeaderText(null);
-            sideDialog.setContentText("Which side will the server start?");
 
             Optional<String> sideResult = sideDialog.showAndWait();
             if (sideResult.isPresent()) {
                 Object selectedPlayer = playerResult.get();
                 String selectedSide = sideResult.get();
-
-                DataSingleton data = DataSingleton.getInstance();
 
                 data.setServer(selectedPlayer);
                 data.setSide(selectedSide);
@@ -120,6 +118,20 @@ public class FirstWindowDialogController {
                         + "Will start on " + selectedSide);
                 alert.showAndWait();
             }
+            else{
+                data.setServer(playerResult.get());
+                data.setSide("Left-Hand Side");
+                data.setPlayer1(playersComboBox1.getValue());
+                data.setPlayer2(playersComboBox2.getValue());
+                data.setBestOf(bestOfComboBox.getValue());
+            }
+        }
+        else{
+            data.setServer(playersComboBox1.getValue());
+            data.setSide("Left-Hand Side");
+            data.setPlayer1(playersComboBox1.getValue());
+            data.setPlayer2(playersComboBox2.getValue());
+            data.setBestOf(bestOfComboBox.getValue());
         }
     }
 }

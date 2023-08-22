@@ -17,6 +17,7 @@ public class Player {
     private boolean retired;
     private int codeViolation;
     private int medicalTimout;
+    private int hindrance;
     private boolean winner;
     private List<Integer> savedSets = new LinkedList<>();
     private int sets;
@@ -160,7 +161,18 @@ public class Player {
     public void incrementCodeViolation() {
         this.codeViolation += 1;
     }
-
+    public int getHindrance(){
+        return hindrance;
+    }
+    public void incrementHindrance(){
+        this.hindrance += 1;
+    }
+    public void incrementMedicalTimeOut(){
+        this.medicalTimout += 1;
+    }
+    public int getMedicalTimout(){
+        return medicalTimout;
+    }
     public boolean isWinner() {
         return winner;
     }
@@ -182,7 +194,7 @@ public class Player {
     }
 
     public void incrementChallenges(){
-        challenges += 1;
+        this.challenges = this.challenges + 1;
     }
 
     public void decrementChallenges(){

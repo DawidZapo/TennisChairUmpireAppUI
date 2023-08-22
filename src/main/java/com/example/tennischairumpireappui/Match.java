@@ -93,6 +93,13 @@ public class Match {
         this.gameOver = gameOver;
     }
 
+    public boolean isGameOverEarly() {
+        return gameOverEarly;
+    }
+
+    public void setGameOverEarly(boolean gameOverEarly) {
+        this.gameOverEarly = gameOverEarly;
+    }
 
     public static String get15_30_40(int points1, int points2){
         if(points1 == 0) return "0";
@@ -355,7 +362,7 @@ public class Match {
                          ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD,
                          ImageView firstSet, ImageView secondSet, ImageView thirdSet,
                          ImageView fourthSet, ImageView fifthSet, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight,
-                         AnchorPane mainWindow){
+                         AnchorPane mainWindow, ImageView challengeLeft, ImageView challengeRight){
         gameStarted = true;
         winner.setFaultsInRow(0);
         looser.setFaultsInRow(0);
@@ -364,6 +371,9 @@ public class Match {
             if(winner.getPoints() == 0 && looser.getPoints() == 0){
                 winner.incrementChallenges();
                 looser.incrementChallenges();
+                challengeLeft.setImage(MainWindowController.getChallengeImage(copiedPlayer1.getChallenges()));
+                challengeRight.setImage(MainWindowController.getChallengeImage(copiedPlayer2.getChallenges()));
+
                 if(winner.isServing()){
                     games.add(new Game (winner, true));
                 }
@@ -445,7 +455,7 @@ public class Match {
 
             winner.addPoint();
             winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
-            looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), looser.getPoints()));
+            looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), winner.getPoints()));
             changeDeuceAdvantageSides(leftDE, leftAD, rightDE, rightAD);
 
             if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 4){
@@ -493,7 +503,7 @@ public class Match {
         System.out.println(getScore(copiedPlayer1, copiedPlayer2));
     }
 
-    private void showEndOfGameMessage(Player winner, AnchorPane mainWindow){
+    public void showEndOfGameMessage(Player winner, AnchorPane mainWindow){
         mainWindow.setDisable(true);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Match has finished");
