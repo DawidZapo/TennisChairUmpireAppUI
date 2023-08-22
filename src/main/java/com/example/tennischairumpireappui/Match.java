@@ -357,6 +357,8 @@ public class Match {
                          ImageView fourthSet, ImageView fifthSet, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight,
                          AnchorPane mainWindow){
         gameStarted = true;
+        winner.setFaultsInRow(0);
+        looser.setFaultsInRow(0);
         if(winner.getGames() == looser.getGames() && winner.getGames() == 6){
 
             if(winner.getPoints() == 0 && looser.getPoints() == 0){

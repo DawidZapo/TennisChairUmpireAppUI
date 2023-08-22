@@ -307,7 +307,7 @@
 
                <HBox>
                   <VBox>
-                     <Button fx:id="player1Challenge" alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Challenge">
+                     <Button fx:id="player1Challenge" onAction="#onChallengeClick" alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Challenge">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -330,7 +330,7 @@
 
                <HBox>
                   <VBox>
-                     <Button fx:id="player1CodeViolation" alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Code Violation">
+                     <Button fx:id="player1CodeViolation" onAction="#onCodeViolationClick" alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Code Violation">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -353,7 +353,7 @@
 
                <HBox>
                   <VBox>
-                     <Button fx:id="player1TimeViolation" prefHeight="31.0" prefWidth="121.0" text="Time Violation">
+                     <Button fx:id="player1TimeViolation" onAction="#onTimeViolationClick" prefHeight="31.0" prefWidth="121.0" text="Time Violation">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -376,7 +376,7 @@
 
                <HBox>
                   <VBox>
-                     <Button fx:id="player1MedicalTimeOut" prefHeight="31.0" prefWidth="121.0" text="Med.Time-out">
+                     <Button fx:id="player1MedicalTimeOut" onAction="#onMedicalTimeOutClick" prefHeight="31.0" prefWidth="121.0" text="Med.Time-out">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -398,7 +398,7 @@
 
                <HBox>
                   <VBox>
-                     <Button fx:id="player1Hindrance" prefHeight="31.0" prefWidth="121.0" text="Hindrance">
+                     <Button fx:id="player1Hindrance" onAction="#onHindranceClick" prefHeight="31.0" prefWidth="121.0" text="Hindrance">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -516,7 +516,7 @@
                      <padding>
                         <Insets left="10" />
                      </padding>
-                     <Button fx:id="player2Challenge" alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Challenge">
+                     <Button fx:id="player2Challenge" onAction="#onChallengeClick" alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Challenge">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -539,7 +539,7 @@
                      <padding>
                         <Insets left="10" />
                      </padding>
-                     <Button fx:id="player2CodeViolation" alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Code Violation">
+                     <Button fx:id="player2CodeViolation" onAction="#onCodeViolationClick" alignment="CENTER" prefHeight="31.0" prefWidth="121.0" text="Code Violation">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -561,7 +561,7 @@
                      <padding>
                         <Insets left="10" />
                      </padding>
-                     <Button fx:id="player2TimeViolation" prefHeight="31.0" prefWidth="121.0" text="Time Violation">
+                     <Button fx:id="player2TimeViolation" onAction="#onTimeViolationClick" prefHeight="31.0" prefWidth="121.0" text="Time Violation">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -583,7 +583,7 @@
                      <padding>
                         <Insets left="10" />
                      </padding>
-                     <Button fx:id="player2MedicalTimeOut" prefHeight="31.0" prefWidth="121.0" text="Med.Time-out">
+                     <Button fx:id="player2MedicalTimeOut" onAction="#onMedicalTimeOutClick" prefHeight="31.0" prefWidth="121.0" text="Med.Time-out">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -605,7 +605,7 @@
                      <padding>
                         <Insets left="10" />
                      </padding>
-                     <Button fx:id="player2Hindrance" prefHeight="31.0" prefWidth="121.0" text="Hindrance">
+                     <Button fx:id="player2Hindrance" onAction="#onHindranceClick" prefHeight="31.0" prefWidth="121.0" text="Hindrance">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;

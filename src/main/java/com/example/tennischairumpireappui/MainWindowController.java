@@ -61,6 +61,21 @@ public class MainWindowController {
     public static Image tieBreakScoring18 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-18.png");
     public static Image tieBreakScoring19 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-19.png");
     public static Image tieBreakScoring20 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\numbers\\number-20.png");
+    public static Image challenge1 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\challenge1.png");
+    public static Image challenge2 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\challenge2.png");
+    public static Image challenge3 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\challenge3.png");
+    public static Image codeViolation1 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\code-violation1.png");
+    public static Image codeViolation2 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\code-violation2.png");
+    public static Image codeViolation3 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\code-violation3.png");
+    public static Image hindrance1 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\hindrance1.png");
+    public static Image hindrance2 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\hindrance2.png");
+    public static Image hindrance3 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\hindrance3.png");
+    public static Image timeOut1 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\time-out1.png");
+    public static Image timeOut2 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\time-out2.png");
+    public static Image timeOut3 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\time-out3.png");
+    public static Image timeViolation1 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\time-violation1.png");
+    public static Image timeViolation2 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\time-violation2.png");
+    public static Image timeViolation3 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\icons\\time-violation3.png");
 
 
     @FXML
@@ -315,7 +330,65 @@ public class MainWindowController {
 
     @FXML
     private void onFaultClick(){
+        DataSingleton data = DataSingleton.getInstance();
 
+        if(data.getMatch().getCopiedPlayer1().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer1().getAvatarWithBall())){
+
+            data.getMatch().getCopiedPlayer1().incrementFaultsInRow();
+
+            if(data.getMatch().getCopiedPlayer1().getFaultsInRow() == 1){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Fault");
+                alert.setHeaderText("Service fault called on %s service".formatted(data.getMatch().getCopiedPlayer1().getFullName()));
+                alert.setContentText("First service fault");
+                alert.showAndWait();
+            }
+            else if(data.getMatch().getCopiedPlayer1().getFaultsInRow() ==2){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Double fault");
+                alert.setHeaderText("Service fault called on %s service".formatted(data.getMatch().getCopiedPlayer1().getFullName()));
+                alert.setContentText("Double service fault, point will be conceded");
+                alert.showAndWait();
+
+                data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
+                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow);
+
+            }
+            else{
+                System.out.println("Error onFaultClick() CopiedPlayer1");
+            }
+
+        }
+        else if(data.getMatch().getCopiedPlayer2().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer2().getAvatarWithBall())){
+
+            data.getMatch().getCopiedPlayer2().incrementFaultsInRow();
+
+            if(data.getMatch().getCopiedPlayer2().getFaultsInRow() == 1){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Fault");
+                alert.setHeaderText("Service fault called on %s service".formatted(data.getMatch().getCopiedPlayer2().getFullName()));
+                alert.setContentText("First service fault");
+                alert.showAndWait();
+            }
+            else if(data.getMatch().getCopiedPlayer2().getFaultsInRow() ==2){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Double fault");
+                alert.setHeaderText("Service fault called on %s service".formatted(data.getMatch().getCopiedPlayer2().getFullName()));
+                alert.setContentText("Double service fault, point will be conceded");
+                alert.showAndWait();
+
+                data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
+                        fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow);
+
+            }
+            else{
+                System.out.println("Error onFaultClick() CopiedPlayer2");
+            }
+
+        }
+        else{
+            System.out.println("Error onFaultClick");
+        }
     }
 
     public static Image getGameImage(int games){
@@ -341,6 +414,14 @@ public class MainWindowController {
             return "C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\countriesAvatars\\" + country + ".png";
         }
     }
+    private Image getChallengeImage(int challenges){
+        switch(challenges){
+            case 0 -> {return null;}
+            case 1 -> {return challenge1;}
+            case 2 -> {return challenge2;}
+            default -> {return challenge3;}
+        }
+    }
 
     @FXML
     private void onAddPointClick(ActionEvent actionEvent) {
@@ -350,16 +431,10 @@ public class MainWindowController {
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
                     fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow);
 
-//            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
-//            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
-
         }
         else if(actionEvent.getSource().equals(player2AddPoint)){
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
                    fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow);
-
-//            scoringRight.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer2().getPoints(), data.getMatch().getCopiedPlayer1().getPoints()));
-//            scoringLeft.setImage(get15_30_40Image(data.getMatch().getCopiedPlayer1().getPoints(), data.getMatch().getCopiedPlayer2().getPoints()));
 
         }
         else{
@@ -367,4 +442,49 @@ public class MainWindowController {
         }
     }
 
+    public void onChallengeClick(ActionEvent actionEvent) {
+        DataSingleton data = DataSingleton.getInstance();
+
+        if(actionEvent.getSource().equals(player1Challenge)){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.NEXT);
+            alert.setTitle("Challenge");
+            alert.setHeaderText("%s is challenging the call".formatted(data.getMatch().getCopiedPlayer1().getFullName()));
+            alert.setContentText("Click [NEXT] to proceed");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.isPresent() && result.get().equals(ButtonType.NEXT)){
+                Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
+                alert2.setTitle("Challenge in progress");
+                alert2.setHeaderText(null);
+                alert2.setContentText("Is challenge successful?");
+                Optional<ButtonType> result2 = alert2.showAndWait();
+
+                if(result2.isPresent() && result2.get().equals(ButtonType.YES)){
+
+                }
+                else{
+                    data.getMatch().getCopiedPlayer1().decrementChallenges();
+                    challengeLeft.setImage(getChallengeImage(data.getMatch().getCopiedPlayer1().getChallenges()));
+                }
+            }
+        }
+        else if(actionEvent.getSource().equals(player2Challenge)){
+
+        }
+        else{
+            System.out.println("No button found");
+        }
+    }
+
+    public void onCodeViolationClick(ActionEvent actionEvent) {
+    }
+
+    public void onTimeViolationClick(ActionEvent actionEvent) {
+    }
+
+    public void onMedicalTimeOutClick(ActionEvent actionEvent) {
+    }
+
+    public void onHindranceClick(ActionEvent actionEvent) {
+    }
 }

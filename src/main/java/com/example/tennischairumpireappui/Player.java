@@ -26,6 +26,7 @@ public class Player {
     private Image avatar;
     private Image avatarWithBall;
     private Image currentAvatar;
+    private int faultsInRow;
 
 //    public Player(String name, String surname){
 //        this.name = name;
@@ -55,6 +56,7 @@ public class Player {
         this.codeViolation = 0;
         this.medicalTimout = 0;
         this.challenges = 3;
+        this.faultsInRow = 0;
     }
 
     public Player(String name, String surname, int weight, int height, String birth, String country){
@@ -72,6 +74,19 @@ public class Player {
         this.codeViolation = 0;
         this.medicalTimout = 0;
         this.challenges = 3;
+        this.faultsInRow = 0;
+    }
+
+    public int getFaultsInRow() {
+        return faultsInRow;
+    }
+
+    public void incrementFaultsInRow(){
+        this.faultsInRow = this.faultsInRow + 1;
+    }
+
+    public void setFaultsInRow(int faultsInRow) {
+        this.faultsInRow = faultsInRow;
     }
 
     public Image getAvatar() {
