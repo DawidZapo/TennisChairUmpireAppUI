@@ -88,8 +88,13 @@ public class MainWindowController {
     private ImageView leftAD, leftDE, rightAD, rightDE, scoringLeft, scoringRight,
             firstSetLeft, firstSetRight, secondSetLeft, secondSetRight, thirdSetLeft, thirdSetRight,
             fourthSetLeft, fourthSetRight, fifthSetLeft, fifthSetRight, tennisCourt,
-            challengeLeft, codeViolationLeft, timeViolationLeft, timeOutLeft, hindranceLeft,
-            challengeRight, codeViolationRight, timeViolationRight, timeOutRight, hindranceRight;
+            challengeLeft, codeViolationLeft, timeViolationLeft,
+            challengeRight, codeViolationRight, timeViolationRight;
+    @FXML
+    private MenuItem menuItemPlayer1AddPoint, menuItemPlayer1SubtractPoint, menuItemPlayer1MedTimeOut, menuItemPlayer1Hindrance,
+            menuItemPlayer1Challenge, menuItemPlayer1TimeViolation, menuItemPlayer1CodeViolation,
+            menuItemPlayer2AddPoint, menuItemPlayer2SubtractPoint, menuItemPlayer2MedTimeOut, menuItemPlayer2Hindrance,
+            menuItemPlayer2Challenge, menuItemPlayer2TimeViolation, menuItemPlayer2CodeViolation, hindrance;
 
     @FXML
     public void initialize() throws IOException {
@@ -447,22 +452,6 @@ public class MainWindowController {
             default -> {return codeViolation3;}
         }
     }
-    public static Image getHindranceImage(int hindrance){
-        switch(hindrance){
-            case 0 -> {return null;}
-            case 1 -> {return hindrance1;}
-            case 2 -> {return hindrance2;}
-            default -> {return hindrance3;}
-        }
-    }
-    public static Image getMedicalTimeOutImage(int medicalTimeOuts){
-        switch(medicalTimeOuts){
-            case 0 -> {return null;}
-            case 1 -> {return timeOut1;}
-            case 2 -> {return timeOut2;}
-            default -> {return timeOut3;}
-        }
-    }
     public static Image getTimeViolation(int timeViolation){
         switch(timeViolation){
             case 0 -> {return null;}
@@ -481,14 +470,14 @@ public class MainWindowController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Code Violation");
             alert.setHeaderText("Code violation caused by %s".formatted(player1.getFullName()));
-            alert.setContentText("%s has %s code violations".formatted(player1.getFullName(), player1.getCodeViolation()));
+            alert.setContentText("%s has %s code violation(s)".formatted(player1.getFullName(), player1.getCodeViolation()));
             alert.showAndWait();
 
         }
         else if(player1.getCodeViolation() > 1 && !player1.isPointConceded()){
             Alert alert2 = new Alert(Alert.AlertType.WARNING, "", ButtonType.YES, ButtonType.CANCEL);
             alert2.setTitle("Code Violation");
-            alert2.setHeaderText("%s has %s code violations".formatted(player1.getFullName(), player1.getCodeViolation()));
+            alert2.setHeaderText("%s has %s code violation(s)".formatted(player1.getFullName(), player1.getCodeViolation()));
             alert2.setContentText("Concede point?");
             Optional<ButtonType> result = alert2.showAndWait();
             if(result.isPresent() && result.get().equals(ButtonType.YES)){
@@ -501,12 +490,12 @@ public class MainWindowController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Code Violation");
             alert.setHeaderText("Code violation caused by %s".formatted(player1.getFullName()));
-            alert.setContentText("%s has %s code violations".formatted(player1.getFullName(), player1.getCodeViolation()));
+            alert.setContentText("%s has %s code violation(s)".formatted(player1.getFullName(), player1.getCodeViolation()));
             alert.showAndWait();
 
             Alert alert2 = new Alert(Alert.AlertType.ERROR, "", ButtonType.YES, ButtonType.CANCEL);
             alert2.setTitle("Code Violation");
-            alert2.setHeaderText("%s has %s code violations".formatted(player1.getFullName(), player1.getCodeViolation()));
+            alert2.setHeaderText("%s has %s code violation(s)".formatted(player1.getFullName(), player1.getCodeViolation()));
             alert2.setContentText("Concede match?");
             Optional<ButtonType> result = alert2.showAndWait();
             if(result.isPresent() && result.get().equals(ButtonType.YES)){
@@ -550,24 +539,24 @@ public class MainWindowController {
             Alert alert3 = new Alert(Alert.AlertType.WARNING);
             alert3.setTitle("Challenge");
             alert3.setHeaderText(null);
-            alert3.setContentText("%s has %d challenges remaining".formatted(player.getFullName(), player.getChallenges()));
+            alert3.setContentText("%s has %d challenge(s) remaining".formatted(player.getFullName(), player.getChallenges()));
             alert3.showAndWait();
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Challenge");
             alert.setHeaderText(null);
-            alert.setContentText("%s has %d challenges remaining".formatted(player.getFullName(), player.getChallenges()));
+            alert.setContentText("%s has %d challenge(s) remaining".formatted(player.getFullName(), player.getChallenges()));
             alert.showAndWait();
         }
     }
-    private void handleMedicalTimeOut(Player player, ImageView medicalTimeOut){
+    private void handleMedicalTimeOut(Player player){
         player.incrementMedicalTimeOut();
-        medicalTimeOut.setImage(getMedicalTimeOutImage(player.getMedicalTimout()));
+
         Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.OK);
         alert.setTitle("Medical Time-Out");
         alert.setHeaderText("Medical time out called by %s".formatted(player.getFullName()));
-        alert.setContentText("%s called %s medical time-outs".formatted(player.getFullName(), player.getMedicalTimout()));
+        alert.setContentText("%s called %s medical time-out(s)".formatted(player.getFullName(), player.getMedicalTimout()));
         alert.showAndWait();
     }
 
@@ -581,13 +570,13 @@ public class MainWindowController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Time Violation");
             alert.setHeaderText("Time violation caused by %s".formatted(player1.getFullName()));
-            alert.setContentText("%s has %d time violations".formatted(player1.getFullName(), player1.getTimeViolation()));
+            alert.setContentText("%s has %d time violation(s)".formatted(player1.getFullName(), player1.getTimeViolation()));
             alert.showAndWait();
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR, "", ButtonType.YES, ButtonType.CANCEL);
             alert.setTitle("Time Violation");
-            alert.setHeaderText("%s has %d time violations".formatted(player1.getFullName(), player1.getTimeViolation()));
+            alert.setHeaderText("%s has %d time violation(s)".formatted(player1.getFullName(), player1.getTimeViolation()));
             alert.setContentText("Concede point?");
             Optional<ButtonType> result = alert.showAndWait();
 
@@ -599,21 +588,46 @@ public class MainWindowController {
         }
     }
 
+    private void handleHindrance(Player player1, Player player2, ImageView scoring1, ImageView scoring2){
+        DataSingleton data = DataSingleton.getInstance();
+
+        player1.incrementHindrance();
+
+        Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.YES, ButtonType.CANCEL);
+        alert.setTitle("Hindrance");
+        alert.setHeaderText("Hindrance caused by %s".formatted(player1.getFullName()));
+        alert.setContentText("%s caused %d hindrance(s)\nConcede point?".formatted(player1.getFullName(), player1.getHindrance()));
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isPresent() && result.get().equals(ButtonType.YES)){
+            data.getMatch().addPoint(player2, player1, scoring2, scoring1, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
+                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+        }
+
+    }
+    private void handleHindrance(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.YES, ButtonType.CANCEL);
+        alert.setTitle("Hindrance");
+        alert.setHeaderText("Hindrance caused by other circumstance");
+        alert.setContentText("Replay point?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isPresent() && result.get().equals(ButtonType.YES)){
+            System.out.println("Function to replay the point");
+        }
+    }
+
     @FXML
     private void onAddPointClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
 
-        if(actionEvent.getSource().equals(player1AddPoint)){
+        if(actionEvent.getSource().equals(player1AddPoint) || actionEvent.getSource().equals(menuItemPlayer1AddPoint)){
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
                     fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
-
-
-
         }
-        else if(actionEvent.getSource().equals(player2AddPoint)){
+        else if(actionEvent.getSource().equals(player2AddPoint) || actionEvent.getSource().equals(menuItemPlayer2AddPoint)){
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
                    fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
-
         }
         else{
             System.out.println("No button found");
@@ -623,10 +637,10 @@ public class MainWindowController {
     public void onChallengeClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
 
-        if(actionEvent.getSource().equals(player1Challenge)){
+        if(actionEvent.getSource().equals(player1Challenge) || actionEvent.getSource().equals(menuItemPlayer1Challenge)){
             handleChallenge(data.getMatch().getCopiedPlayer1(), challengeLeft);
         }
-        else if(actionEvent.getSource().equals(player2Challenge)){
+        else if(actionEvent.getSource().equals(player2Challenge) || actionEvent.getSource().equals(menuItemPlayer2Challenge)){
             handleChallenge(data.getMatch().getCopiedPlayer2(), challengeRight);
         }
         else{
@@ -637,10 +651,10 @@ public class MainWindowController {
     public void onCodeViolationClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
 
-        if(actionEvent.getSource().equals(player1CodeViolation)){
+        if(actionEvent.getSource().equals(player1CodeViolation) || actionEvent.getSource().equals(menuItemPlayer1CodeViolation)){
             handleCodeViolation(data.getMatch().getCopiedPlayer1(),data.getMatch().getCopiedPlayer2(), scoringLeft, scoringRight, codeViolationLeft);
         }
-        else if(actionEvent.getSource().equals(player2CodeViolation)){
+        else if(actionEvent.getSource().equals(player2CodeViolation) || actionEvent.getSource().equals(menuItemPlayer2CodeViolation)){
             handleCodeViolation(data.getMatch().getCopiedPlayer2(),data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, codeViolationRight);
         }
         else{
@@ -651,10 +665,10 @@ public class MainWindowController {
     public void onTimeViolationClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
 
-        if(actionEvent.getSource().equals(player1TimeViolation)){
+        if(actionEvent.getSource().equals(player1TimeViolation) || actionEvent.getSource().equals(menuItemPlayer1TimeViolation)){
             handleTimeViolation(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(), scoringLeft, scoringRight, timeViolationLeft);
         }
-        else if(actionEvent.getSource().equals(player2TimeViolation)){
+        else if(actionEvent.getSource().equals(player2TimeViolation) || actionEvent.getSource().equals(menuItemPlayer2TimeViolation)){
             handleTimeViolation(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, timeViolationRight);
         }
         else{
@@ -665,11 +679,11 @@ public class MainWindowController {
     public void onMedicalTimeOutClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
 
-        if(actionEvent.getSource().equals(player1MedicalTimeOut)){
-            handleMedicalTimeOut(data.getMatch().getCopiedPlayer1(), timeOutLeft);
+        if(actionEvent.getSource().equals(player1MedicalTimeOut) || actionEvent.getSource().equals(menuItemPlayer1MedTimeOut)){
+            handleMedicalTimeOut(data.getMatch().getCopiedPlayer1());
         }
-        else if(actionEvent.getSource().equals(player2MedicalTimeOut)){
-            handleMedicalTimeOut(data.getMatch().getCopiedPlayer2(), timeOutRight);
+        else if(actionEvent.getSource().equals(player2MedicalTimeOut) || actionEvent.getSource().equals(menuItemPlayer2MedTimeOut)){
+            handleMedicalTimeOut(data.getMatch().getCopiedPlayer2());
         }
         else{
             System.out.println("No button found");
@@ -677,5 +691,19 @@ public class MainWindowController {
     }
 
     public void onHindranceClick(ActionEvent actionEvent) {
+        DataSingleton data = DataSingleton.getInstance();
+
+        if(actionEvent.getSource().equals(player1Hindrance) || actionEvent.getSource().equals(menuItemPlayer1Hindrance)){
+           handleHindrance(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(), scoringLeft, scoringRight);
+        }
+        else if(actionEvent.getSource().equals(player2Hindrance) || actionEvent.getSource().equals(menuItemPlayer2Hindrance)){
+            handleHindrance(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft);
+        }
+        else if(actionEvent.getSource().equals(hindrance)){
+            handleHindrance();
+        }
+        else{
+            System.out.println("No button found");
+        }
     }
 }

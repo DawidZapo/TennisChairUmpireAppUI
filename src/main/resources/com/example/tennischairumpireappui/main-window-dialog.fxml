@@ -8,21 +8,38 @@
 <AnchorPane fx:id="mainWindow" prefHeight="491.0" prefWidth="880.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tennischairumpireappui.MainWindowController">
    <children>
       <MenuBar>
+         <Menu fx:id="file" text="File">
+            <MenuItem text="New"/>
+            <MenuItem text="Load"/>
+            <MenuItem text="Save"/>
+         </Menu>
+         <Menu fx:id="match" text="Match">
+            <MenuItem text="Ace" onAction="#onAceClick"/>
+            <MenuItem text="Let" onAction="#onLetClick"/>
+            <MenuItem text="Fault" onAction="#onFaultClick"/>
+            <MenuItem fx:id="hindrance" text="Hindrance" onAction="#onHindranceClick"/>
+            <MenuItem text="Suspend"/>
+            <MenuItem text="End"/>
+            <MenuItem text="Info"/>
+
+         </Menu>
          <Menu fx:id="player1Menu" text="Player 1">
-            <MenuItem text="Add Point" />
-            <MenuItem text="Subtract" />
-            <MenuItem text="Challenge" />
-            <MenuItem text="Code Viol" />
-            <MenuItem text="Time Viol" />
-            <MenuItem text="Time-Out" />
+            <MenuItem fx:id="menuItemPlayer1AddPoint" text="Add Point" onAction="#onAddPointClick" />
+            <MenuItem fx:id="menuItemPlayer1SubtractPoint" text="Subtract" />
+            <MenuItem fx:id="menuItemPlayer1MedTimeOut" text="Medical Time-out" onAction="#onMedicalTimeOutClick" />
+            <MenuItem fx:id="menuItemPlayer1Hindrance" text="Hindrance" onAction="#onHindranceClick"/>
+            <MenuItem fx:id="menuItemPlayer1Challenge" text="Challenge" onAction="#onChallengeClick"/>
+            <MenuItem fx:id="menuItemPlayer1TimeViolation" text="Time Violation" onAction="#onTimeViolationClick"/>
+            <MenuItem fx:id="menuItemPlayer1CodeViolation" text="Code Violation" onAction="#onCodeViolationClick"/>
          </Menu>
          <Menu fx:id="player2Menu" text="Player 2">
-            <MenuItem text="Add Point" />
-            <MenuItem text="Subtract" />
-            <MenuItem text="Challenge" />
-            <MenuItem text="Code Viol" />
-            <MenuItem text="Time Viol" />
-            <MenuItem text="Time-Out" />
+            <MenuItem fx:id="menuItemPlayer2AddPoint" text="Add Point" onAction="#onAddPointClick" />
+            <MenuItem fx:id="menuItemPlayer2SubtractPoint" text="Subtract" />
+            <MenuItem fx:id="menuItemPlayer2MedTimeOut" text="Medical Time-out" onAction="#onMedicalTimeOutClick" />
+            <MenuItem fx:id="menuItemPlayer2Hindrance" text="Hindrance" onAction="#onHindranceClick"/>
+            <MenuItem fx:id="menuItemPlayer2Challenge" text="Challenge" onAction="#onChallengeClick"/>
+            <MenuItem fx:id="menuItemPlayer2TimeViolation" text="Time Violation" onAction="#onTimeViolationClick"/>
+            <MenuItem fx:id="menuItemPlayer2CodeViolation" text="Code Violation" onAction="#onCodeViolationClick"/>
          </Menu>
       </MenuBar>
 
@@ -307,6 +324,34 @@
 
                <HBox>
                   <VBox>
+                     <Button fx:id="player1MedicalTimeOut" onAction="#onMedicalTimeOutClick" prefHeight="31.0" prefWidth="209.0" text="Medical Time-out">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #AAAAAA;
+                           -fx-text-fill: white;
+                           -fx-border-radius: 5px;
+                        </style>
+                     </Button>
+                  </VBox>
+               </HBox>
+
+               <HBox>
+                  <VBox>
+                     <Button fx:id="player1Hindrance" onAction="#onHindranceClick" prefHeight="31.0" prefWidth="209.0" text="Hindrance">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #AAAAAA;
+                           -fx-text-fill: white;
+                           -fx-border-radius: 5px;
+                        </style>
+                     </Button>
+                  </VBox>
+               </HBox>
+
+               <HBox>
+                  <VBox>
                      <Button fx:id="player1Challenge" alignment="CENTER" onAction="#onChallengeClick" prefHeight="31.0" prefWidth="121.0" text="Challenge">
                         <style>
                            -fx-font-size: 14px;
@@ -323,30 +368,6 @@
                   <VBox>
                      <ImageView fx:id="challengeLeft" fitHeight="30" fitWidth="53">
                         <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\challenge3.png" />
-                     </ImageView>
-                  </VBox>
-
-               </HBox>
-
-               <HBox>
-                  <VBox>
-                     <Button fx:id="player1CodeViolation" alignment="CENTER" onAction="#onCodeViolationClick" prefHeight="31.0" prefWidth="121.0" text="Code Violation">
-                        <style>
-                           -fx-font-size: 14px;
-                           -fx-padding: 5px 10px;
-                           -fx-background-color: #AAAAAA;
-                           -fx-text-fill: white;
-                           -fx-border-radius: 5px;
-                        </style>
-                     </Button>
-                     <padding>
-                        <Insets right="10" />
-                     </padding>
-                  </VBox>
-
-                  <VBox>
-                     <ImageView fx:id="codeViolationLeft" fitHeight="30" fitWidth="53">
-<!--                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\code-violation2.png" />-->
                      </ImageView>
                   </VBox>
                </HBox>
@@ -369,14 +390,14 @@
 
                   <VBox>
                      <ImageView fx:id="timeViolationLeft" fitHeight="30" fitWidth="53">
-<!--                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\time-violation1.png" />-->
+                        <!--                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\time-violation1.png" />-->
                      </ImageView>
                   </VBox>
                </HBox>
 
                <HBox>
                   <VBox>
-                     <Button fx:id="player1MedicalTimeOut" onAction="#onMedicalTimeOutClick" prefHeight="31.0" prefWidth="121.0" text="Med.Time-out">
+                     <Button fx:id="player1CodeViolation" alignment="CENTER" onAction="#onCodeViolationClick" prefHeight="31.0" prefWidth="121.0" text="Code Violation">
                         <style>
                            -fx-font-size: 14px;
                            -fx-padding: 5px 10px;
@@ -389,31 +410,10 @@
                         <Insets right="10" />
                      </padding>
                   </VBox>
-                  <VBox>
-                     <ImageView fx:id="timeOutLeft" fitHeight="30" fitWidth="53">
-<!--                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\time-out2.png" />-->
-                     </ImageView>
-                  </VBox>
-               </HBox>
 
-               <HBox>
                   <VBox>
-                     <Button fx:id="player1Hindrance" onAction="#onHindranceClick" prefHeight="31.0" prefWidth="121.0" text="Hindrance">
-                        <style>
-                           -fx-font-size: 14px;
-                           -fx-padding: 5px 10px;
-                           -fx-background-color: #AAAAAA;
-                           -fx-text-fill: white;
-                           -fx-border-radius: 5px;
-                        </style>
-                     </Button>
-                     <padding>
-                        <Insets right="10" />
-                     </padding>
-                  </VBox>
-                  <VBox>
-                     <ImageView fx:id="hindranceLeft" fitHeight="30" fitWidth="53">
-<!--                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\hindrance3.png" />-->
+                     <ImageView fx:id="codeViolationLeft" fitHeight="30" fitWidth="53">
+<!--                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\code-violation2.png" />-->
                      </ImageView>
                   </VBox>
                </HBox>
@@ -505,6 +505,34 @@
                   </Button>
                </HBox>
 
+               <HBox alignment="CENTER_RIGHT">
+                  <VBox>
+                     <Button fx:id="player2MedicalTimeOut" onAction="#onMedicalTimeOutClick" prefHeight="31.0" prefWidth="209.0" text="Medical Time-out">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #AAAAAA;
+                           -fx-text-fill: white;
+                           -fx-border-radius: 5px;
+                        </style>
+                     </Button>
+                  </VBox>
+               </HBox>
+
+               <HBox alignment="CENTER_RIGHT">
+                  <VBox>
+                     <Button fx:id="player2Hindrance" onAction="#onHindranceClick" prefHeight="31.0" prefWidth="209.0" text="Hindrance">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #AAAAAA;
+                           -fx-text-fill: white;
+                           -fx-border-radius: 5px;
+                        </style>
+                     </Button>
+                  </VBox>
+               </HBox>
+
                <HBox alignment="CENTER_RIGHT" prefWidth="228">
                   <VBox>
                      <ImageView fx:id="challengeRight" fitHeight="30" fitWidth="53" scaleX="-1" scaleY="1" scaleZ="1">
@@ -526,7 +554,28 @@
                         </style>
                      </Button>
                   </VBox>
+               </HBox>
 
+               <HBox alignment="CENTER_RIGHT">
+                  <VBox>
+                     <ImageView fx:id="timeViolationRight" fitHeight="30" fitWidth="53" scaleX="-1" scaleY="1" scaleZ="1">
+                        <!--                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\time-violation1.png" />-->
+                     </ImageView>
+                  </VBox>
+                  <VBox>
+                     <padding>
+                        <Insets left="10" />
+                     </padding>
+                     <Button fx:id="player2TimeViolation" onAction="#onTimeViolationClick" prefHeight="31.0" prefWidth="121.0" text="Time Violation">
+                        <style>
+                           -fx-font-size: 14px;
+                           -fx-padding: 5px 10px;
+                           -fx-background-color: #AAAAAA;
+                           -fx-text-fill: white;
+                           -fx-border-radius: 5px;
+                        </style>
+                     </Button>
+                  </VBox>
                </HBox>
 
                <HBox alignment="CENTER_RIGHT">
@@ -551,74 +600,7 @@
                   </VBox>
                </HBox>
 
-               <HBox alignment="CENTER_RIGHT">
-                  <VBox>
-                     <ImageView fx:id="timeViolationRight" fitHeight="30" fitWidth="53" scaleX="-1" scaleY="1" scaleZ="1">
-<!--                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\time-violation1.png" />-->
-                     </ImageView>
-                  </VBox>
-                  <VBox>
-                     <padding>
-                        <Insets left="10" />
-                     </padding>
-                     <Button fx:id="player2TimeViolation" onAction="#onTimeViolationClick" prefHeight="31.0" prefWidth="121.0" text="Time Violation">
-                        <style>
-                           -fx-font-size: 14px;
-                           -fx-padding: 5px 10px;
-                           -fx-background-color: #AAAAAA;
-                           -fx-text-fill: white;
-                           -fx-border-radius: 5px;
-                        </style>
-                     </Button>
-                  </VBox>
-               </HBox>
-
-               <HBox alignment="CENTER_RIGHT">
-                  <VBox>
-                     <ImageView fx:id="timeOutRight" fitHeight="30" fitWidth="53" scaleX="-1" scaleY="1" scaleZ="1">
-<!--                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\time-out3.png" />-->
-                     </ImageView>
-                  </VBox>
-                  <VBox>
-                     <padding>
-                        <Insets left="10" />
-                     </padding>
-                     <Button fx:id="player2MedicalTimeOut" onAction="#onMedicalTimeOutClick" prefHeight="31.0" prefWidth="121.0" text="Med.Time-out">
-                        <style>
-                           -fx-font-size: 14px;
-                           -fx-padding: 5px 10px;
-                           -fx-background-color: #AAAAAA;
-                           -fx-text-fill: white;
-                           -fx-border-radius: 5px;
-                        </style>
-                     </Button>
-                  </VBox>
-               </HBox>
-
-               <HBox alignment="CENTER_RIGHT">
-                  <VBox>
-                     <ImageView fx:id="hindranceRight" fitHeight="30" fitWidth="53" scaleX="-1" scaleY="1" scaleZ="1">
-<!--                        <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\icons\hindrance2.png" />-->
-                     </ImageView>
-                  </VBox>
-                  <VBox>
-                     <padding>
-                        <Insets left="10" />
-                     </padding>
-                     <Button fx:id="player2Hindrance" onAction="#onHindranceClick" prefHeight="31.0" prefWidth="121.0" text="Hindrance">
-                        <style>
-                           -fx-font-size: 14px;
-                           -fx-padding: 5px 10px;
-                           -fx-background-color: #AAAAAA;
-                           -fx-text-fill: white;
-                           -fx-border-radius: 5px;
-                        </style>
-                     </Button>
-                  </VBox>
-               </HBox>
-
             </VBox>
-
          </right>
 
          <bottom>
