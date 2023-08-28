@@ -23,7 +23,7 @@ public class FirstWindowDialogController {
     @FXML
     public SearchableComboBox playersComboBox2;
     @FXML
-    public ComboBox bestOfComboBox;
+    public ComboBox bestOfComboBox, surfaceComboBox;
     @FXML
     public Button startGameButton;
     @FXML
@@ -51,7 +51,8 @@ public class FirstWindowDialogController {
 
     public void handleGameBeginning(ActionEvent actionEvent) {
         if(playersComboBox1.getValue() != null && playersComboBox2.getValue() != null
-                && bestOfComboBox.getValue() != null && playersComboBox1.getValue() != playersComboBox2.getValue()){
+                && bestOfComboBox.getValue() != null && playersComboBox1.getValue() != playersComboBox2.getValue()
+                && surfaceComboBox.getValue() != null){
             startGameButton.setDisable(false);
         }
         else{
@@ -80,6 +81,7 @@ public class FirstWindowDialogController {
 //        Optional<Object> result = dialog.showAndWait();
 //        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
         DataSingleton data = DataSingleton.getInstance();
+        data.setSurface((String)surfaceComboBox.getValue());
 
         List<Object> players = new ArrayList<>();
         players.add(playersComboBox1.getValue());

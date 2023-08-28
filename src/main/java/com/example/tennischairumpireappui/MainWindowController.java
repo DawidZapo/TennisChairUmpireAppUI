@@ -94,11 +94,13 @@ public class MainWindowController {
     @FXML
     public void initialize() throws IOException {
 
-        List<Control> listOfControls = new ArrayList<>();
-        listOfControls.addAll(List.of(player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
+        List<Control> controls = new ArrayList<>();
+        controls.addAll(List.of(player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
                 player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
                 player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch));
-        listOfControls.forEach(s -> s.setDisable(true));
+        controls.forEach(s -> s.setDisable(true));
+
+        tennisCourt.setVisible(false);
 
 
     }
@@ -185,7 +187,8 @@ public class MainWindowController {
 
         boolean isGrandSlam;
         isGrandSlam = data.getBestOf().equals("5");
-        data.setMatch(player1, player2, isGrandSlam);
+        String surface = data.getSurface();
+        data.setMatch(player1, player2, isGrandSlam, surface);
 
         if(data.getServer().equals(data.getPlayer1())) {
             data.getMatch().getCopiedPlayer1().setServing(true);
@@ -247,11 +250,25 @@ public class MainWindowController {
             }
         }
 
+        switch(surface){
+            case "Grass court" ->{
+                tennisCourt.setImage(new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\tennis-court-grass.png"));
+            }
+            case "Hard court"->{
+                tennisCourt.setImage(new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\tennis-court-hard.png"));
+            }
+            default -> {
+                tennisCourt.setImage(new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\tennis-court-clay.png"));
+            }
+        }
+
         List<Control> listOfControls = new ArrayList<>();
         listOfControls.addAll(List.of(player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
                 player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
                 player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch));
         listOfControls.forEach(s -> s.setDisable(false));
+
+        tennisCourt.setVisible(true);
 
     }
 

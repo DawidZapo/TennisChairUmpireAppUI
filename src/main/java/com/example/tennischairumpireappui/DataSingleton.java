@@ -2,6 +2,7 @@ package com.example.tennischairumpireappui;
 
 public class DataSingleton {
     private static final DataSingleton instance = new DataSingleton();
+    private String surface;
     private String side;
     private Object server;
     private Object player1;
@@ -14,8 +15,16 @@ public class DataSingleton {
         return instance;
     }
 
-    public void setMatch(Player player1, Player player2, boolean isGrandSlam){
-        match = new Match(player1, player2, isGrandSlam);
+    public String getSurface() {
+        return surface;
+    }
+
+    public void setSurface(String surface) {
+        this.surface = surface;
+    }
+
+    public void setMatch(Player player1, Player player2, boolean isGrandSlam, String surface){
+        match = new Match(player1, player2, isGrandSlam, surface);
     }
 
     public Match getMatch() {

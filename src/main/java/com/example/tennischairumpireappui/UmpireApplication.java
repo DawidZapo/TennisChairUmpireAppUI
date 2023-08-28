@@ -11,8 +11,6 @@ import java.io.IOException;
 public class UmpireApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
         Parent root = FXMLLoader.load(getClass().getResource("first-window-dialog.fxml"));
         Scene scene = new Scene(root, 400, 320);
