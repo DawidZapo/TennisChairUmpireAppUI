@@ -366,6 +366,7 @@ public class Match {
         gameStarted = true;
         winner.setFaultsInRow(0);
         looser.setFaultsInRow(0);
+        winner.incrementTotalPoints();
         if(winner.getGames() == looser.getGames() && winner.getGames() == 6){
 
             if(winner.getPoints() == 0 && looser.getPoints() == 0){

@@ -24,6 +24,8 @@ public class Player {
     private int sets;
     private int games;
     private int points;
+    private int totalPoints;
+    private int doubleFaults;
     private int challenges;
     private Image avatar;
     private Image avatarWithBall;
@@ -56,8 +58,12 @@ public class Player {
         this.sets = 0;
         this.games = 0;
         this.points = 0;
+        this.totalPoints = 0;
+        this.doubleFaults = 0;
+        this.timeViolation = 0;
         this.codeViolation = 0;
         this.medicalTimout = 0;
+        this.hindrance = 0;
         this.challenges = 3;
         this.faultsInRow = 0;
         this.pointConceded = false;
@@ -75,13 +81,32 @@ public class Player {
         this.sets = 0;
         this.games = 0;
         this.points = 0;
+        this.totalPoints = 0;
+        this.doubleFaults = 0;
+        this.timeViolation = 0;
         this.codeViolation = 0;
         this.medicalTimout = 0;
+        this.hindrance = 0;
         this.challenges = 3;
         this.faultsInRow = 0;
         this.pointConceded = false;
     }
 
+    public Player(String fullName, int sets, int games, int points, int totalPoints, int doubleFaults, int medicalTimeOuts,
+                  int hindrances, int challenges, int timeViolations, int codeViolations){
+        this.name = fullName.split(" ")[0];
+        this.surname = fullName.split(" ")[1];
+        this.sets = sets;
+        this.games = games;
+        this.points = points;
+        this.totalPoints = totalPoints;
+        this.doubleFaults = doubleFaults;
+        this.medicalTimout = medicalTimeOuts;
+        this.hindrance = hindrances;
+        this.challenges = challenges;
+        this.timeViolation = timeViolations;
+        this.codeViolation = codeViolations;
+    }
     public boolean isPointConceded() {
         return pointConceded;
     }
@@ -132,7 +157,18 @@ public class Player {
     public void setCurrentAvatar(Image currentAvatar) {
         this.currentAvatar = currentAvatar;
     }
-
+    public int getTotalPoints(){
+        return totalPoints;
+    }
+    public void incrementTotalPoints(){
+        this.totalPoints = this.totalPoints + 1;
+    }
+    public int getDoubleFaults(){
+        return doubleFaults;
+    }
+    public void incrementDoubleFaults(){
+        this.doubleFaults = this.doubleFaults + 1;
+    }
     public int getID(){
         return ID;
     }

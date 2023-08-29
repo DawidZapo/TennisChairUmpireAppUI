@@ -1,11 +1,16 @@
 package com.example.tennischairumpireappui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -95,6 +100,8 @@ public class MainWindowController {
             menuItemPlayer1Challenge, menuItemPlayer1TimeViolation, menuItemPlayer1CodeViolation,
             menuItemPlayer2AddPoint, menuItemPlayer2SubtractPoint, menuItemPlayer2MedTimeOut, menuItemPlayer2Hindrance,
             menuItemPlayer2Challenge, menuItemPlayer2TimeViolation, menuItemPlayer2CodeViolation, hindrance;
+    @FXML
+    private MenuBar menuBar;
 
     @FXML
     public void initialize() throws IOException {
@@ -102,7 +109,7 @@ public class MainWindowController {
         List<Control> controls = new ArrayList<>();
         controls.addAll(List.of(player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
                 player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
-                player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch));
+                player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch, menuBar));
         controls.forEach(s -> s.setDisable(true));
 
         tennisCourt.setVisible(false);
@@ -270,7 +277,7 @@ public class MainWindowController {
         List<Control> listOfControls = new ArrayList<>();
         listOfControls.addAll(List.of(player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
                 player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
-                player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch));
+                player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch, menuBar));
         listOfControls.forEach(s -> s.setDisable(false));
 
         tennisCourt.setVisible(true);
@@ -372,6 +379,7 @@ public class MainWindowController {
                 alert.setContentText("Double service fault, point will be conceded");
                 alert.showAndWait();
 
+                data.getMatch().getCopiedPlayer1().incrementDoubleFaults();
                 data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
                         fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
 
@@ -399,6 +407,7 @@ public class MainWindowController {
                 alert.setContentText("Double service fault, point will be conceded");
                 alert.showAndWait();
 
+                data.getMatch().getCopiedPlayer2().incrementDoubleFaults();
                 data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
                         fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
 
@@ -634,7 +643,8 @@ public class MainWindowController {
         }
     }
 
-    public void onChallengeClick(ActionEvent actionEvent) {
+    @FXML
+    private void onChallengeClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
 
         if(actionEvent.getSource().equals(player1Challenge) || actionEvent.getSource().equals(menuItemPlayer1Challenge)){
@@ -647,8 +657,8 @@ public class MainWindowController {
             System.out.println("No button found");
         }
     }
-
-    public void onCodeViolationClick(ActionEvent actionEvent) {
+    @FXML
+    private void onCodeViolationClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
 
         if(actionEvent.getSource().equals(player1CodeViolation) || actionEvent.getSource().equals(menuItemPlayer1CodeViolation)){
@@ -662,7 +672,8 @@ public class MainWindowController {
         }
     }
 
-    public void onTimeViolationClick(ActionEvent actionEvent) {
+    @FXML
+    private void onTimeViolationClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
 
         if(actionEvent.getSource().equals(player1TimeViolation) || actionEvent.getSource().equals(menuItemPlayer1TimeViolation)){
@@ -676,7 +687,8 @@ public class MainWindowController {
         }
     }
 
-    public void onMedicalTimeOutClick(ActionEvent actionEvent) {
+    @FXML
+    private void onMedicalTimeOutClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
 
         if(actionEvent.getSource().equals(player1MedicalTimeOut) || actionEvent.getSource().equals(menuItemPlayer1MedTimeOut)){
@@ -690,7 +702,8 @@ public class MainWindowController {
         }
     }
 
-    public void onHindranceClick(ActionEvent actionEvent) {
+    @FXML
+    private void onHindranceClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
 
         if(actionEvent.getSource().equals(player1Hindrance) || actionEvent.getSource().equals(menuItemPlayer1Hindrance)){
@@ -705,5 +718,119 @@ public class MainWindowController {
         else{
             System.out.println("No button found");
         }
+    }
+
+    @FXML
+    private void showInfo(ActionEvent actionEvent) {
+        DataSingleton dataSingleton = DataSingleton.getInstance();
+
+        TableView<PlayerForInfo> table = new TableView<PlayerForInfo>();
+        ObservableList<PlayerForInfo> data =
+                FXCollections.observableArrayList(
+                        new PlayerForInfo(dataSingleton.getMatch().getCopiedPlayer1().getName(),
+                                dataSingleton.getMatch().getCopiedPlayer1().getSurname(),
+                                dataSingleton.getMatch().getCopiedPlayer1().getSets(),
+                                dataSingleton.getMatch().getCopiedPlayer1().getGames(),
+                                Match.get15_30_40(dataSingleton.getMatch().getCopiedPlayer1().getPoints(), dataSingleton.getMatch().getCopiedPlayer2().getPoints()),
+                                dataSingleton.getMatch().getCopiedPlayer1().getTotalPoints(),
+                                dataSingleton.getMatch().getCopiedPlayer1().getDoubleFaults(),
+                                dataSingleton.getMatch().getCopiedPlayer1().getMedicalTimout(),
+                                dataSingleton.getMatch().getCopiedPlayer1().getHindrance(),
+                                dataSingleton.getMatch().getCopiedPlayer1().getChallenges(),
+                                dataSingleton.getMatch().getCopiedPlayer1().getTimeViolation(),
+                                dataSingleton.getMatch().getCopiedPlayer1().getCodeViolation()),
+
+                        new PlayerForInfo(dataSingleton.getMatch().getCopiedPlayer2().getName(),
+                                dataSingleton.getMatch().getCopiedPlayer2().getSurname(),
+                                dataSingleton.getMatch().getCopiedPlayer2().getSets(),
+                                dataSingleton.getMatch().getCopiedPlayer2().getGames(),
+                                Match.get15_30_40(dataSingleton.getMatch().getCopiedPlayer2().getPoints(), dataSingleton.getMatch().getCopiedPlayer1().getPoints()),
+                                dataSingleton.getMatch().getCopiedPlayer2().getTotalPoints(),
+                                dataSingleton.getMatch().getCopiedPlayer2().getDoubleFaults(),
+                                dataSingleton.getMatch().getCopiedPlayer2().getMedicalTimout(),
+                                dataSingleton.getMatch().getCopiedPlayer2().getHindrance(),
+                                dataSingleton.getMatch().getCopiedPlayer2().getChallenges(),
+                                dataSingleton.getMatch().getCopiedPlayer2().getTimeViolation(),
+                                dataSingleton.getMatch().getCopiedPlayer2().getCodeViolation()));
+
+        Stage stage = new Stage();
+        stage.setTitle("Match info");
+        stage.setWidth(1000);
+        stage.setHeight(150);
+
+
+        TableColumn firstNameCol = new TableColumn("First Name");
+        firstNameCol.setPrefWidth(100);
+        firstNameCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, String>("firstName"));
+
+        TableColumn lastNameCol = new TableColumn("Last Name");
+        lastNameCol.setPrefWidth(100);
+        lastNameCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, String>("lastName"));
+
+
+        TableColumn setCol = new TableColumn("Sets");
+        setCol.setPrefWidth(80);
+        setCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, Integer>("sets"));
+
+        TableColumn gamesCol = new TableColumn("Games");
+        gamesCol.setPrefWidth(80);
+        gamesCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, Integer>("games"));
+
+        TableColumn pointsCol = new TableColumn("Points");
+        pointsCol.setPrefWidth(80);
+        pointsCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, Integer>("points"));
+
+        TableColumn totalPointsCol = new TableColumn("Total points");
+        totalPointsCol.setPrefWidth(80);
+        totalPointsCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, Integer>("totalPoints"));
+
+        TableColumn doubleFaultsCol = new TableColumn("Double faults");
+        doubleFaultsCol.setPrefWidth(80);
+        doubleFaultsCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, Integer>("doubleFaults"));
+
+        TableColumn medicalCol = new TableColumn("Med. time-outs");
+        medicalCol.setPrefWidth(80);
+        medicalCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, Integer>("medicalTimeOuts"));
+
+        TableColumn hindranceCol = new TableColumn("Hindrances");
+        hindranceCol.setPrefWidth(80);
+        hindranceCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, Integer>("hindrances")
+        );
+
+        TableColumn challengeCol = new TableColumn("Challenges");
+        challengeCol.setPrefWidth(80);
+        challengeCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, Integer>("challenges")
+        );
+
+        TableColumn timeViolationCol = new TableColumn<>("Time violation");
+        timeViolationCol.setPrefWidth(80);
+        timeViolationCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, Integer>("timeViolation")
+        );
+
+        TableColumn codeViolationCol = new TableColumn("Code Violation");
+        codeViolationCol.setPrefWidth(80);
+        codeViolationCol.setCellValueFactory(
+                new PropertyValueFactory<PlayerForInfo, Integer>("codeViolation")
+        );
+
+
+        table.setItems(data);
+        table.getColumns().addAll(firstNameCol, lastNameCol, setCol, gamesCol, pointsCol, totalPointsCol,
+                doubleFaultsCol, medicalCol, hindranceCol, challengeCol, timeViolationCol, codeViolationCol);
+
+
+        stage.setScene(new Scene(table));
+        stage.show();
     }
 }

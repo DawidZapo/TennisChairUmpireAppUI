@@ -7,20 +7,20 @@
 
 <AnchorPane fx:id="mainWindow" prefHeight="491.0" prefWidth="880.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tennischairumpireappui.MainWindowController">
    <children>
-      <MenuBar>
-         <Menu fx:id="file" text="File">
+      <MenuBar fx:id="menuBar">
+         <Menu text="File">
             <MenuItem text="New"/>
             <MenuItem text="Load"/>
             <MenuItem text="Save"/>
          </Menu>
-         <Menu fx:id="match" text="Match">
+         <Menu text="Match">
             <MenuItem text="Ace" onAction="#onAceClick"/>
             <MenuItem text="Let" onAction="#onLetClick"/>
             <MenuItem text="Fault" onAction="#onFaultClick"/>
             <MenuItem fx:id="hindrance" text="Hindrance" onAction="#onHindranceClick"/>
             <MenuItem text="Suspend"/>
             <MenuItem text="End"/>
-            <MenuItem text="Info"/>
+            <MenuItem text="Info" onAction="#showInfo"/>
 
          </Menu>
          <Menu fx:id="player1Menu" text="Player 1">
