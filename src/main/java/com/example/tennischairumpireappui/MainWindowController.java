@@ -282,6 +282,34 @@ public class MainWindowController {
 
         tennisCourt.setVisible(true);
 
+        // down there code to create matches in database, commented coz now there is no need to do so
+//        int grandSlam;
+//        String date = java.time.LocalDate.now().toString();
+//        if(data.getMatch().isGrandSlam()) {
+//            grandSlam = 1;
+//        }else{
+//            grandSlam = 0;
+//        }
+//
+//        if(dataSource.createMatch(dataSource.queryPlayerID(data.getMatch().getCopiedPlayer1().getSurname()),
+//                                dataSource.queryPlayerID(data.getMatch().getCopiedPlayer2().getSurname()), date,
+//                                grandSlam, data.getMatch().getSurface()) != -1){
+//
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.setTitle("Database information");
+//            alert.setHeaderText(null);
+//            alert.setContentText("Match successfully added to the database");
+//            alert.show();
+//        }
+//        else{
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Database information");
+//            alert.setHeaderText(null);
+//            alert.setContentText("Error occurred while adding match to the database");
+//            alert.show();
+//        }
+
+        dataSource.close();
     }
 
     @FXML

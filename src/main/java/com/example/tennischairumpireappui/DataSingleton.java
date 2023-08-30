@@ -67,4 +67,5 @@ public class DataSingleton {
     public void setPlayer2(Object player2) {
         this.player2 = player2;
     }
+
 }

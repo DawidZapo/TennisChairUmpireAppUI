@@ -18,13 +18,34 @@ public class DataSource {
     public static final String QUERY_PLAYER = "SELECT " + PLAYERS_COLUMN_NAME + "," + PLAYERS_COLUMN_SURNAME +"," + PLAYERS_COLUMN_WEIGHT
             + "," + PLAYERS_COLUMN_HEIGHT + "," + PLAYERS_COLUMN_BIRTH + "," + PLAYERS_COLUMN_COUNTRY + " FROM " + TABLE_PLAYERS + " WHERE " + PLAYERS_COLUMN_SURNAME + " = ?";
 
+    public static final String QUERY_PLAYER_ID = "SELECT " + PLAYERS_COLUMN_ID + " FROM " + TABLE_PLAYERS + " WHERE " + PLAYERS_COLUMN_SURNAME + " = ?";
     private PreparedStatement queryPlayer;
+    private PreparedStatement queryPlayerID;
+
+    public static final String TABLE_MATCHES = "matches";
+    public static final String MATCHES_COLUMN_ID = "_id";
+    public static final String MATCHES_COLUMN_PLAYER1 = "player1";
+    public static final String MATCHES_COLUMN_PLAYER2 = "player2";
+    public static final String MATCHES_COLUMN_DATE = "date";
+    public static final String MATCHES_COLUMN_GRAND_SLAM = "grandSlam";
+    public static final String MATCHES_COLUMN_SURFACE = "surface";
+    public static final String MATCHES_COLUMN_GAME_OVER = "gameOver";
+    public static final String MATCHES_COLUMN_GAME_OVER_EARLY = "gameOverEarly";
+    public static final String MATCHES_COLUMN_GAME_DURATION = "gameDuration";
+    public static final String MATCHES_COLUMN_WINNER = "winner";
+    public static final String CREATE_MATCH = "INSERT INTO " + TABLE_MATCHES + " (" + MATCHES_COLUMN_PLAYER1 + "," + MATCHES_COLUMN_PLAYER2 + "," + MATCHES_COLUMN_DATE + "," + MATCHES_COLUMN_GRAND_SLAM + "," + MATCHES_COLUMN_SURFACE + ") VALUES " +
+            "(?, ?, ?, ?, ?)";
+
+    private PreparedStatement createMatch;
+
     Connection connection;
     public boolean open(){
         try{
             connection = DriverManager.getConnection(CONNECTION_STRING);
 
             queryPlayer = connection.prepareStatement(QUERY_PLAYER);
+            queryPlayerID = connection.prepareStatement(QUERY_PLAYER_ID);
+            createMatch = connection.prepareStatement(CREATE_MATCH);
 
             return true;
         }catch (SQLException e){
@@ -37,6 +58,12 @@ public class DataSource {
         try{
             if(queryPlayer != null){
                 queryPlayer.close();
+            }
+            if(queryPlayerID != null){
+                queryPlayerID.close();
+            }
+            if(createMatch != null){
+                createMatch.close();
             }
             if(connection != null){
                 connection.close();
@@ -64,6 +91,45 @@ public class DataSource {
         }catch (SQLException e){
             System.out.println("Something went wrong: " + e.getMessage());
             return null;
+        }
+    }
+
+    public int queryPlayerID(String surname){
+        try{
+            queryPlayerID.setString(1, surname);
+            ResultSet results = queryPlayerID.executeQuery();
+
+            if (results.next()){
+                return results.getInt(1);
+            }
+            else{
+                System.out.println("No player found");
+                return 0;
+            }
+
+        }catch (SQLException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+            return -1;
+        }
+    }
+    public int createMatch(int player1, int player2, String date, int grandSlam, String surface){
+        try{
+            createMatch.setInt(1, player1);
+            createMatch.setInt(2, player2);
+            createMatch.setString(3, date);
+            createMatch.setInt(4, grandSlam);
+            createMatch.setString(5, surface);
+
+            createMatch.execute();
+
+            ResultSet results = connection.createStatement().executeQuery("select last_insert_rowid()");
+
+            return results.getInt(1);
+
+        }catch(SQLException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+            e.printStackTrace();
+            return -1;
         }
     }
 

@@ -101,6 +101,10 @@ public class Match {
         this.gameOverEarly = gameOverEarly;
     }
 
+    public String getSurface() {
+        return surface;
+    }
+
     public static String get15_30_40(int points1, int points2){
         if(points1 == 0) return "0";
         else if(points1 == 1) return "15";

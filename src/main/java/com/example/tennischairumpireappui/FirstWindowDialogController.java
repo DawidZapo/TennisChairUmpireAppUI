@@ -38,6 +38,7 @@ public class FirstWindowDialogController {
             System.out.println("Problems with opening database");
             return;
         }
+
         List<Player> players = dataSource.queryPlayers();
         for(var player : players){
             playersComboBox1.getItems().add(player.getSurname());
