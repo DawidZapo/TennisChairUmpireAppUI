@@ -33,10 +33,48 @@ public class DataSource {
     public static final String MATCHES_COLUMN_GAME_OVER_EARLY = "gameOverEarly";
     public static final String MATCHES_COLUMN_GAME_DURATION = "gameDuration";
     public static final String MATCHES_COLUMN_WINNER = "winner";
-    public static final String CREATE_MATCH = "INSERT INTO " + TABLE_MATCHES + " (" + MATCHES_COLUMN_PLAYER1 + "," + MATCHES_COLUMN_PLAYER2 + "," + MATCHES_COLUMN_DATE + "," + MATCHES_COLUMN_GRAND_SLAM + "," + MATCHES_COLUMN_SURFACE + ") VALUES " +
+    public static final String INSERT_INTO_MATCHES = "INSERT INTO " + TABLE_MATCHES + " (" + MATCHES_COLUMN_PLAYER1 + "," + MATCHES_COLUMN_PLAYER2 + "," + MATCHES_COLUMN_DATE + "," + MATCHES_COLUMN_GRAND_SLAM + "," + MATCHES_COLUMN_SURFACE + ") VALUES " +
             "(?, ?, ?, ?, ?)";
 
-    private PreparedStatement createMatch;
+    private PreparedStatement insertIntoMatches;
+
+    public static final String TABLE_STATS = "stats";
+    public static final String STATS_COLUMN_ID = "_id";
+    public static final String STATS_COLUMN_MATCH = "match";
+    public static final String STATS_COLUMN_PLAYER1_POINTS = "player1Points";
+    public static final String STATS_COLUMN_PLAYER1_GAMES = "player1Games";
+    public static final String STATS_COLUMN_PLAYER1_SETS = "player1Sets";
+    public static final String STATS_COLUMN_PLAYER1_SERVING = "player1Serving";
+    public static final String STATS_COLUMN_PLAYER1_RETIRED = "player1Retired";
+    public static final String STATS_COLUMN_PLAYER1_MEDICAL_TIME_OUTS = "player1MedicalTimeOuts";
+    public static final String STATS_COLUMN_PLAYER1_HINDRANCES = "player1Hindrances";
+    public static final String STATS_COLUMN_PLAYER1_CHALLENGES = "player1Challenges";
+    public static final String STATS_COLUMN_PLAYER1_TIME_VIOLATIONS = "player1TimeViolations";
+    public static final String STATS_COLUMN_PLAYER1_CODE_VIOLATIONS = "player1CodeViolations";
+    public static final String STATS_COLUMN_PLAYER1_FIRST_SET = "player1FirstSet";
+    public static final String STATS_COLUMN_PLAYER1_SECOND_SET = "player1SecondSet";
+    public static final String STATS_COLUMN_PLAYER1_THIRD_SET = "player1ThirdSet";
+    public static final String STATS_COLUMN_PLAYER1_FOURTH_SET = "player1FourthSet";
+    public static final String STATS_COLUMN_PLAYER1_FIFTH_SET = "player1FifthSet";
+
+    public static final String STATS_COLUMN_PLAYER2_POINTS = "player2Points";
+    public static final String STATS_COLUMN_PLAYER2_GAMES = "player2Games";
+    public static final String STATS_COLUMN_PLAYER2_SETS = "player2Sets";
+    public static final String STATS_COLUMN_PLAYER2_SERVING = "player2Serving";
+    public static final String STATS_COLUMN_PLAYER2_RETIRED = "player2Retired";
+    public static final String STATS_COLUMN_PLAYER2_MEDICAL_TIME_OUTS = "player2MedicalTimeOuts";
+    public static final String STATS_COLUMN_PLAYER2_HINDRANCES = "player2Hindrances";
+    public static final String STATS_COLUMN_PLAYER2_CHALLENGES = "player2Challenges";
+    public static final String STATS_COLUMN_PLAYER2_TIME_VIOLATIONS = "player2TimeViolations";
+    public static final String STATS_COLUMN_PLAYER2_CODE_VIOLATIONS = "player2CodeViolations";
+    public static final String STATS_COLUMN_PLAYER2_FIRST_SET = "player2FirstSet";
+    public static final String STATS_COLUMN_PLAYER2_SECOND_SET = "player2SecondSet";
+    public static final String STATS_COLUMN_PLAYER2_THIRD_SET = "player2ThirdSet";
+    public static final String STATS_COLUMN_PLAYER2_FOURTH_SET = "player2FourthSet";
+    public static final String STATS_COLUMN_PLAYER2_FIFTH_SET = "player2FifthSet";
+    public static final String INSERT_INTO_STATS = "INSERT INTO " + TABLE_STATS + " (" + STATS_COLUMN_MATCH + ") VALUES (?)";
+    private PreparedStatement insertIntoStats;
+
 
     Connection connection;
     public boolean open(){
@@ -45,7 +83,8 @@ public class DataSource {
 
             queryPlayer = connection.prepareStatement(QUERY_PLAYER);
             queryPlayerID = connection.prepareStatement(QUERY_PLAYER_ID);
-            createMatch = connection.prepareStatement(CREATE_MATCH);
+            insertIntoMatches = connection.prepareStatement(INSERT_INTO_MATCHES);
+            insertIntoStats = connection.prepareStatement(INSERT_INTO_STATS);
 
             return true;
         }catch (SQLException e){
@@ -62,8 +101,11 @@ public class DataSource {
             if(queryPlayerID != null){
                 queryPlayerID.close();
             }
-            if(createMatch != null){
-                createMatch.close();
+            if(insertIntoMatches != null){
+                insertIntoMatches.close();
+            }
+            if(insertIntoStats != null){
+                insertIntoStats.close();
             }
             if(connection != null){
                 connection.close();
@@ -112,18 +154,33 @@ public class DataSource {
             return -1;
         }
     }
-    public int createMatch(int player1, int player2, String date, int grandSlam, String surface){
+    public int insertIntoMatches(int player1, int player2, String date, int grandSlam, String surface){
         try{
-            createMatch.setInt(1, player1);
-            createMatch.setInt(2, player2);
-            createMatch.setString(3, date);
-            createMatch.setInt(4, grandSlam);
-            createMatch.setString(5, surface);
+            insertIntoMatches.setInt(1, player1);
+            insertIntoMatches.setInt(2, player2);
+            insertIntoMatches.setString(3, date);
+            insertIntoMatches.setInt(4, grandSlam);
+            insertIntoMatches.setString(5, surface);
 
-            createMatch.execute();
+            insertIntoMatches.execute();
 
             ResultSet results = connection.createStatement().executeQuery("select last_insert_rowid()");
 
+            return results.getInt(1);
+
+        }catch(SQLException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+            e.printStackTrace();
+            return -1;
+        }
+    }
+    public int insertIntoStats(int matchID){
+        try{
+            insertIntoStats.setInt(1, matchID);
+
+            insertIntoStats.execute();
+
+            ResultSet results = connection.createStatement().executeQuery("select last_insert_rowid()");
             return results.getInt(1);
 
         }catch(SQLException e){

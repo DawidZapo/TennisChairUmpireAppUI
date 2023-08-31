@@ -282,7 +282,7 @@ public class MainWindowController {
 
         tennisCourt.setVisible(true);
 
-        // down there code to create matches in database, commented coz now there is no need to do so
+//         down there code to create matches in database, commented coz now there is no need to do so
 //        int grandSlam;
 //        String date = java.time.LocalDate.now().toString();
 //        if(data.getMatch().isGrandSlam()) {
@@ -291,22 +291,41 @@ public class MainWindowController {
 //            grandSlam = 0;
 //        }
 //
-//        if(dataSource.createMatch(dataSource.queryPlayerID(data.getMatch().getCopiedPlayer1().getSurname()),
-//                                dataSource.queryPlayerID(data.getMatch().getCopiedPlayer2().getSurname()), date,
-//                                grandSlam, data.getMatch().getSurface()) != -1){
+//        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
+//        Alert alertError = new Alert(Alert.AlertType.ERROR);
+//        int matchID = dataSource.insertIntoMatches(dataSource.queryPlayerID(data.getMatch().getCopiedPlayer1().getSurname()),
+//                dataSource.queryPlayerID(data.getMatch().getCopiedPlayer2().getSurname()), date,
+//                grandSlam, data.getMatch().getSurface());
 //
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.setTitle("Database information");
-//            alert.setHeaderText(null);
-//            alert.setContentText("Match successfully added to the database");
-//            alert.show();
+//        if(matchID != -1){
+//
+//            alertInfo.setTitle("Database information");
+//            alertInfo.setHeaderText(null);
+//            alertInfo.setContentText("Match successfully added to the database");
+//            alertInfo.showAndWait();
+//
+//            data.getMatch().setID(matchID);
+//
+//            int statsID = dataSource.insertIntoStats(matchID);
+//
+//            if(statsID != -1){
+//                alertInfo.setTitle("Database information");
+//                alertInfo.setHeaderText(null);
+//                alertInfo.setContentText("Stats successfully added to the database");
+//                alertInfo.showAndWait();
+//            }
+//            else{
+//                alertError.setTitle("Database information");
+//                alertError.setHeaderText(null);
+//                alertError.setContentText("Error occurred while adding stats to the database");
+//                alertError.showAndWait();
+//            }
 //        }
 //        else{
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Database information");
-//            alert.setHeaderText(null);
-//            alert.setContentText("Error occurred while adding match to the database");
-//            alert.show();
+//            alertError.setTitle("Database information");
+//            alertError.setHeaderText(null);
+//            alertError.setContentText("Error occurred while adding match to the database");
+//            alertError.showAndWait();
 //        }
 
         dataSource.close();

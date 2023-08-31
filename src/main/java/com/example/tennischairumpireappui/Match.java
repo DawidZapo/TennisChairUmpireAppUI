@@ -14,6 +14,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Match {
+    private int ID;
     private Player copiedPlayer1;
     private Player copiedPlayer2;
     private int matchDuration;
@@ -43,6 +44,14 @@ public class Match {
         this.copiedPlayer2.setAvatarWithBall(player2.getAvatarWithBall());
         this.surface = surface;
 
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public Player getCopiedPlayer1() {
@@ -527,6 +536,15 @@ public class Match {
         alert.setContentText(score.toString());
 
         alert.showAndWait();
+    }
+    // under construction
+    public void saveStats(){
+        DataSource dataSource = new DataSource();
+        if(!dataSource.open()){
+            System.out.println("Problems with opening database");
+            return;
+        }
+
     }
     private void changeServer(Player player1, Player player2, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight){
 //        if(player1.isServing()){
