@@ -469,6 +469,13 @@ public class MainWindowController {
         }
     }
 
+    @FXML
+    private void onSaveClick(){
+        DataSingleton data = DataSingleton.getInstance();
+
+        data.getMatch().updateStats();
+    }
+
     public static Image getGameImage(int games){
         if(games == 0) return game0;
         else if(games == 1) return game1;

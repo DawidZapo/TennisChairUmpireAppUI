@@ -451,6 +451,7 @@ public class Match {
                         winner.setWinner(true);
 
                         showEndOfGameMessage(winner, mainWindow);
+                        updateStats();
 
                     }
                 }
@@ -509,12 +510,22 @@ public class Match {
                         gameOver = true;
                         winner.setWinner(true);
                         showEndOfGameMessage(winner, mainWindow);
+                        updateStats();
                     }
                 }
             }
         }
 
         System.out.println(getScore(copiedPlayer1, copiedPlayer2));
+        System.out.println("Player1: ");
+        for(var sets : copiedPlayer1.getSavedSets()){
+            System.out.print(sets + " ");
+        }
+        System.out.println();
+        System.out.println("Player2: ");
+        for(var sets : copiedPlayer2.getSavedSets()){
+            System.out.print(sets + " ");
+        }
     }
 
     public void showEndOfGameMessage(Player winner, AnchorPane mainWindow){
@@ -538,12 +549,30 @@ public class Match {
         alert.showAndWait();
     }
     // under construction
-    public void saveStats(){
+    public void updateStats(){
         DataSource dataSource = new DataSource();
         if(!dataSource.open()){
             System.out.println("Problems with opening database");
             return;
         }
+
+        Alert alert;
+        if(dataSource.updateStats(this) > 0){
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Database information");
+            alert.setHeaderText(null);
+            alert.setContentText("Stats updated successfully");
+            alert.showAndWait();
+        }
+        else{
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Database information");
+            alert.setHeaderText(null);
+            alert.setContentText("Error occurred while updating stats");
+            alert.showAndWait();
+        }
+
+        dataSource.close();
 
     }
     private void changeServer(Player player1, Player player2, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight){

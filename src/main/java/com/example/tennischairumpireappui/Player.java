@@ -107,6 +107,43 @@ public class Player {
         this.timeViolation = timeViolations;
         this.codeViolation = codeViolations;
     }
+
+    public boolean isRetired() {
+        return retired;
+    }
+
+    public void setRetired(boolean retired) {
+        this.retired = retired;
+    }
+
+    public void setCodeViolation(int codeViolation) {
+        this.codeViolation = codeViolation;
+    }
+
+    public void setMedicalTimout(int medicalTimout) {
+        this.medicalTimout = medicalTimout;
+    }
+
+    public void setTimeViolation(int timeViolation) {
+        this.timeViolation = timeViolation;
+    }
+
+    public void setHindrance(int hindrance) {
+        this.hindrance = hindrance;
+    }
+
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
+    }
+
+    public void setDoubleFaults(int doubleFaults) {
+        this.doubleFaults = doubleFaults;
+    }
+
+    public void setChallenges(int challenges) {
+        this.challenges = challenges;
+    }
+
     public boolean isPointConceded() {
         return pointConceded;
     }

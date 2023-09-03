@@ -11,7 +11,7 @@
          <Menu text="File">
             <MenuItem text="New"/>
             <MenuItem text="Load"/>
-            <MenuItem text="Save"/>
+            <MenuItem text="Save" onAction="#onSaveClick"/>
          </Menu>
          <Menu text="Match">
             <MenuItem text="Ace" onAction="#onAceClick"/>
