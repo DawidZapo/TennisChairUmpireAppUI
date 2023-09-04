@@ -69,28 +69,28 @@ public class Player {
         this.pointConceded = false;
     }
 
-    public Player(String name, String surname, int weight, int height, String birth, String country){
-        this.name = name;
-        this.surname = surname;
-        this.weight = weight;
-        this.height = height;
-        this.birth = birth;
-        this.country = country;
-        this.serving = false;
-        this.retired = false;
-        this.sets = 0;
-        this.games = 0;
-        this.points = 0;
-        this.totalPoints = 0;
-        this.doubleFaults = 0;
-        this.timeViolation = 0;
-        this.codeViolation = 0;
-        this.medicalTimout = 0;
-        this.hindrance = 0;
-        this.challenges = 3;
-        this.faultsInRow = 0;
-        this.pointConceded = false;
-    }
+//    public Player(String name, String surname, int weight, int height, String birth, String country){
+//        this.name = name;
+//        this.surname = surname;
+//        this.weight = weight;
+//        this.height = height;
+//        this.birth = birth;
+//        this.country = country;
+//        this.serving = false;
+//        this.retired = false;
+//        this.sets = 0;
+//        this.games = 0;
+//        this.points = 0;
+//        this.totalPoints = 0;
+//        this.doubleFaults = 0;
+//        this.timeViolation = 0;
+//        this.codeViolation = 0;
+//        this.medicalTimout = 0;
+//        this.hindrance = 0;
+//        this.challenges = 3;
+//        this.faultsInRow = 0;
+//        this.pointConceded = false;
+//    }
 
     public Player(String fullName, int sets, int games, int points, int totalPoints, int doubleFaults, int medicalTimeOuts,
                   int hindrances, int challenges, int timeViolations, int codeViolations){

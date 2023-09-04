@@ -1,5 +1,7 @@
 package com.example.tennischairumpireappui;
 
+import javafx.stage.Stage;
+
 public class DataSingleton {
     private static final DataSingleton instance = new DataSingleton();
     private String surface;
@@ -9,7 +11,16 @@ public class DataSingleton {
     private Object player2;
     private Object bestOf;
     private Match match;
+    private Stage stage;
     private DataSingleton(){}
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     public static DataSingleton getInstance(){
         return instance;

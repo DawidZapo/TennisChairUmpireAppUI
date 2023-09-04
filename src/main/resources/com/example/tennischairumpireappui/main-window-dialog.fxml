@@ -8,12 +8,12 @@
 <AnchorPane fx:id="mainWindow" prefHeight="491.0" prefWidth="880.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tennischairumpireappui.MainWindowController">
    <children>
       <MenuBar fx:id="menuBar">
-         <Menu text="File">
-            <MenuItem text="New"/>
+         <Menu fx:id="file" text="File">
+            <MenuItem text="New" onAction="#onNewClick"/>
             <MenuItem text="Load"/>
             <MenuItem text="Save" onAction="#onSaveClick"/>
          </Menu>
-         <Menu text="Match">
+         <Menu fx:id="match" text="Match">
             <MenuItem text="Ace" onAction="#onAceClick"/>
             <MenuItem text="Let" onAction="#onLetClick"/>
             <MenuItem text="Fault" onAction="#onFaultClick"/>
@@ -21,7 +21,6 @@
             <MenuItem text="Suspend"/>
             <MenuItem text="End"/>
             <MenuItem text="Info" onAction="#showInfo"/>
-
          </Menu>
          <Menu fx:id="player1Menu" text="Player 1">
             <MenuItem fx:id="menuItemPlayer1AddPoint" text="Add Point" onAction="#onAddPointClick" />
@@ -43,7 +42,7 @@
          </Menu>
       </MenuBar>
 
-      <BorderPane layoutX="-1.0" layoutY="25.0" prefHeight="485.0" prefWidth="880.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10px;">
+      <BorderPane fx:id="borderPane" layoutX="-1.0" layoutY="25.0" prefHeight="485.0" prefWidth="880.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10px;">
          <center>
             <VBox>
                <padding>
@@ -623,7 +622,7 @@
                      -fx-border-radius: 5px;
                   </style>
                </Button>
-               <Button fx:id="endMatch" prefWidth="200" text="End Match">
+               <Button fx:id="endMatch" onAction="#handleEndMatchButton" prefWidth="200" text="End Match">
                   <style>
                      -fx-font-size: 14px;
                      -fx-padding: 8px 20px;

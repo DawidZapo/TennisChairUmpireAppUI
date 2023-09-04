@@ -25,7 +25,7 @@ public class FirstWindowDialogController {
     @FXML
     public ComboBox bestOfComboBox, surfaceComboBox;
     @FXML
-    public Button startGameButton;
+    public Button startNewMatchButton;
     @FXML
     private Label welcomeText;
     @FXML
@@ -46,7 +46,7 @@ public class FirstWindowDialogController {
         }
         dataSource.close();
 
-        startGameButton.setDisable(true);
+        startNewMatchButton.setDisable(true);
 
     }
 
@@ -54,14 +54,15 @@ public class FirstWindowDialogController {
         if(playersComboBox1.getValue() != null && playersComboBox2.getValue() != null
                 && bestOfComboBox.getValue() != null && playersComboBox1.getValue() != playersComboBox2.getValue()
                 && surfaceComboBox.getValue() != null){
-            startGameButton.setDisable(false);
+            startNewMatchButton.setDisable(false);
         }
         else{
-            startGameButton.setDisable(true);
+            startNewMatchButton.setDisable(true);
         }
     }
 
-    public void onStartButtonClick(ActionEvent event) throws IOException {
+    @FXML
+    private void onStartNewMatchClick(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main-window-dialog.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root, 880, 530);
@@ -70,17 +71,6 @@ public class FirstWindowDialogController {
         stage.setScene(scene);
         stage.show();
 
-//        List<Object> choices = new ArrayList<>();
-//        choices.add(playersComboBox1.getValue());
-//        choices.add(playersComboBox2.getValue());
-//
-//        ChoiceDialog<Object> dialog = new ChoiceDialog<>(playersComboBox1.getValue(), choices);
-//        dialog.setTitle("Pre-Game Settings");
-//        dialog.setHeaderText("Who starts the match?");
-//        dialog.setContentText("Choose your letter:");
-//
-//        Optional<Object> result = dialog.showAndWait();
-//        result.ifPresent(letter -> System.out.println("Your choice: " + letter));
         DataSingleton data = DataSingleton.getInstance();
         data.setSurface((String)surfaceComboBox.getValue());
 
@@ -136,5 +126,30 @@ public class FirstWindowDialogController {
             data.setPlayer2(playersComboBox2.getValue());
             data.setBestOf(bestOfComboBox.getValue());
         }
+    }
+
+    @FXML
+    private void onLoadMatchClick(ActionEvent event) throws IOException {
+//        Raczej do zmiany to ponizej
+//        DataSingleton data = DataSingleton.getInstance();
+//
+//        DataSource dataSource = new DataSource();
+//        if(!dataSource.open()){
+//            System.out.println("Problems with opening database");
+//            return;
+//        }
+//
+//        List<Match> matches = dataSource.queryUnfinishedMatches();
+//        List<String> matchUps = new ArrayList<>();
+//        for(var match : matches){
+//            matchUps.add("MatchID %d: %s - %s".formatted(match.getID(), match.getCopiedPlayer1().getSurname(), match.getCopiedPlayer2().getSurname()));
+//        }
+//        ChoiceDialog<String> matchDialog = new ChoiceDialog<>(matchUps.get(0), matchUps);
+//        matchDialog.setTitle("Which side?");
+//        matchDialog.setHeaderText(null);
+//        matchDialog.setContentText("Which side will the server start?");
+//
+//        Optional<String> matchResult = matchDialog.showAndWait();
+
     }
 }

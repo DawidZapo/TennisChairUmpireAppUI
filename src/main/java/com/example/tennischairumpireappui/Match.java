@@ -1,9 +1,10 @@
 package com.example.tennischairumpireappui;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Menu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,6 +45,11 @@ public class Match {
         this.copiedPlayer2.setAvatarWithBall(player2.getAvatarWithBall());
         this.surface = surface;
 
+    }
+
+    public Match(Player player1, Player player2, boolean isGrandSlam, String surface, boolean gameStarted){
+        this(player1, player2, isGrandSlam, surface);
+        this.gameStarted = gameStarted;
     }
 
     public int getID() {
@@ -375,7 +381,7 @@ public class Match {
                          ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD,
                          ImageView firstSet, ImageView secondSet, ImageView thirdSet,
                          ImageView fourthSet, ImageView fifthSet, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight,
-                         AnchorPane mainWindow, ImageView challengeLeft, ImageView challengeRight){
+                         BorderPane borderPane, ImageView challengeLeft, ImageView challengeRight, Menu match, Menu player1Menu, Menu player2Menu){
         gameStarted = true;
         winner.setFaultsInRow(0);
         looser.setFaultsInRow(0);
@@ -447,7 +453,7 @@ public class Match {
                     winner.addSet();
 
                     if(winner.getSets() == ((grandSlam)? 3 : 2)){
-                        endMatch(winner, mainWindow);
+                        endMatch(winner, borderPane, List.of(match, player1Menu, player2Menu), false);
                         updateStats();
 
                     }
@@ -504,7 +510,7 @@ public class Match {
                     winner.addSet();
 
                     if(winner.getSets() == ((grandSlam)? 3 : 2)){
-                        endMatch(winner, mainWindow);
+                        endMatch(winner, borderPane, List.of(match, player1Menu, player2Menu), false);
                         updateStats();
                     }
                 }
@@ -523,8 +529,11 @@ public class Match {
         }
     }
 
-    public void showEndOfGameMessage(Player winner, AnchorPane mainWindow){
-        mainWindow.setDisable(true);
+    public void showEndOfGameMessage(Player winner, BorderPane borderPane, List<Menu> menus){
+        borderPane.setDisable(true);
+        for(var menu : menus){
+            menu.setDisable(true);
+        }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Match has finished");
         alert.setHeaderText("Winner: " + winner.getFullName());
@@ -570,10 +579,10 @@ public class Match {
         dataSource.close();
 
     }
-    public void endMatch(Player winner, AnchorPane mainWindow){
+    public void endMatch(Player winner, BorderPane borderPane, List<Menu> menus, boolean early){
         gameOver = true;
         winner.setWinner(true);
-        showEndOfGameMessage(winner, mainWindow);
+        showEndOfGameMessage(winner, borderPane, menus);
 
         DataSource dataSource = new DataSource();
         if(!dataSource.open()){
@@ -582,20 +591,40 @@ public class Match {
         }
 
         Alert alert;
-        if(dataSource.endMatch(this, winner) == 1){
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Database information");
-            alert.setHeaderText(null);
-            alert.setContentText("Match updated successfully in database");
-            alert.showAndWait();
+        if(!early){
+            if(dataSource.endMatch(this, winner) == 1){
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Database information");
+                alert.setHeaderText(null);
+                alert.setContentText("Match updated successfully in database");
+                alert.showAndWait();
+            }
+            else{
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Database information");
+                alert.setHeaderText(null);
+                alert.setContentText("Error occurred while updating match");
+                alert.showAndWait();
+            }
         }
         else{
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Database information");
-            alert.setHeaderText(null);
-            alert.setContentText("Error occurred while updating match");
-            alert.showAndWait();
+            gameOverEarly = true;
+            if(dataSource.endMatchEarly(this, winner) == 1){
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Database information");
+                alert.setHeaderText(null);
+                alert.setContentText("Match updated successfully in database");
+                alert.showAndWait();
+            }
+            else{
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Database information");
+                alert.setHeaderText(null);
+                alert.setContentText("Error occurred while updating match");
+                alert.showAndWait();
+            }
         }
+
 
         dataSource.close();
 

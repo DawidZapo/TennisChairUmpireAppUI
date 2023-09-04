@@ -4,12 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,7 +22,7 @@ import java.util.Optional;
 
 public class MainWindowController {
     @FXML
-    public Menu player1Menu, player2Menu;
+    public Menu player1Menu, player2Menu, match, file;
 
     @FXML
     public AnchorPane mainWindow;
@@ -31,6 +34,8 @@ public class MainWindowController {
     public ImageView servingBallGraphicLeft, servingBallGraphicRight;
     @FXML
     public ImageView countryGraphicLeft, countryGraphicRight;
+    @FXML
+    public BorderPane borderPane;
     public static Image scoring0 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\scoring\\0.png");
     public static Image scoring15 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\scoring\\15.png");
     public static Image scoring30 = new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\scoring\\30.png");
@@ -201,8 +206,6 @@ public class MainWindowController {
         isGrandSlam = data.getBestOf().equals("5");
         String surface = data.getSurface();
         data.setMatch(player1, player2, isGrandSlam, surface);
-        data.getMatch().getCopiedPlayer1().setID(dataSource.queryPlayerID(player1.getSurname()));
-        data.getMatch().getCopiedPlayer2().setID(dataSource.queryPlayerID(player2.getSurname()));
 
         if(data.getServer().equals(data.getPlayer1())) {
             data.getMatch().getCopiedPlayer1().setServing(true);
@@ -285,52 +288,94 @@ public class MainWindowController {
         tennisCourt.setVisible(true);
 
 //         down there code to create matches in database, commented coz now there is no need to do so
-        int grandSlam;
-        String date = java.time.LocalDate.now().toString();
-        if(data.getMatch().isGrandSlam()) {
-            grandSlam = 1;
-        }else{
-            grandSlam = 0;
-        }
-
-        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
-        Alert alertError = new Alert(Alert.AlertType.ERROR);
-        int matchID = dataSource.insertIntoMatches(dataSource.queryPlayerID(data.getMatch().getCopiedPlayer1().getSurname()),
-                dataSource.queryPlayerID(data.getMatch().getCopiedPlayer2().getSurname()), date,
-                grandSlam, data.getMatch().getSurface());
-
-        if(matchID != -1){
-
-            alertInfo.setTitle("Database information");
-            alertInfo.setHeaderText(null);
-            alertInfo.setContentText("Match successfully added to the database");
-            alertInfo.showAndWait();
-
-            data.getMatch().setID(matchID);
-
-            int statsID = dataSource.insertIntoStats(matchID);
-
-            if(statsID != -1){
-                alertInfo.setTitle("Database information");
-                alertInfo.setHeaderText(null);
-                alertInfo.setContentText("Stats successfully added to the database");
-                alertInfo.showAndWait();
-            }
-            else{
-                alertError.setTitle("Database information");
-                alertError.setHeaderText(null);
-                alertError.setContentText("Error occurred while adding stats to the database");
-                alertError.showAndWait();
-            }
-        }
-        else{
-            alertError.setTitle("Database information");
-            alertError.setHeaderText(null);
-            alertError.setContentText("Error occurred while adding match to the database");
-            alertError.showAndWait();
-        }
+//        int grandSlam;
+//        String date = java.time.LocalDate.now().toString();
+//        if(data.getMatch().isGrandSlam()) {
+//            grandSlam = 1;
+//        }else{
+//            grandSlam = 0;
+//        }
+//
+//        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
+//        Alert alertError = new Alert(Alert.AlertType.ERROR);
+//        int matchID = dataSource.insertIntoMatches(dataSource.queryPlayerID(data.getMatch().getCopiedPlayer1().getSurname()),
+//                dataSource.queryPlayerID(data.getMatch().getCopiedPlayer2().getSurname()), date,
+//                grandSlam, data.getMatch().getSurface());
+//
+//        if(matchID != -1){
+//
+//            alertInfo.setTitle("Database information");
+//            alertInfo.setHeaderText(null);
+//            alertInfo.setContentText("Match successfully added to the database");
+//            alertInfo.showAndWait();
+//
+//            data.getMatch().setID(matchID);
+//
+//            int statsID = dataSource.insertIntoStats(matchID);
+//
+//            if(statsID != -1){
+//                alertInfo.setTitle("Database information");
+//                alertInfo.setHeaderText(null);
+//                alertInfo.setContentText("Stats successfully added to the database");
+//                alertInfo.showAndWait();
+//            }
+//            else{
+//                alertError.setTitle("Database information");
+//                alertError.setHeaderText(null);
+//                alertError.setContentText("Error occurred while adding stats to the database");
+//                alertError.showAndWait();
+//            }
+//        }
+//        else{
+//            alertError.setTitle("Database information");
+//            alertError.setHeaderText(null);
+//            alertError.setContentText("Error occurred while adding match to the database");
+//            alertError.showAndWait();
+//        }
 
         dataSource.close();
+    }
+
+    @FXML
+    private void handleEndMatchButton(){
+
+        DataSingleton data = DataSingleton.getInstance();
+
+        Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.YES, ButtonType.CANCEL);
+        alert.setTitle("End Match");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure to end match early?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isPresent() && result.get().equals(ButtonType.YES)){
+
+            List<String> players = new ArrayList<>();
+            players.add(data.getMatch().getCopiedPlayer1().getSurname());
+            players.add(data.getMatch().getCopiedPlayer2().getSurname());
+            ChoiceDialog<String> playerDialog = new ChoiceDialog<>(players.get(0), players);
+            playerDialog.setTitle("Early end of match");
+            playerDialog.setHeaderText(null);
+            playerDialog.setContentText("Choose player who won early");
+
+            Optional<String> result2 = playerDialog.showAndWait();
+            if(result2.isPresent()){
+                Player winner;
+                if(result2.get().equals(data.getMatch().getCopiedPlayer1().getSurname())){
+                    winner = data.getMatch().getCopiedPlayer1();
+                }
+                else if(result2.get().equals(data.getMatch().getCopiedPlayer2().getSurname())){
+                    winner = data.getMatch().getCopiedPlayer2();
+                }
+                else{
+                    winner = null;
+                    System.out.println("Error while choosing winner early");
+                }
+                data.getMatch().endMatch(winner, borderPane, List.of(match,player1Menu, player2Menu), true);
+                data.getMatch().updateStats();
+            }
+
+        }
     }
 
     @FXML
@@ -340,12 +385,12 @@ public class MainWindowController {
         if(data.getMatch().getCopiedPlayer1().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer1().getAvatarWithBall())){
 
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
         }
         else if(data.getMatch().getCopiedPlayer2().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer2().getAvatarWithBall())){
 
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                    fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+                    fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight,match, player1Menu, player2Menu);
         }
         else{
             System.out.println("Error");
@@ -373,7 +418,7 @@ public class MainWindowController {
 
                 if(result2.isPresent() && (result2.get() == ButtonType.YES)){
                     data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                            fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+                            fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
                 }
             }
 
@@ -396,7 +441,7 @@ public class MainWindowController {
 
                 if(result2.isPresent() && (result2.get() == ButtonType.YES)){
                     data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                            fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+                            fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
                 }
             }
 
@@ -430,7 +475,7 @@ public class MainWindowController {
 
                 data.getMatch().getCopiedPlayer1().incrementDoubleFaults();
                 data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
 
             }
             else{
@@ -458,7 +503,7 @@ public class MainWindowController {
 
                 data.getMatch().getCopiedPlayer2().incrementDoubleFaults();
                 data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                        fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+                        fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
 
             }
             else{
@@ -477,6 +522,7 @@ public class MainWindowController {
 
         data.getMatch().updateStats();
     }
+
 
     public static Image getGameImage(int games){
         if(games == 0) return game0;
@@ -547,7 +593,7 @@ public class MainWindowController {
             Optional<ButtonType> result = alert2.showAndWait();
             if(result.isPresent() && result.get().equals(ButtonType.YES)){
                 data.getMatch().addPoint(player2, player1, scoring2, scoring1, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
                 player1.setPointConceded(true);
             }
         }
@@ -564,9 +610,8 @@ public class MainWindowController {
             alert2.setContentText("Concede match?");
             Optional<ButtonType> result = alert2.showAndWait();
             if(result.isPresent() && result.get().equals(ButtonType.YES)){
-                data.getMatch().setGameOverEarly(true);
-                player2.setWinner(true);
-                data.getMatch().showEndOfGameMessage(player2, mainWindow);
+                data.getMatch().endMatch(player2, borderPane, List.of(match, player1Menu, player2Menu), true);
+                data.getMatch().updateStats();
             }
         }
 
@@ -647,7 +692,7 @@ public class MainWindowController {
 
             if(result.isPresent() && result.get().equals(ButtonType.YES)){
                 data.getMatch().addPoint(player2, player1, scoring2, scoring1, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
 
             }
         }
@@ -666,7 +711,7 @@ public class MainWindowController {
 
         if(result.isPresent() && result.get().equals(ButtonType.YES)){
             data.getMatch().addPoint(player2, player1, scoring2, scoring1, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
         }
 
     }
@@ -688,11 +733,11 @@ public class MainWindowController {
 
         if(actionEvent.getSource().equals(player1AddPoint) || actionEvent.getSource().equals(menuItemPlayer1AddPoint)){
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
         }
         else if(actionEvent.getSource().equals(player2AddPoint) || actionEvent.getSource().equals(menuItemPlayer2AddPoint)){
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                   fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, mainWindow, challengeLeft, challengeRight);
+                   fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
         }
         else{
             System.out.println("No button found");
@@ -887,6 +932,25 @@ public class MainWindowController {
 
 
         stage.setScene(new Scene(table));
+        stage.show();
+    }
+
+    @FXML
+    private void onNewClick(ActionEvent event) throws IOException {
+        DataSingleton dataSingleton = DataSingleton.getInstance();
+        // castException....... why?!
+//        Node node = (Node) event.getSource();
+//        Stage thisStage = (Stage) node.getScene().getWindow();
+
+//        thisStage.close();
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("first-window-dialog.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root, 400, 320);
+        Stage stage = dataSingleton.getStage();
+        stage.setTitle("Tennis Chair Umpire App");
+        stage.setScene(scene);
         stage.show();
     }
 }
