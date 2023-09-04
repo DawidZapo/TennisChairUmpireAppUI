@@ -108,6 +108,10 @@ public class Player {
         this.codeViolation = codeViolations;
     }
 
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     public boolean isRetired() {
         return retired;
     }

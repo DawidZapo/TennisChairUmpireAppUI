@@ -447,10 +447,7 @@ public class Match {
                     winner.addSet();
 
                     if(winner.getSets() == ((grandSlam)? 3 : 2)){
-                        gameOver = true;
-                        winner.setWinner(true);
-
-                        showEndOfGameMessage(winner, mainWindow);
+                        endMatch(winner, mainWindow);
                         updateStats();
 
                     }
@@ -507,9 +504,7 @@ public class Match {
                     winner.addSet();
 
                     if(winner.getSets() == ((grandSlam)? 3 : 2)){
-                        gameOver = true;
-                        winner.setWinner(true);
-                        showEndOfGameMessage(winner, mainWindow);
+                        endMatch(winner, mainWindow);
                         updateStats();
                     }
                 }
@@ -548,7 +543,7 @@ public class Match {
 
         alert.showAndWait();
     }
-    // under construction
+
     public void updateStats(){
         DataSource dataSource = new DataSource();
         if(!dataSource.open()){
@@ -569,6 +564,36 @@ public class Match {
             alert.setTitle("Database information");
             alert.setHeaderText(null);
             alert.setContentText("Error occurred while updating stats");
+            alert.showAndWait();
+        }
+
+        dataSource.close();
+
+    }
+    public void endMatch(Player winner, AnchorPane mainWindow){
+        gameOver = true;
+        winner.setWinner(true);
+        showEndOfGameMessage(winner, mainWindow);
+
+        DataSource dataSource = new DataSource();
+        if(!dataSource.open()){
+            System.out.println("Problems with opening database");
+            return;
+        }
+
+        Alert alert;
+        if(dataSource.endMatch(this, winner) == 1){
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Database information");
+            alert.setHeaderText(null);
+            alert.setContentText("Match updated successfully in database");
+            alert.showAndWait();
+        }
+        else{
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Database information");
+            alert.setHeaderText(null);
+            alert.setContentText("Error occurred while updating match");
             alert.showAndWait();
         }
 

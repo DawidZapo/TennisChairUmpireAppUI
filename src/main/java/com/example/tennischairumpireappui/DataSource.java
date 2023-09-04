@@ -36,7 +36,9 @@ public class DataSource {
     public static final String INSERT_INTO_MATCHES = "INSERT INTO " + TABLE_MATCHES + " (" + MATCHES_COLUMN_PLAYER1 + "," + MATCHES_COLUMN_PLAYER2 + "," + MATCHES_COLUMN_DATE + "," + MATCHES_COLUMN_GRAND_SLAM + "," + MATCHES_COLUMN_SURFACE + ") VALUES " +
             "(?, ?, ?, ?, ?)";
 
+    public static final String END_MATCH = "UPDATE " + TABLE_MATCHES + " SET " + MATCHES_COLUMN_GAME_OVER + " = ?, " + MATCHES_COLUMN_WINNER + " = ? WHERE " + MATCHES_COLUMN_ID + " = ?";
     private PreparedStatement insertIntoMatches;
+    private PreparedStatement endMatch;
 
     public static final String TABLE_STATS = "stats";
     public static final String STATS_COLUMN_ID = "_id";
@@ -139,6 +141,7 @@ public class DataSource {
             insertIntoMatches = connection.prepareStatement(INSERT_INTO_MATCHES);
             insertIntoStats = connection.prepareStatement(INSERT_INTO_STATS);
             updateStats = connection.prepareStatement(UPDATE_STATS);
+            endMatch = connection.prepareStatement(END_MATCH);
 
             return true;
         }catch (SQLException e){
@@ -163,6 +166,9 @@ public class DataSource {
             }
             if(updateStats != null){
                 updateStats.close();
+            }
+            if(endMatch != null){
+                endMatch.close();
             }
             if(connection != null){
                 connection.close();
@@ -246,6 +252,21 @@ public class DataSource {
             return -1;
         }
     }
+    public int endMatch(Match match, Player winner){
+        try{
+            endMatch.setInt(1,1);
+            endMatch.setInt(2,winner.getID());
+            endMatch.setInt(3,match.getID());
+
+            if(endMatch.executeUpdate() > 0) return 1;
+            else return -1;
+
+        }catch(SQLException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+            e.printStackTrace();
+            return -1;
+        }
+    }
     public int updateStats(Match match){
         try{
             updateStats.setInt(1, match.getCopiedPlayer1().getPoints());
@@ -284,8 +305,8 @@ public class DataSource {
 
             switch(match.getCopiedPlayer1().getSavedSets().size()){
                 case 0 ->{
-                    player1FirstSet = match.getCopiedPlayer1().getSets();
-                    player2FirstSet = match.getCopiedPlayer2().getSets();
+                    player1FirstSet = match.getCopiedPlayer1().getGames();
+                    player2FirstSet = match.getCopiedPlayer2().getGames();
                     player1SecondSet = 0;
                     player2SecondSet = 0;
                     player1ThirdSet = 0;
@@ -298,8 +319,8 @@ public class DataSource {
                 case 1 ->{
                     player1FirstSet = match.getCopiedPlayer1().getSavedSets().get(0);
                     player2FirstSet = match.getCopiedPlayer2().getSavedSets().get(0);
-                    player1SecondSet = match.getCopiedPlayer1().getSets();
-                    player2SecondSet = match.getCopiedPlayer2().getSets();
+                    player1SecondSet = match.getCopiedPlayer1().getGames();
+                    player2SecondSet = match.getCopiedPlayer2().getGames();
                     player1ThirdSet = 0;
                     player2ThirdSet = 0;
                     player1FourthSet = 0;
@@ -312,8 +333,8 @@ public class DataSource {
                     player2FirstSet = match.getCopiedPlayer2().getSavedSets().get(0);
                     player1SecondSet = match.getCopiedPlayer1().getSavedSets().get(1);
                     player2SecondSet = match.getCopiedPlayer2().getSavedSets().get(1);
-                    player1ThirdSet = match.getCopiedPlayer1().getSets();
-                    player2ThirdSet = match.getCopiedPlayer2().getSets();
+                    player1ThirdSet = match.getCopiedPlayer1().getGames();
+                    player2ThirdSet = match.getCopiedPlayer2().getGames();
                     player1FourthSet = 0;
                     player2FourthSet = 0;
                     player1FifthSet = 0;
@@ -326,8 +347,8 @@ public class DataSource {
                     player2SecondSet = match.getCopiedPlayer2().getSavedSets().get(1);
                     player1ThirdSet = match.getCopiedPlayer1().getSavedSets().get(2);
                     player2ThirdSet = match.getCopiedPlayer2().getSavedSets().get(2);
-                    player1FourthSet = match.getCopiedPlayer1().getSets();
-                    player2FourthSet = match.getCopiedPlayer2().getSets();
+                    player1FourthSet = match.getCopiedPlayer1().getGames();
+                    player2FourthSet = match.getCopiedPlayer2().getGames();
                     player1FifthSet = 0;
                     player2FifthSet = 0;
                 }
@@ -340,8 +361,8 @@ public class DataSource {
                     player2ThirdSet = match.getCopiedPlayer2().getSavedSets().get(2);
                     player1FourthSet = match.getCopiedPlayer1().getSavedSets().get(3);
                     player2FourthSet = match.getCopiedPlayer2().getSavedSets().get(3);
-                    player1FifthSet = match.getCopiedPlayer1().getSets();
-                    player2FifthSet = match.getCopiedPlayer2().getSets();
+                    player1FifthSet = match.getCopiedPlayer1().getGames();
+                    player2FifthSet = match.getCopiedPlayer2().getGames();
                 }
                 case 5 ->{
                     player1FirstSet = match.getCopiedPlayer1().getSavedSets().get(0);
