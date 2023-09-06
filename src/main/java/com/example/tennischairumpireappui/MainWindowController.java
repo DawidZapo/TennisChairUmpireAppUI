@@ -93,7 +93,7 @@ public class MainWindowController {
     @FXML
     public Button player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation, player1MedicalTimeOut, player1Hindrance,
             player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation, player2MedicalTimeOut, player2Hindrance,
-            aceButton, faultButton, letButton, suspendMatch, endMatch;
+            aceButton, faultButton, letButton, suspendMatch, endMatch, resumeMatchButton;
     @FXML
     private ImageView leftAD, leftDE, rightAD, rightDE, scoringLeft, scoringRight,
             firstSetLeft, firstSetRight, secondSetLeft, secondSetRight, thirdSetLeft, thirdSetRight,
@@ -952,5 +952,229 @@ public class MainWindowController {
         stage.setTitle("Tennis Chair Umpire App");
         stage.setScene(scene);
         stage.show();
+    }
+
+
+    @FXML
+    private void handleResumeMatchButton(ActionEvent event) {
+        resumeMatchButton.setDisable(true);
+
+        DataSingleton data = DataSingleton.getInstance();
+
+        DataSource dataSource = new DataSource();
+        if(!dataSource.open()){
+            System.out.println("Problems with opening database");
+            return;
+        }
+
+        Match matchToResume = dataSource.queryMatch(data.getMatchToResumeID());
+        Player player1 = matchToResume.getCopiedPlayer1();
+        Player player2 = matchToResume.getCopiedPlayer2();
+
+        nameLeft.setText(player1.getName());
+        surnameLeft.setText(player1.getSurname());
+        heightLeft.setText(Integer.toString(player1.getHeight()));
+        countryGraphicLeft.setImage(new Image(getCountryPath(player1.getCountry())));
+        player1Menu.setText(player1.getSurname());
+        player1.setAvatar(new Image(getCountryAvatarPath(player1.getCountry(), false)));
+        player1.setAvatarWithBall(new Image(getCountryAvatarPath(player1.getCountry(), true)));
+
+
+        nameRight.setText(player2.getName());
+        surnameRight.setText(player2.getSurname());
+        heightRight.setText(Integer.toString(player2.getHeight()));
+        countryGraphicRight.setImage(new Image(getCountryPath(player2.getCountry())));
+        player2Menu.setText(player2.getSurname());
+        player2.setAvatar(new Image(getCountryAvatarPath(player2.getCountry(), false)));
+        player2.setAvatarWithBall(new Image(getCountryAvatarPath(player2.getCountry(), true)));
+
+
+        data.setMatch(matchToResume.getCopiedPlayer1(), matchToResume.getCopiedPlayer2(),
+                matchToResume.isGrandSlam(), matchToResume.getSurface());
+        data.getMatch().setID(matchToResume.getID());
+
+        Stats stats = dataSource.queryStats(data.getMatchToResumeID());
+
+        Player.updateStatsAfterResume(stats, data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2());
+
+        updateGraphicsAfterResume(data.getMatch());
+
+
+        if(data.getMatch().getCopiedPlayer1().isServing()) {
+            servingBallGraphicRight.setVisible(false);
+        }
+        else if(data.getMatch().getCopiedPlayer2().isServing()) {
+            servingBallGraphicLeft.setVisible(false);
+        }
+        else{
+            System.out.println("Error while loading server");
+        }
+
+
+        if(data.getSideToResumeMatch().equals("Left-Hand Side")){
+            if(data.getMatch().getCopiedPlayer1().isServing()){
+                data.getMatch().getCopiedPlayer1().setCurrentAvatar(data.getMatch().getCopiedPlayer1().getAvatarWithBall());
+                leftDE.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                leftAD.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                leftAD.setVisible(false);
+
+                data.getMatch().getCopiedPlayer2().setCurrentAvatar(data.getMatch().getCopiedPlayer2().getAvatar());
+                rightDE.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                rightAD.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                rightAD.setVisible(false);
+
+            }
+            else{
+                data.getMatch().getCopiedPlayer2().setCurrentAvatar(data.getMatch().getCopiedPlayer2().getAvatarWithBall());
+                leftDE.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                leftAD.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                leftAD.setVisible(false);
+
+                data.getMatch().getCopiedPlayer1().setCurrentAvatar(data.getMatch().getCopiedPlayer1().getAvatar());
+                rightDE.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                rightAD.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                rightAD.setVisible(false);
+            }
+        }
+        else{
+            if(data.getMatch().getCopiedPlayer1().isServing()){
+                data.getMatch().getCopiedPlayer1().setCurrentAvatar(data.getMatch().getCopiedPlayer1().getAvatarWithBall());
+                rightDE.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                rightAD.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                rightAD.setVisible(false);
+
+                data.getMatch().getCopiedPlayer2().setCurrentAvatar(data.getMatch().getCopiedPlayer2().getAvatar());
+                leftDE.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                leftAD.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                leftAD.setVisible(false);
+            }
+            else{
+                data.getMatch().getCopiedPlayer2().setCurrentAvatar(data.getMatch().getCopiedPlayer2().getAvatarWithBall());
+                rightDE.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                rightAD.setImage(data.getMatch().getCopiedPlayer2().getCurrentAvatar());
+                rightAD.setVisible(false);
+
+                data.getMatch().getCopiedPlayer1().setCurrentAvatar(data.getMatch().getCopiedPlayer1().getAvatar());
+                leftDE.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                leftAD.setImage(data.getMatch().getCopiedPlayer1().getCurrentAvatar());
+                leftAD.setVisible(false);
+            }
+        }
+
+        if(data.getMatch().getCopiedPlayer1().getPoints() + data.getMatch().getCopiedPlayer2().getPoints() % 2 == 0){
+            leftDE.setVisible(true);
+            leftAD.setVisible(false);
+            rightDE.setVisible(true);
+            rightAD.setVisible(false);
+        }
+        else{
+            leftDE.setVisible(false);
+            leftAD.setVisible(true);
+            rightDE.setVisible(false);
+            rightAD.setVisible(true);
+        }
+
+        switch(data.getMatch().getSurface()){
+            case "Grass court" ->{
+                tennisCourt.setImage(new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\tennis-court-grass.png"));
+            }
+            case "Hard court"->{
+                tennisCourt.setImage(new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\tennis-court-hard.png"));
+            }
+            default -> {
+                tennisCourt.setImage(new Image("C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\tennis-court-clay.png"));
+            }
+        }
+
+        List<Control> listOfControls = new ArrayList<>();
+        listOfControls.addAll(List.of(player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
+                player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
+                player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch, menuBar));
+        listOfControls.forEach(s -> s.setDisable(false));
+
+        tennisCourt.setVisible(true);
+
+        dataSource.close();
+    }
+
+    private void updateGraphicsAfterResume(Match match){
+        challengeLeft.setImage(getChallengeImage(match.getCopiedPlayer1().getChallenges()));
+        challengeRight.setImage(getChallengeImage(match.getCopiedPlayer2().getChallenges()));
+        timeViolationLeft.setImage(getTimeViolation(match.getCopiedPlayer1().getTimeViolation()));
+        timeViolationRight.setImage(getTimeViolation(match.getCopiedPlayer2().getTimeViolation()));
+        codeViolationLeft.setImage(getCodeViolationImage(match.getCopiedPlayer1().getCodeViolation()));
+        codeViolationRight.setImage(getCodeViolationImage(match.getCopiedPlayer2().getCodeViolation()));
+
+        scoringLeft.setImage(get15_30_40Image(match.getCopiedPlayer1().getPoints(), match.getCopiedPlayer2().getPoints()));
+        scoringRight.setImage(get15_30_40Image(match.getCopiedPlayer2().getPoints(), match.getCopiedPlayer1().getPoints()));
+
+        switch(match.getCopiedPlayer1().getSets() + match.getCopiedPlayer2().getSets()){
+            case 0 -> {
+                firstSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getGames()));
+                firstSetRight.setImage(getGameImage(match.getCopiedPlayer2().getGames()));
+            }
+            case 1 -> {
+                firstSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(0)));
+                firstSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(0)));
+
+                secondSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getGames()));
+                secondSetRight.setImage(getGameImage(match.getCopiedPlayer2().getGames()));
+            }
+            case 2 -> {
+                firstSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(0)));
+                firstSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(0)));
+
+                secondSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(1)));
+                secondSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(1)));
+
+                thirdSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getGames()));
+                thirdSetRight.setImage(getGameImage(match.getCopiedPlayer2().getGames()));
+            }
+            case 3 -> {
+                firstSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(0)));
+                firstSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(0)));
+
+                secondSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(1)));
+                secondSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(1)));
+
+                thirdSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(2)));
+                thirdSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(2)));
+
+                fourthSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getGames()));
+                fourthSetRight.setImage(getGameImage(match.getCopiedPlayer2().getGames()));
+            }
+            case 4 -> {
+                firstSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(0)));
+                firstSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(0)));
+
+                secondSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(1)));
+                secondSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(1)));
+
+                thirdSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(2)));
+                thirdSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(2)));
+
+                fourthSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(3)));
+                fourthSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(3)));
+
+                fifthSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getGames()));
+                fifthSetRight.setImage(getGameImage(match.getCopiedPlayer2().getGames()));
+            }
+            case 5 -> {
+                firstSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(0)));
+                firstSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(0)));
+
+                secondSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(1)));
+                secondSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(1)));
+
+                thirdSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(2)));
+                thirdSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(2)));
+
+                fourthSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(3)));
+                fourthSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(3)));
+
+                fifthSetLeft.setImage(getGameImage(match.getCopiedPlayer1().getSavedSets().get(4)));
+                fifthSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(4)));
+            }
+        }
     }
 }

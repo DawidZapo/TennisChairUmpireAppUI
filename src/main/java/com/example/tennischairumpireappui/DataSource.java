@@ -45,10 +45,13 @@ public class DataSource {
 
     public static final String QUERY_UNFINISHED_MATCHES = "SELECT " + MATCHES_COLUMN_ID + "," + MATCHES_COLUMN_PLAYER1 + "," + MATCHES_COLUMN_PLAYER2 + "," + MATCHES_COLUMN_GRAND_SLAM + "," + MATCHES_COLUMN_SURFACE + " FROM "
             + TABLE_MATCHES + " WHERE " + MATCHES_COLUMN_GAME_OVER + " = ?";
+    public static final String QUERY_MATCH = "SELECT " + MATCHES_COLUMN_ID + "," + MATCHES_COLUMN_PLAYER1 + "," + MATCHES_COLUMN_PLAYER2 + "," + MATCHES_COLUMN_GRAND_SLAM + "," + MATCHES_COLUMN_SURFACE + " FROM "
+            + TABLE_MATCHES + " WHERE " + MATCHES_COLUMN_ID + " = ?";
     private PreparedStatement insertIntoMatches;
     private PreparedStatement endMatch;
     private PreparedStatement endMatchEarly;
     private PreparedStatement queryUnfinishedMatches;
+    private PreparedStatement queryMatch;
 
     public static final String TABLE_STATS = "stats";
     public static final String STATS_COLUMN_ID = "_id";
@@ -134,11 +137,52 @@ public class DataSource {
             STATS_COLUMN_PLAYER2_POINT_CONCEDED + " = ? " +
             " WHERE " + STATS_COLUMN_MATCH + " = ?";
 
-
+    public static final String QUERY_STATS = "SELECT " +
+            STATS_COLUMN_ID + "," +
+            STATS_COLUMN_MATCH + "," +
+            STATS_COLUMN_PLAYER1_POINTS + "," +
+            STATS_COLUMN_PLAYER2_POINTS + "," +
+            STATS_COLUMN_PLAYER1_GAMES + "," +
+            STATS_COLUMN_PLAYER2_GAMES + "," +
+            STATS_COLUMN_PLAYER1_SETS + "," +
+            STATS_COLUMN_PLAYER2_SETS + "," +
+            STATS_COLUMN_PLAYER1_SERVING + "," +
+            STATS_COLUMN_PLAYER2_SERVING + "," +
+            STATS_COLUMN_PLAYER1_RETIRED + "," +
+            STATS_COLUMN_PLAYER2_RETIRED + "," +
+            STATS_COLUMN_PLAYER1_MEDICAL_TIME_OUTS + "," +
+            STATS_COLUMN_PLAYER2_MEDICAL_TIME_OUTS + "," +
+            STATS_COLUMN_PLAYER1_HINDRANCES + "," +
+            STATS_COLUMN_PLAYER2_HINDRANCES + "," +
+            STATS_COLUMN_PLAYER1_CHALLENGES + "," +
+            STATS_COLUMN_PLAYER2_CHALLENGES + "," +
+            STATS_COLUMN_PLAYER1_TIME_VIOLATIONS + "," +
+            STATS_COLUMN_PLAYER2_TIME_VIOLATIONS + "," +
+            STATS_COLUMN_PLAYER1_CODE_VIOLATIONS + "," +
+            STATS_COLUMN_PLAYER2_CODE_VIOLATIONS + "," +
+            STATS_COLUMN_PLAYER1_FIRST_SET + "," +
+            STATS_COLUMN_PLAYER2_FIRST_SET + "," +
+            STATS_COLUMN_PLAYER1_SECOND_SET + "," +
+            STATS_COLUMN_PLAYER2_SECOND_SET + "," +
+            STATS_COLUMN_PLAYER1_THIRD_SET + "," +
+            STATS_COLUMN_PLAYER2_THIRD_SET + "," +
+            STATS_COLUMN_PLAYER1_FOURTH_SET + "," +
+            STATS_COLUMN_PLAYER2_FOURTH_SET + "," +
+            STATS_COLUMN_PLAYER1_FIFTH_SET + "," +
+            STATS_COLUMN_PLAYER2_FIFTH_SET + "," +
+            STATS_COLUMN_PLAYER1_TOTAL_POINTS + "," +
+            STATS_COLUMN_PLAYER2_TOTAL_POINTS + "," +
+            STATS_COLUMN_PLAYER1_DOUBLE_FAULTS + "," +
+            STATS_COLUMN_PLAYER2_DOUBLE_FAULTS + "," +
+            STATS_COLUMN_PLAYER1_FAULTS_IN_ROW + "," +
+            STATS_COLUMN_PLAYER2_FAULTS_IN_ROW + "," +
+            STATS_COLUMN_PLAYER1_POINT_CONCEDED + "," +
+            STATS_COLUMN_PLAYER2_POINT_CONCEDED + " FROM " + TABLE_STATS + " WHERE " + STATS_COLUMN_MATCH + " = ?";
 
 
     private PreparedStatement insertIntoStats;
     private PreparedStatement updateStats;
+    private PreparedStatement queryStats;
 
 
     Connection connection;
@@ -155,6 +199,8 @@ public class DataSource {
             endMatchEarly = connection.prepareStatement(END_MATCH_EARLY);
             queryUnfinishedMatches = connection.prepareStatement(QUERY_UNFINISHED_MATCHES);
             queryPlayerByID = connection.prepareStatement(QUERY_PLAYER_BY_ID);
+            queryMatch = connection.prepareStatement(QUERY_MATCH);
+            queryStats = connection.prepareStatement(QUERY_STATS);
 
             return true;
         }catch (SQLException e){
@@ -192,6 +238,12 @@ public class DataSource {
             if(queryPlayerByID != null){
                 queryPlayerByID.close();
             }
+            if(queryStats != null){
+                queryStats.close();
+            }
+            if(queryMatch != null){
+                queryMatch.close();
+            }
             if(connection != null){
                 connection.close();
             }
@@ -212,6 +264,94 @@ public class DataSource {
             }
             else{
                 System.out.println("No player found");
+                return null;
+            }
+
+        }catch (SQLException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+            return null;
+        }
+    }
+    public Stats queryStats(int matchID){
+        try{
+            queryStats.setInt(1,matchID);
+            ResultSet results = queryStats.executeQuery();
+
+            if(results.next()){
+                Stats stats = new Stats(
+                        results.getInt(1),
+                        results.getInt(2),
+                        results.getInt(3),
+                        results.getInt(4),
+                        results.getInt(5),
+                        results.getInt(6),
+                        results.getInt(7),
+                        results.getInt(8),
+                        results.getInt(9),
+                        results.getInt(10),
+                        results.getInt(11),
+                        results.getInt(12),
+                        results.getInt(13),
+                        results.getInt(14),
+                        results.getInt(15),
+                        results.getInt(16),
+                        results.getInt(17),
+                        results.getInt(18),
+                        results.getInt(19),
+                        results.getInt(20),
+                        results.getInt(21),
+                        results.getInt(22),
+                        results.getInt(23),
+                        results.getInt(24),
+                        results.getInt(25),
+                        results.getInt(26),
+                        results.getInt(27),
+                        results.getInt(28),
+                        results.getInt(29),
+                        results.getInt(30),
+                        results.getInt(31),
+                        results.getInt(32),
+                        results.getInt(33),
+                        results.getInt(34),
+                        results.getInt(35),
+                        results.getInt(36),
+                        results.getInt(37),
+                        results.getInt(38),
+                        results.getInt(39),
+                        results.getInt(40)
+                );
+                return stats;
+            }
+            else{
+                System.out.println("No stats found");
+                return null;
+            }
+
+        }catch (SQLException e){
+            System.out.println("Something went wrong: " + e.getMessage());
+            return null;
+        }
+    }
+    public Match queryMatch(int matchID){
+        try{
+            queryMatch.setInt(1,matchID);
+            ResultSet results = queryMatch.executeQuery();
+            boolean grandSlam;
+
+            if (results.next()){
+                Player player1 = queryPlayerByID(results.getInt(2));
+                Player player2 = queryPlayerByID(results.getInt(3));
+
+                if(results.getInt(4) == 1) grandSlam = true;
+                else grandSlam = false;
+
+                Match match = new Match(player1, player2, grandSlam, results.getString(5));
+                match.setID(results.getInt(1));
+
+                return match;
+            }
+            else{
+                System.out.println("No match found");
                 return null;
             }
 

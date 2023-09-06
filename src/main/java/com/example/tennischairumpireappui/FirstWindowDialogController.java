@@ -63,13 +63,7 @@ public class FirstWindowDialogController {
 
     @FXML
     private void onStartNewMatchClick(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main-window-dialog.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root, 880, 530);
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.setTitle("Tennis Chair Umpire App");
-        stage.setScene(scene);
-        stage.show();
+        loadMainStage("main-window-dialog.fxml",event);
 
         DataSingleton data = DataSingleton.getInstance();
         data.setSurface((String)surfaceComboBox.getValue());
@@ -131,25 +125,76 @@ public class FirstWindowDialogController {
     @FXML
     private void onLoadMatchClick(ActionEvent event) throws IOException {
 //        Raczej do zmiany to ponizej
-//        DataSingleton data = DataSingleton.getInstance();
-//
-//        DataSource dataSource = new DataSource();
-//        if(!dataSource.open()){
-//            System.out.println("Problems with opening database");
-//            return;
-//        }
-//
-//        List<Match> matches = dataSource.queryUnfinishedMatches();
-//        List<String> matchUps = new ArrayList<>();
-//        for(var match : matches){
-//            matchUps.add("MatchID %d: %s - %s".formatted(match.getID(), match.getCopiedPlayer1().getSurname(), match.getCopiedPlayer2().getSurname()));
-//        }
-//        ChoiceDialog<String> matchDialog = new ChoiceDialog<>(matchUps.get(0), matchUps);
-//        matchDialog.setTitle("Which side?");
-//        matchDialog.setHeaderText(null);
-//        matchDialog.setContentText("Which side will the server start?");
-//
-//        Optional<String> matchResult = matchDialog.showAndWait();
+        DataSingleton data = DataSingleton.getInstance();
 
+        DataSource dataSource = new DataSource();
+        if(!dataSource.open()){
+            System.out.println("Problems with opening database");
+            return;
+        }
+
+        List<Match> matches = dataSource.queryUnfinishedMatches();
+
+        if(matches.size() != 0){
+            List<String> matchUps = new ArrayList<>();
+            for(var match : matches){
+                matchUps.add("%d: %s - %s".formatted(match.getID(), match.getCopiedPlayer1().getSurname(), match.getCopiedPlayer2().getSurname()));
+            }
+
+            ChoiceDialog<String> matchDialog = new ChoiceDialog<>(matchUps.get(0), matchUps);
+            matchDialog.setTitle("Match resume settings");
+            matchDialog.setHeaderText(null);
+            matchDialog.setContentText("Choose match to finish?");
+
+            List<String> sides = new ArrayList<>();
+            sides.add("Left-Hand Side");
+            sides.add("Right-Hand Side");
+            ChoiceDialog<String> sideDialog = new ChoiceDialog<>(sides.get(0), sides);
+            sideDialog.setTitle("Match resume settings");
+            sideDialog.setHeaderText(null);
+            sideDialog.setContentText("Which side will the server start?");
+
+            Optional<String> matchResult = matchDialog.showAndWait();
+            if(matchResult.isPresent()){
+
+                Optional<String> sideResult = sideDialog.showAndWait();
+                if(sideResult.isPresent()){
+                    int matchToFinishID = Integer.parseInt(trimToDigitsOnly(matchResult.get()));
+                    data.setMatchToResumeID(matchToFinishID);
+                    data.setSideToResumeMatch(sideResult.get());
+                    loadMainStage("to-resume-main-window-dialog.fxml",event);
+                }
+
+            }
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Database information");
+            alert.setHeaderText(null);
+            alert.setContentText("No unfinished matches found");
+            alert.showAndWait();
+        }
+
+        dataSource.close();
+    }
+
+    private void loadMainStage(String fxml, ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        Parent root = loader.load();
+        Scene scene = new Scene(root, 880, 530);
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Tennis Chair Umpire App");
+        stage.setScene(scene);
+        stage.show();
+    }
+    private String trimToDigitsOnly(String input){
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i < input.length(); i++){
+            char c = input.charAt(i);
+            if(c > 47 && c < 58){
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 }

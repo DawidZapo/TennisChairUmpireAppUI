@@ -442,7 +442,7 @@ public class Match {
                 changeSides(leftDE, leftAD, rightDE, rightAD);
                 resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
 
-                games.get(games.size()-1).setWinner(winner);
+//                games.get(games.size()-1).setWinner(winner);
 
 
                 if(winner.getGames() == 7){
@@ -491,7 +491,7 @@ public class Match {
                 }
                 resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
 
-                games.get(games.size()-1).setWinner(winner);
+//                games.get(games.size()-1).setWinner(winner);
 
                 if(winner.isServing()){
                     winner.setServing(false);
@@ -517,7 +517,7 @@ public class Match {
             }
         }
 
-        System.out.println(getScore(copiedPlayer1, copiedPlayer2));
+//        System.out.println(getScore(copiedPlayer1, copiedPlayer2));
         System.out.println("Player1: ");
         for(var sets : copiedPlayer1.getSavedSets()){
             System.out.print(sets + " ");
@@ -526,6 +526,16 @@ public class Match {
         System.out.println("Player2: ");
         for(var sets : copiedPlayer2.getSavedSets()){
             System.out.print(sets + " ");
+        }
+
+        if(winner.isServing()){
+            System.out.println(winner.getFullName() + " is serving");
+        }
+        else if(looser.isServing()){
+            System.out.println(looser.getFullName() + " is serving");
+        }
+        else{
+            System.out.println("error");
         }
     }
 

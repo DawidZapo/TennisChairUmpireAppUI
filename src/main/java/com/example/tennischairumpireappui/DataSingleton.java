@@ -12,7 +12,25 @@ public class DataSingleton {
     private Object bestOf;
     private Match match;
     private Stage stage;
+    private int matchToResumeID;
+    private String sideToResumeMatch;
     private DataSingleton(){}
+
+    public String getSideToResumeMatch() {
+        return sideToResumeMatch;
+    }
+
+    public void setSideToResumeMatch(String sideToResumeMatch) {
+        this.sideToResumeMatch = sideToResumeMatch;
+    }
+
+    public int getMatchToResumeID() {
+        return matchToResumeID;
+    }
+
+    public void setMatchToResumeID(int matchToResumeID) {
+        this.matchToResumeID = matchToResumeID;
+    }
 
     public Stage getStage() {
         return stage;
