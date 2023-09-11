@@ -417,15 +417,6 @@ public class Match {
                 challengeRight.setImage(MainWindowController.getChallengeImage(copiedPlayer2.getChallenges()));
                 isTieBreakNow = true;
 
-                if(winner.isServing()){
-                    tieBreakServer = winner;
-                }
-                else if(looser.isServing()){
-                    tieBreakServer = looser;
-                }
-                else{
-                    System.out.println("Error while setting tie break server");
-                }
 
 //                if(winner.isServing()){
 //                    games.add(new Game (winner, true));
@@ -465,13 +456,13 @@ public class Match {
                 isTieBreakNow = false;
                 changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
 
-                if(tieBreakServer.equals(winner) && winner.isServing()){
+                if(tieBreakServer.getFullName().equals(winner.getFullName()) && winner.isServing()){
                     changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
                     updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
                     winner.setServing(false);
                     looser.setServing(true);
                 }
-                else if(tieBreakServer.equals(looser) && looser.isServing()){
+                else if(tieBreakServer.getFullName().equals(looser.getFullName()) && looser.isServing()){
                     changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
                     updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
                     looser.setServing(false);
@@ -542,6 +533,20 @@ public class Match {
                     winner.setServing(true);
                     looser.setServing(false);
                 }
+
+                // code from upper section, here to update tiebreakServer before addPointClick
+                if((winner.getGames() == looser.getGames()) && winner.getGames() == 6){
+                    if(winner.isServing()){
+                        tieBreakServer = winner;
+                    }
+                    else if(looser.isServing()){
+                        tieBreakServer = looser;
+                    }
+                    else{
+                        System.out.println("Error while setting tie break server");
+                    }
+                }
+
 
                 if(winner.getGames() - looser.getGames() >= 2 && winner.getGames() >= 6){
                     winner.getSavedSets().add(winner.getGames());

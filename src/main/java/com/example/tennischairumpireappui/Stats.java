@@ -8,7 +8,7 @@ public class Stats {
     player1Challenges, player2Challenges, player1TimeViolations, player2TimeViolations, player1CodeViolations, player2CodeViolations,
     player1FirstSet, player2FirstSet, player1SecondSet, player2SecondSet, player1ThirdSet, player2ThirdSet, player1FourthSet, player2FourthSet,
     player1FifthSet, player2FifthSet, player1TotalPoints, player2TotalPoints, player1DoubleFaults, player2DoubleFaults, player1FaultsInRow, player2FaultsInRow,
-    player1PointConceded, player2PointConceded;
+    player1PointConceded, player2PointConceded, tieBreakServer, isTieBreakNow;
 
     public Stats(int ID, int matchID, int player1Points, int player2Points, int player1Games, int player2Games,
                  int player1Sets, int player2Sets, int player1Serving, int player2Serving, int player1Retired, int player2Retired,
@@ -18,7 +18,7 @@ public class Stats {
                  int player1SecondSet, int player2SecondSet, int player1ThirdSet, int player2ThirdSet,
                  int player1FourthSet, int player2FourthSet, int player1FifthSet, int player2FifthSet,
                  int player1TotalPoints, int player2TotalPoints, int player1DoubleFaults, int player2DoubleFaults,
-                 int player1FaultsInRow, int player2FaultsInRow, int player1PointConceded, int player2PointConceded) {
+                 int player1FaultsInRow, int player2FaultsInRow, int player1PointConceded, int player2PointConceded, int tieBreakServer, int isTieBreakNow) {
         this.ID = ID;
         this.matchID = matchID;
         this.player1Points = player1Points;
@@ -59,6 +59,8 @@ public class Stats {
         this.player2FaultsInRow = player2FaultsInRow;
         this.player1PointConceded = player1PointConceded;
         this.player2PointConceded = player2PointConceded;
+        this.tieBreakServer = tieBreakServer;
+        this.isTieBreakNow = isTieBreakNow;
     }
 
     public int getID() {
@@ -68,6 +70,8 @@ public class Stats {
     public int getMatchID() {
         return matchID;
     }
+
+
 
     public int getPlayer1Points() {
         return player1Points;
@@ -219,5 +223,13 @@ public class Stats {
 
     public int getPlayer2PointConceded() {
         return player2PointConceded;
+    }
+
+    public int getTieBreakServer() {
+        return tieBreakServer;
+    }
+
+    public int getIsTieBreakNow() {
+        return isTieBreakNow;
     }
 }

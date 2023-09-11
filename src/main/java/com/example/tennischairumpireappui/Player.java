@@ -374,7 +374,7 @@ public class Player {
         this.sets += 1;
     }
 
-    public static void updateStatsAfterResume(Stats stats, Player player1, Player player2){
+    public static void updateStatsAfterResume(Stats stats,Match match, Player player1, Player player2){
         player1.setPoints(stats.getPlayer1Points());
         player1.setGames(stats.getPlayer1Games());
         player1.setSets(stats.getPlayer1Sets());
@@ -404,6 +404,21 @@ public class Player {
         player2.setDoubleFaults(stats.getPlayer2DoubleFaults());
         player2.setFaultsInRow(stats.getPlayer2FaultsInRow());
         player2.setPointConceded(stats.getPlayer2PointConceded() == 1);
+
+        match.setTieBreakNow(stats.getIsTieBreakNow() == 1);
+
+        if(stats.getTieBreakServer() == player1.getID()){
+            match.setTieBreakServer(player1);
+        }
+        else if (stats.getTieBreakServer() == player2.getID()){
+            match.setTieBreakServer(player2);
+        }
+        else if (stats.getTieBreakServer() == -1){
+            match.setTieBreakServer(null);
+        }
+        else {
+            System.out.println("Error while choosing tie break server after resume");
+        }
 
         player1.getSavedSets().clear();
         player2.getSavedSets().clear();

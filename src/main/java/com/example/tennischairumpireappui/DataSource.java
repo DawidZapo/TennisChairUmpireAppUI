@@ -95,6 +95,9 @@ public class DataSource {
     public static final String STATS_COLUMN_PLAYER2_DOUBLE_FAULTS = "player2DoubleFaults";
     public static final String STATS_COLUMN_PLAYER2_FAULTS_IN_ROW = "player2FaultsInRow";
     public static final String STATS_COLUMN_PLAYER2_POINT_CONCEDED = "player2PointConceded";
+
+    public static final String STATS_COLUMN_TIE_BREAK_SERVER = "tieBreakServer";
+    public static final String STATS_COLUMN_IS_TIE_BREAK_NOW = "isTieBreakNow";
     public static final String INSERT_INTO_STATS = "INSERT INTO " + TABLE_STATS + " (" + STATS_COLUMN_MATCH + ") VALUES (?)";
     public static final String UPDATE_STATS = "UPDATE " + TABLE_STATS + " SET " +
             STATS_COLUMN_PLAYER1_POINTS + " = ?," +
@@ -134,7 +137,9 @@ public class DataSource {
             STATS_COLUMN_PLAYER1_FAULTS_IN_ROW + " = ?," +
             STATS_COLUMN_PLAYER2_FAULTS_IN_ROW + " = ?," +
             STATS_COLUMN_PLAYER1_POINT_CONCEDED + " = ?," +
-            STATS_COLUMN_PLAYER2_POINT_CONCEDED + " = ? " +
+            STATS_COLUMN_PLAYER2_POINT_CONCEDED + " = ?, " +
+            STATS_COLUMN_TIE_BREAK_SERVER + " = ?," +
+            STATS_COLUMN_IS_TIE_BREAK_NOW + " = ? " +
             " WHERE " + STATS_COLUMN_MATCH + " = ?";
 
     public static final String QUERY_STATS = "SELECT " +
@@ -177,7 +182,10 @@ public class DataSource {
             STATS_COLUMN_PLAYER1_FAULTS_IN_ROW + "," +
             STATS_COLUMN_PLAYER2_FAULTS_IN_ROW + "," +
             STATS_COLUMN_PLAYER1_POINT_CONCEDED + "," +
-            STATS_COLUMN_PLAYER2_POINT_CONCEDED + " FROM " + TABLE_STATS + " WHERE " + STATS_COLUMN_MATCH + " = ?";
+            STATS_COLUMN_PLAYER2_POINT_CONCEDED + "," +
+            STATS_COLUMN_TIE_BREAK_SERVER + "," +
+            STATS_COLUMN_IS_TIE_BREAK_NOW +
+            " FROM " + TABLE_STATS + " WHERE " + STATS_COLUMN_MATCH + " = ?";
 
 
     private PreparedStatement insertIntoStats;
@@ -318,7 +326,9 @@ public class DataSource {
                         results.getInt(37),
                         results.getInt(38),
                         results.getInt(39),
-                        results.getInt(40)
+                        results.getInt(40),
+                        results.getInt(41),
+                        results.getInt(42)
                 );
                 return stats;
             }
@@ -617,7 +627,21 @@ public class DataSource {
             if(match.getCopiedPlayer2().isPointConceded()) updateStats.setInt(38,1);
             else updateStats.setInt(38,0);
 
-            updateStats.setInt(39, match.getID());
+            if(match.getTieBreakServer() != null){
+                updateStats.setInt(39, match.getTieBreakServer().getID());
+            }
+            else{
+                updateStats.setInt(39, -1);
+            }
+
+            if(match.isTieBreakNow()){
+                updateStats.setInt(40, 1);
+            }
+            else{
+                updateStats.setInt(40,0);
+            }
+
+            updateStats.setInt(41, match.getID());
 
 
             if(updateStats.executeUpdate() > 0) return 1;

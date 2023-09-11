@@ -288,50 +288,50 @@ public class MainWindowController {
         tennisCourt.setVisible(true);
 
 //         down there code to create matches in database, commented coz now there is no need to do so
-//        int grandSlam;
-//        String date = java.time.LocalDate.now().toString();
-//        if(data.getMatch().isGrandSlam()) {
-//            grandSlam = 1;
-//        }else{
-//            grandSlam = 0;
-//        }
-//
-//        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
-//        Alert alertError = new Alert(Alert.AlertType.ERROR);
-//        int matchID = dataSource.insertIntoMatches(dataSource.queryPlayerID(data.getMatch().getCopiedPlayer1().getSurname()),
-//                dataSource.queryPlayerID(data.getMatch().getCopiedPlayer2().getSurname()), date,
-//                grandSlam, data.getMatch().getSurface());
-//
-//        if(matchID != -1){
-//
-//            alertInfo.setTitle("Database information");
-//            alertInfo.setHeaderText(null);
-//            alertInfo.setContentText("Match successfully added to the database");
-//            alertInfo.showAndWait();
-//
-//            data.getMatch().setID(matchID);
-//
-//            int statsID = dataSource.insertIntoStats(matchID);
-//
-//            if(statsID != -1){
-//                alertInfo.setTitle("Database information");
-//                alertInfo.setHeaderText(null);
-//                alertInfo.setContentText("Stats successfully added to the database");
-//                alertInfo.showAndWait();
-//            }
-//            else{
-//                alertError.setTitle("Database information");
-//                alertError.setHeaderText(null);
-//                alertError.setContentText("Error occurred while adding stats to the database");
-//                alertError.showAndWait();
-//            }
-//        }
-//        else{
-//            alertError.setTitle("Database information");
-//            alertError.setHeaderText(null);
-//            alertError.setContentText("Error occurred while adding match to the database");
-//            alertError.showAndWait();
-//        }
+        int grandSlam;
+        String date = java.time.LocalDate.now().toString();
+        if(data.getMatch().isGrandSlam()) {
+            grandSlam = 1;
+        }else{
+            grandSlam = 0;
+        }
+
+        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
+        Alert alertError = new Alert(Alert.AlertType.ERROR);
+        int matchID = dataSource.insertIntoMatches(dataSource.queryPlayerID(data.getMatch().getCopiedPlayer1().getSurname()),
+                dataSource.queryPlayerID(data.getMatch().getCopiedPlayer2().getSurname()), date,
+                grandSlam, data.getMatch().getSurface());
+
+        if(matchID != -1){
+
+            alertInfo.setTitle("Database information");
+            alertInfo.setHeaderText(null);
+            alertInfo.setContentText("Match successfully added to the database");
+            alertInfo.showAndWait();
+
+            data.getMatch().setID(matchID);
+
+            int statsID = dataSource.insertIntoStats(matchID);
+
+            if(statsID != -1){
+                alertInfo.setTitle("Database information");
+                alertInfo.setHeaderText(null);
+                alertInfo.setContentText("Stats successfully added to the database");
+                alertInfo.showAndWait();
+            }
+            else{
+                alertError.setTitle("Database information");
+                alertError.setHeaderText(null);
+                alertError.setContentText("Error occurred while adding stats to the database");
+                alertError.showAndWait();
+            }
+        }
+        else{
+            alertError.setTitle("Database information");
+            alertError.setHeaderText(null);
+            alertError.setContentText("Error occurred while adding match to the database");
+            alertError.showAndWait();
+        }
 
         dataSource.close();
     }
@@ -1018,7 +1018,7 @@ public class MainWindowController {
 
         Stats stats = dataSource.queryStats(data.getMatchToResumeID());
 
-        Player.updateStatsAfterResume(stats, data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2());
+        Player.updateStatsAfterResume(stats, data.getMatch(), data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2());
 
         updateGraphicsAfterResume(data.getMatch());
 
@@ -1128,8 +1128,14 @@ public class MainWindowController {
         codeViolationLeft.setImage(getCodeViolationImage(match.getCopiedPlayer1().getCodeViolation()));
         codeViolationRight.setImage(getCodeViolationImage(match.getCopiedPlayer2().getCodeViolation()));
 
-        scoringLeft.setImage(get15_30_40Image(match.getCopiedPlayer1().getPoints(), match.getCopiedPlayer2().getPoints()));
-        scoringRight.setImage(get15_30_40Image(match.getCopiedPlayer2().getPoints(), match.getCopiedPlayer1().getPoints()));
+        if(!match.isTieBreakNow()){
+            scoringLeft.setImage(get15_30_40Image(match.getCopiedPlayer1().getPoints(), match.getCopiedPlayer2().getPoints()));
+            scoringRight.setImage(get15_30_40Image(match.getCopiedPlayer2().getPoints(), match.getCopiedPlayer1().getPoints()));
+        }
+        else{
+            scoringLeft.setImage(getTieBreakScoring(match.getCopiedPlayer1().getPoints()));
+            scoringRight.setImage(getTieBreakScoring(match.getCopiedPlayer2().getPoints()));
+        }
 
         switch(match.getCopiedPlayer1().getSets() + match.getCopiedPlayer2().getSets()){
             case 0 -> {
