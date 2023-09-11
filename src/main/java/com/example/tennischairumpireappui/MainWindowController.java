@@ -337,7 +337,7 @@ public class MainWindowController {
     }
 
     @FXML
-    private void handleEndMatchButton(){
+    private void onEndMatchButtonClick(){
 
         DataSingleton data = DataSingleton.getInstance();
 
@@ -375,6 +375,19 @@ public class MainWindowController {
                 data.getMatch().updateStats();
             }
 
+        }
+    }
+
+    @FXML
+    private void onSuspendMatchButtonClick() throws IOException{
+
+        Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.YES, ButtonType.CANCEL);
+        alert.setTitle("Match Suspension");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure to suspend match?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && result.get().equals(ButtonType.YES)){
+            onNewClick();
         }
     }
 
@@ -514,13 +527,6 @@ public class MainWindowController {
         else{
             System.out.println("Error onFaultClick");
         }
-    }
-
-    @FXML
-    private void onSaveClick(){
-        DataSingleton data = DataSingleton.getInstance();
-
-        data.getMatch().updateStats();
     }
 
 
@@ -745,6 +751,11 @@ public class MainWindowController {
     }
 
     @FXML
+    private void onSubtractPointClick(ActionEvent actionEvent){
+
+    }
+
+    @FXML
     private void onChallengeClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
 
@@ -936,7 +947,7 @@ public class MainWindowController {
     }
 
     @FXML
-    private void onNewClick(ActionEvent event) throws IOException {
+    private void onNewClick() throws IOException {
         DataSingleton dataSingleton = DataSingleton.getInstance();
         // castException....... why?!
 //        Node node = (Node) event.getSource();
@@ -944,6 +955,7 @@ public class MainWindowController {
 
 //        thisStage.close();
 
+        dataSingleton.getMatch().updateStats();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("first-window-dialog.fxml"));
         Parent root = loader.load();
@@ -954,6 +966,17 @@ public class MainWindowController {
         stage.show();
     }
 
+    @FXML
+    private void onLoadLick(ActionEvent event) throws IOException{
+        onNewClick();
+    }
+
+    @FXML
+    private void onSaveClick(){
+        DataSingleton data = DataSingleton.getInstance();
+
+        data.getMatch().updateStats();
+    }
 
     @FXML
     private void handleResumeMatchButton(ActionEvent event) {
@@ -1061,7 +1084,7 @@ public class MainWindowController {
             }
         }
 
-        if(data.getMatch().getCopiedPlayer1().getPoints() + data.getMatch().getCopiedPlayer2().getPoints() % 2 == 0){
+        if((data.getMatch().getCopiedPlayer1().getPoints() + data.getMatch().getCopiedPlayer2().getPoints()) % 2 == 0){
             leftDE.setVisible(true);
             leftAD.setVisible(false);
             rightDE.setVisible(true);

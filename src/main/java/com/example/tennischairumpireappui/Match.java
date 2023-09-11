@@ -9,7 +9,6 @@ import javafx.scene.layout.BorderPane;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -18,13 +17,15 @@ public class Match {
     private int ID;
     private Player copiedPlayer1;
     private Player copiedPlayer2;
+    private Player tieBreakServer;
     private int matchDuration;
-    private List<Game> games = new LinkedList<>();
+//    private List<Game> games = new LinkedList<>();
     private boolean grandSlam;
     private boolean gameOver;
     private boolean gameOverEarly;
     private boolean gameStarted;
     private String surface;
+    private boolean isTieBreakNow;
 
     @Override
     public String toString() {
@@ -44,12 +45,30 @@ public class Match {
         this.copiedPlayer2.setAvatar(player2.getAvatar());
         this.copiedPlayer2.setAvatarWithBall(player2.getAvatarWithBall());
         this.surface = surface;
+        this.isTieBreakNow = false;
+        this.tieBreakServer = null;
 
     }
 
     public Match(Player player1, Player player2, boolean isGrandSlam, String surface, boolean gameStarted){
         this(player1, player2, isGrandSlam, surface);
         this.gameStarted = gameStarted;
+    }
+
+    public Player getTieBreakServer() {
+        return tieBreakServer;
+    }
+
+    public void setTieBreakServer(Player tieBreakServer) {
+        this.tieBreakServer = tieBreakServer;
+    }
+
+    public boolean isTieBreakNow() {
+        return isTieBreakNow;
+    }
+
+    public void setTieBreakNow(boolean tieBreakNow) {
+        isTieBreakNow = tieBreakNow;
     }
 
     public int getID() {
@@ -84,13 +103,13 @@ public class Match {
         this.matchDuration = matchDuration;
     }
 
-    public List<Game> getGames() {
-        return games;
-    }
-
-    public void setGames(List<Game> games) {
-        this.games = games;
-    }
+//    public List<Game> getGames() {
+//        return games;
+//    }
+//
+//    public void setGames(List<Game> games) {
+//        this.games = games;
+//    }
 
     public boolean isGrandSlam() {
         return grandSlam;
@@ -141,7 +160,7 @@ public class Match {
     public String getScore(Player player1, Player player2){
         switch(player1.getSavedSets().size()){
             case 0->{
-                if(games.get(games.size()-1).isTieBreak()){
+                if(isTieBreakNow){
                     return "%-20s: %d %d\n%-20s: %d %d\n".formatted(player1.getFullName(),
                             player1.getGames(), player1.getPoints(),
 
@@ -158,7 +177,7 @@ public class Match {
 
             }
             case 1 ->{
-                if(games.get(games.size()-1).isTieBreak()){
+                if(isTieBreakNow){
                     return "%-20s: [%d] %d %d\n%-20s: [%d] %d %d\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getGames(),
                             player1.getPoints(),
@@ -179,7 +198,7 @@ public class Match {
 
             }
             case 2->{
-                if(games.get(games.size()-1).isTieBreak()){
+                if(isTieBreakNow){
                     return "%-20s: [%d %d] %d %d\n%-20s: [%d %d] %d %d\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getGames(), player1.getPoints(),
@@ -200,7 +219,7 @@ public class Match {
 
             }
             case 3 ->{
-                if(games.get(games.size()-1).isTieBreak()){
+                if(isTieBreakNow){
                     return "%-20s: [%d %d %d] %d %d\n%-20s: [%d %d %d] %d %d\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getSavedSets().get(2), player1.getGames(),
@@ -225,7 +244,7 @@ public class Match {
 
             }
             case 4->{
-                if(games.get(games.size()-1).isTieBreak()){
+                if(isTieBreakNow){
                     return "%-20s: [%d %d %d %d] %d %d\n%-20s: [%d %d %d %d] %d %d\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getSavedSets().get(2),player1.getSavedSets().get(3),
@@ -250,7 +269,7 @@ public class Match {
 
             }
             case 5->{
-                if(games.get(games.size()-1).isTieBreak()){
+                if(isTieBreakNow){
                     return "%-20s: [%d %d %d %d %d] %d %d\n%-20s: [%d %d %d %d %d] %d %d\n".formatted(player1.getFullName(),
                             player1.getSavedSets().get(0), player1.getSavedSets().get(1),
                             player1.getSavedSets().get(2), player1.getSavedSets().get(3),
@@ -288,16 +307,16 @@ public class Match {
         gameStarted = true;
         if(winner.getGames() == looser.getGames() && winner.getGames() == 6){
 
-            if(winner.getPoints() == 0 && looser.getPoints() == 0){
-                winner.incrementChallenges();
-                looser.incrementChallenges();
-                if(winner.isServing()){
-                    games.add(new Game (winner, true));
-                }
-                else{
-                    games.add(new Game(looser, true));
-                }
-            }
+//            if(winner.getPoints() == 0 && looser.getPoints() == 0){
+//                winner.incrementChallenges();
+//                looser.incrementChallenges();
+//                if(winner.isServing()){
+//                    games.add(new Game (winner, true));
+//                }
+//                else{
+//                    games.add(new Game(looser, true));
+//                }
+//            }
 
             winner.addPoint();
 
@@ -306,7 +325,7 @@ public class Match {
                 winner.setPoints(0); looser.setPoints(0);
                 winner.addGame();
 
-                games.get(games.size()-1).setWinner(winner);
+//                games.get(games.size()-1).setWinner(winner);
 
                 if(winner.isServing()){
                     winner.setServing(false);
@@ -333,14 +352,14 @@ public class Match {
         }
         else{
 
-            if(winner.getPoints() == 0 && looser.getPoints() == 0){
-                if(winner.isServing()){
-                    games.add(new Game (winner, false));
-                }
-                else{
-                    games.add(new Game(looser, false));
-                }
-            }
+//            if(winner.getPoints() == 0 && looser.getPoints() == 0){
+//                if(winner.isServing()){
+//                    games.add(new Game (winner, false));
+//                }
+//                else{
+//                    games.add(new Game(looser, false));
+//                }
+//            }
             winner.addPoint();
 
             if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 4){
@@ -348,7 +367,7 @@ public class Match {
                 winner.setPoints(0); looser.setPoints(0);
                 winner.addGame();
 
-                games.get(games.size()-1).setWinner(winner);
+//                games.get(games.size()-1).setWinner(winner);
 
                 if(winner.isServing()){
                     winner.setServing(false);
@@ -382,10 +401,13 @@ public class Match {
                          ImageView firstSet, ImageView secondSet, ImageView thirdSet,
                          ImageView fourthSet, ImageView fifthSet, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight,
                          BorderPane borderPane, ImageView challengeLeft, ImageView challengeRight, Menu match, Menu player1Menu, Menu player2Menu){
+
         gameStarted = true;
         winner.setFaultsInRow(0);
         looser.setFaultsInRow(0);
         winner.incrementTotalPoints();
+
+        // TIE BREAK SCENARIO
         if(winner.getGames() == looser.getGames() && winner.getGames() == 6){
 
             if(winner.getPoints() == 0 && looser.getPoints() == 0){
@@ -393,13 +415,24 @@ public class Match {
                 looser.incrementChallenges();
                 challengeLeft.setImage(MainWindowController.getChallengeImage(copiedPlayer1.getChallenges()));
                 challengeRight.setImage(MainWindowController.getChallengeImage(copiedPlayer2.getChallenges()));
+                isTieBreakNow = true;
 
                 if(winner.isServing()){
-                    games.add(new Game (winner, true));
+                    tieBreakServer = winner;
+                }
+                else if(looser.isServing()){
+                    tieBreakServer = looser;
                 }
                 else{
-                    games.add(new Game(looser, true));
+                    System.out.println("Error while setting tie break server");
                 }
+
+//                if(winner.isServing()){
+//                    games.add(new Game (winner, true));
+//                }
+//                else{
+//                    games.add(new Game(looser, true));
+//                }
             }
 
             winner.addPoint();
@@ -429,15 +462,23 @@ public class Match {
                 looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), winner.getPoints()));
 
                 winner.addGame();
+                isTieBreakNow = false;
                 changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
 
-                if(winner.isServing() && games.get(games.size()-1).getServer().equals(winner)){
+                if(tieBreakServer.equals(winner) && winner.isServing()){
                     changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
                     updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+                    winner.setServing(false);
+                    looser.setServing(true);
                 }
-                else if(looser.isServing() && games.get(games.size()-1).getServer().equals(looser)){
+                else if(tieBreakServer.equals(looser) && looser.isServing()){
                     changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
                     updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+                    looser.setServing(false);
+                    winner.setServing(true);
+                }
+                else{
+                    System.out.println("Change of server not needed");
                 }
                 changeSides(leftDE, leftAD, rightDE, rightAD);
                 resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
@@ -462,14 +503,14 @@ public class Match {
         }
         else{
 
-            if(winner.getPoints() == 0 && looser.getPoints() == 0){
-                if(winner.isServing()){
-                    games.add(new Game (winner, false));
-                }
-                else{
-                    games.add(new Game(looser, false));
-                }
-            }
+//            if(winner.getPoints() == 0 && looser.getPoints() == 0){
+//                if(winner.isServing()){
+//                    games.add(new Game (winner, false));
+//                }
+//                else{
+//                    games.add(new Game(looser, false));
+//                }
+//            }
 
             winner.addPoint();
             winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
@@ -517,22 +558,17 @@ public class Match {
             }
         }
 
-//        System.out.println(getScore(copiedPlayer1, copiedPlayer2));
-        System.out.println("Player1: ");
-        for(var sets : copiedPlayer1.getSavedSets()){
-            System.out.print(sets + " ");
-        }
-        System.out.println();
-        System.out.println("Player2: ");
-        for(var sets : copiedPlayer2.getSavedSets()){
-            System.out.print(sets + " ");
+        System.out.println(getScore(copiedPlayer1, copiedPlayer2));
+        System.out.println("isTieBreakNow: " + isTieBreakNow);
+        if(tieBreakServer != null){
+            System.out.println("TieBreak Server: " + tieBreakServer.getFullName());
         }
 
         if(winner.isServing()){
-            System.out.println(winner.getFullName() + " is serving");
+            System.out.println(winner.getFullName() + " is serving now");
         }
         else if(looser.isServing()){
-            System.out.println(looser.getFullName() + " is serving");
+            System.out.println(looser.getFullName() + " is serving now");
         }
         else{
             System.out.println("error");
@@ -824,6 +860,150 @@ public class Match {
         System.out.println("Enter surname of the player:");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+
+    // under construction
+    public void subtractPoint(Player winner, Player looser, ImageView winnerScoring, ImageView looserScoring,
+                         ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD,
+                         ImageView firstSet, ImageView secondSet, ImageView thirdSet,
+                         ImageView fourthSet, ImageView fifthSet, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight,
+                         BorderPane borderPane, ImageView challengeLeft, ImageView challengeRight, Menu match, Menu player1Menu, Menu player2Menu){
+        gameStarted = true;
+        winner.setFaultsInRow(0);
+        looser.setFaultsInRow(0);
+        winner.incrementTotalPoints();
+        if(winner.getGames() == looser.getGames() && winner.getGames() == 6){
+
+            if(winner.getPoints() == 0 && looser.getPoints() == 0){
+                winner.incrementChallenges();
+                looser.incrementChallenges();
+                challengeLeft.setImage(MainWindowController.getChallengeImage(copiedPlayer1.getChallenges()));
+                challengeRight.setImage(MainWindowController.getChallengeImage(copiedPlayer2.getChallenges()));
+
+//                if(winner.isServing()){
+//                    games.add(new Game (winner, true));
+//                }
+//                else{
+//                    games.add(new Game(looser, true));
+//                }
+            }
+
+            winner.addPoint();
+            winnerScoring.setImage(MainWindowController.getTieBreakScoring(winner.getPoints()));
+            changeDeuceAdvantageSides(leftDE, leftAD, rightDE, rightAD);
+            if((winner.getPoints() + looser.getPoints()) % 6 == 0) changeSides(leftDE, leftAD, rightDE, rightAD);
+
+
+            if((winner.getPoints() + looser.getPoints()) % 2 == 1){
+                changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
+                updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+                if(winner.isServing()){
+                    winner.setServing(false);
+                    looser.setServing(true);
+                }
+                else{
+                    winner.setServing(true);
+                    looser.setServing(false);
+                }
+            }
+
+
+            if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 7){
+
+                winner.setPoints(0); looser.setPoints(0);
+                winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
+                looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), winner.getPoints()));
+
+                winner.addGame();
+                changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
+
+//                if(winner.isServing() && games.get(games.size()-1).getServer().equals(winner)){
+//                    changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
+//                    updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+//                }
+//                else if(looser.isServing() && games.get(games.size()-1).getServer().equals(looser)){
+//                    changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
+//                    updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+//                }
+                changeSides(leftDE, leftAD, rightDE, rightAD);
+                resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
+
+//                games.get(games.size()-1).setWinner(winner);
+
+
+                if(winner.getGames() == 7){
+                    winner.getSavedSets().add(winner.getGames());
+                    looser.getSavedSets().add(looser.getGames());
+
+                    winner.setGames(0); looser.setGames(0);
+                    winner.addSet();
+
+                    if(winner.getSets() == ((grandSlam)? 3 : 2)){
+                        endMatch(winner, borderPane, List.of(match, player1Menu, player2Menu), false);
+                        updateStats();
+
+                    }
+                }
+            }
+        }
+        else{
+
+            if(winner.getPoints() == 0 && looser.getPoints() == 0){
+//                if(winner.isServing()){
+//                    games.add(new Game (winner, false));
+//                }
+//                else{
+//                    games.add(new Game(looser, false));
+//                }
+            }
+
+            winner.addPoint();
+            winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
+            looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), winner.getPoints()));
+            changeDeuceAdvantageSides(leftDE, leftAD, rightDE, rightAD);
+
+            if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 4){
+
+                winner.setPoints(0); looser.setPoints(0);
+                winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
+                looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), winner.getPoints()));
+
+                winner.addGame();
+                changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
+                changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
+                updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+                if((winner.getGames() + looser.getGames()) % 2 == 1){
+                    changeSides(leftDE, leftAD, rightDE, rightAD);
+                }
+                resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
+
+//                games.get(games.size()-1).setWinner(winner);
+
+                if(winner.isServing()){
+                    winner.setServing(false);
+                    looser.setServing(true);
+                }
+                else{
+                    winner.setServing(true);
+                    looser.setServing(false);
+                }
+
+                if(winner.getGames() - looser.getGames() >= 2 && winner.getGames() >= 6){
+                    winner.getSavedSets().add(winner.getGames());
+                    looser.getSavedSets().add(looser.getGames());
+
+                    winner.setGames(0); looser.setGames(0);
+                    winner.addSet();
+
+                    if(winner.getSets() == ((grandSlam)? 3 : 2)){
+                        endMatch(winner, borderPane, List.of(match, player1Menu, player2Menu), false);
+                        updateStats();
+                    }
+                }
+            }
+        }
+
     }
 
 

@@ -24,6 +24,9 @@ public class Player {
     private int sets;
     private int games;
     private int points;
+    private int pointBackUp;
+    private int gamesBackUp;
+    private int setsBackUp;
     private int totalPoints;
     private int doubleFaults;
     private int challenges;
@@ -108,6 +111,29 @@ public class Player {
         this.codeViolation = codeViolations;
     }
 
+    public int getPointBackUp() {
+        return pointBackUp;
+    }
+
+    public void setPointBackUp(int pointBackUp) {
+        this.pointBackUp = pointBackUp;
+    }
+
+    public int getGamesBackUp() {
+        return gamesBackUp;
+    }
+
+    public void setGamesBackUp(int gamesBackUp) {
+        this.gamesBackUp = gamesBackUp;
+    }
+
+    public int getSetsBackUp() {
+        return setsBackUp;
+    }
+
+    public void setSetsBackUp(int setsBackUp) {
+        this.setsBackUp = setsBackUp;
+    }
 
     public boolean isRetired() {
         return retired;
