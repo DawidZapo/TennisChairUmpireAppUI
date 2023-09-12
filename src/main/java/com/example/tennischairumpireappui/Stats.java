@@ -8,7 +8,8 @@ public class Stats {
     player1Challenges, player2Challenges, player1TimeViolations, player2TimeViolations, player1CodeViolations, player2CodeViolations,
     player1FirstSet, player2FirstSet, player1SecondSet, player2SecondSet, player1ThirdSet, player2ThirdSet, player1FourthSet, player2FourthSet,
     player1FifthSet, player2FifthSet, player1TotalPoints, player2TotalPoints, player1DoubleFaults, player2DoubleFaults, player1FaultsInRow, player2FaultsInRow,
-    player1PointConceded, player2PointConceded, tieBreakServer, isTieBreakNow;
+    player1PointConceded, player2PointConceded, tieBreakServer, isTieBreakNow, player1PointsBackUp, player2PointsBackUp, player1GamesBackUp, player2GamesBackUp,
+    player1SetsBackUp, player2SetsBackUp;
 
     public Stats(int ID, int matchID, int player1Points, int player2Points, int player1Games, int player2Games,
                  int player1Sets, int player2Sets, int player1Serving, int player2Serving, int player1Retired, int player2Retired,
@@ -18,7 +19,9 @@ public class Stats {
                  int player1SecondSet, int player2SecondSet, int player1ThirdSet, int player2ThirdSet,
                  int player1FourthSet, int player2FourthSet, int player1FifthSet, int player2FifthSet,
                  int player1TotalPoints, int player2TotalPoints, int player1DoubleFaults, int player2DoubleFaults,
-                 int player1FaultsInRow, int player2FaultsInRow, int player1PointConceded, int player2PointConceded, int tieBreakServer, int isTieBreakNow) {
+                 int player1FaultsInRow, int player2FaultsInRow, int player1PointConceded, int player2PointConceded, int tieBreakServer, int isTieBreakNow,
+                 int player1PointsBackUp, int player2PointsBackUp, int player1GamesBackUp, int player2GamesBackUp,
+                 int player1SetsBackUp, int player2SetsBackUp) {
         this.ID = ID;
         this.matchID = matchID;
         this.player1Points = player1Points;
@@ -61,6 +64,12 @@ public class Stats {
         this.player2PointConceded = player2PointConceded;
         this.tieBreakServer = tieBreakServer;
         this.isTieBreakNow = isTieBreakNow;
+        this.player1PointsBackUp = player1PointsBackUp;
+        this.player2PointsBackUp = player2PointsBackUp;
+        this.player1GamesBackUp = player1GamesBackUp;
+        this.player2GamesBackUp = player2GamesBackUp;
+        this.player1SetsBackUp = player1SetsBackUp;
+        this.player2SetsBackUp = player2SetsBackUp;
     }
 
     public int getID() {
@@ -71,7 +80,29 @@ public class Stats {
         return matchID;
     }
 
+    public int getPlayer1PointsBackUp() {
+        return player1PointsBackUp;
+    }
 
+    public int getPlayer2PointsBackUp() {
+        return player2PointsBackUp;
+    }
+
+    public int getPlayer1GamesBackUp() {
+        return player1GamesBackUp;
+    }
+
+    public int getPlayer2GamesBackUp() {
+        return player2GamesBackUp;
+    }
+
+    public int getPlayer1SetsBackUp() {
+        return player1SetsBackUp;
+    }
+
+    public int getPlayer2SetsBackUp() {
+        return player2SetsBackUp;
+    }
 
     public int getPlayer1Points() {
         return player1Points;

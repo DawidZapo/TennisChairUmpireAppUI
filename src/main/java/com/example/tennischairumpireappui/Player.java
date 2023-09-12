@@ -24,7 +24,7 @@ public class Player {
     private int sets;
     private int games;
     private int points;
-    private int pointBackUp;
+    private int pointsBackUp;
     private int gamesBackUp;
     private int setsBackUp;
     private int totalPoints;
@@ -61,6 +61,9 @@ public class Player {
         this.sets = 0;
         this.games = 0;
         this.points = 0;
+        this.pointsBackUp = 0;
+        this.gamesBackUp = 0;
+        this.setsBackUp = 0;
         this.totalPoints = 0;
         this.doubleFaults = 0;
         this.timeViolation = 0;
@@ -111,12 +114,12 @@ public class Player {
         this.codeViolation = codeViolations;
     }
 
-    public int getPointBackUp() {
-        return pointBackUp;
+    public int getPointsBackUp() {
+        return pointsBackUp;
     }
 
-    public void setPointBackUp(int pointBackUp) {
-        this.pointBackUp = pointBackUp;
+    public void setPointsBackUp(int pointsBackUp) {
+        this.pointsBackUp = pointsBackUp;
     }
 
     public int getGamesBackUp() {
@@ -389,6 +392,9 @@ public class Player {
         player1.setDoubleFaults(stats.getPlayer1DoubleFaults());
         player1.setFaultsInRow(stats.getPlayer1FaultsInRow());
         player1.setPointConceded(stats.getPlayer1PointConceded() == 1);
+        player1.setPointsBackUp(stats.getPlayer1PointsBackUp());
+        player1.setGamesBackUp(stats.getPlayer1GamesBackUp());
+        player1.setSetsBackUp(stats.getPlayer1SetsBackUp());
 
         player2.setPoints(stats.getPlayer2Points());
         player2.setGames(stats.getPlayer2Games());
@@ -404,6 +410,9 @@ public class Player {
         player2.setDoubleFaults(stats.getPlayer2DoubleFaults());
         player2.setFaultsInRow(stats.getPlayer2FaultsInRow());
         player2.setPointConceded(stats.getPlayer2PointConceded() == 1);
+        player2.setPointsBackUp(stats.getPlayer2PointsBackUp());
+        player2.setGamesBackUp(stats.getPlayer2GamesBackUp());
+        player2.setSetsBackUp(stats.getPlayer2SetsBackUp());
 
         match.setTieBreakNow(stats.getIsTieBreakNow() == 1);
 

@@ -24,7 +24,7 @@
          </Menu>
          <Menu fx:id="player1Menu" text="Player 1">
             <MenuItem fx:id="menuItemPlayer1AddPoint" text="Add Point" onAction="#onAddPointClick" />
-            <MenuItem fx:id="menuItemPlayer1SubtractPoint" text="Subtract" />
+<!--            <MenuItem fx:id="menuItemPlayer1SubtractPoint" text="Subtract" />-->
             <MenuItem fx:id="menuItemPlayer1MedTimeOut" text="Medical Time-out" onAction="#onMedicalTimeOutClick" />
             <MenuItem fx:id="menuItemPlayer1Hindrance" text="Hindrance" onAction="#onHindranceClick"/>
             <MenuItem fx:id="menuItemPlayer1Challenge" text="Challenge" onAction="#onChallengeClick"/>
@@ -33,7 +33,7 @@
          </Menu>
          <Menu fx:id="player2Menu" text="Player 2">
             <MenuItem fx:id="menuItemPlayer2AddPoint" text="Add Point" onAction="#onAddPointClick" />
-            <MenuItem fx:id="menuItemPlayer2SubtractPoint" text="Subtract" />
+<!--            <MenuItem fx:id="menuItemPlayer2SubtractPoint" text="Subtract" />-->
             <MenuItem fx:id="menuItemPlayer2MedTimeOut" text="Medical Time-out" onAction="#onMedicalTimeOutClick" />
             <MenuItem fx:id="menuItemPlayer2Hindrance" text="Hindrance" onAction="#onHindranceClick"/>
             <MenuItem fx:id="menuItemPlayer2Challenge" text="Challenge" onAction="#onChallengeClick"/>
@@ -309,17 +309,17 @@
                   </Button>
                </HBox>
 
-               <HBox>
-                  <Button fx:id="player1SubtractPoint" alignment="CENTER" prefHeight="31.0" prefWidth="209.0" text="Subtract point">
-                     <style>
-                        -fx-font-size: 14px;
-                        -fx-padding: 5px 10px;
-                        -fx-background-color: #AAAAAA;
-                        -fx-text-fill: white;
-                        -fx-border-radius: 5px;
-                     </style>
-                  </Button>
-               </HBox>
+<!--               <HBox>-->
+<!--                  <Button fx:id="player1SubtractPoint" alignment="CENTER" prefHeight="31.0" prefWidth="209.0" text="Subtract point">-->
+<!--                     <style>-->
+<!--                        -fx-font-size: 14px;-->
+<!--                        -fx-padding: 5px 10px;-->
+<!--                        -fx-background-color: #AAAAAA;-->
+<!--                        -fx-text-fill: white;-->
+<!--                        -fx-border-radius: 5px;-->
+<!--                     </style>-->
+<!--                  </Button>-->
+<!--               </HBox>-->
 
                <HBox>
                   <VBox>
@@ -492,17 +492,17 @@
                   </Button>
                </HBox>
 
-               <HBox>
-                  <Button fx:id="player2SubtractPoint" alignment="CENTER" prefHeight="31.0" prefWidth="209.0" text="Subtract point">
-                     <style>
-                        -fx-font-size: 14px;
-                        -fx-padding: 5px 10px;
-                        -fx-background-color: #AAAAAA;
-                        -fx-text-fill: white;
-                        -fx-border-radius: 5px;
-                     </style>
-                  </Button>
-               </HBox>
+<!--               <HBox>-->
+<!--                  <Button fx:id="player2SubtractPoint" alignment="CENTER" prefHeight="31.0" prefWidth="209.0" text="Subtract point">-->
+<!--                     <style>-->
+<!--                        -fx-font-size: 14px;-->
+<!--                        -fx-padding: 5px 10px;-->
+<!--                        -fx-background-color: #AAAAAA;-->
+<!--                        -fx-text-fill: white;-->
+<!--                        -fx-border-radius: 5px;-->
+<!--                     </style>-->
+<!--                  </Button>-->
+<!--               </HBox>-->
 
                <HBox alignment="CENTER_RIGHT">
                   <VBox>

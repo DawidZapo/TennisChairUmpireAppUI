@@ -407,6 +407,15 @@ public class Match {
         looser.setFaultsInRow(0);
         winner.incrementTotalPoints();
 
+        winner.setPointsBackUp(winner.getPoints());
+        looser.setPointsBackUp(looser.getPoints());
+
+        winner.setGamesBackUp(winner.getGames());
+        looser.setGamesBackUp(looser.getGames());
+
+        winner.setSetsBackUp(winner.getSets());
+        looser.setSetsBackUp(looser.getSets());
+
         // TIE BREAK SCENARIO
         if(winner.getGames() == looser.getGames() && winner.getGames() == 6){
 
@@ -578,6 +587,9 @@ public class Match {
         else{
             System.out.println("error");
         }
+
+        System.out.println("BackUp player1: %d : %d : %d".formatted(copiedPlayer1.getPointsBackUp(), copiedPlayer1.getGamesBackUp(), copiedPlayer1.getSetsBackUp()) );
+        System.out.println("BackUp player2: %d : %d : %d".formatted(copiedPlayer2.getPointsBackUp(), copiedPlayer2.getGamesBackUp(), copiedPlayer2.getSetsBackUp()) );
     }
 
     public void showEndOfGameMessage(Player winner, BorderPane borderPane, List<Menu> menus){
@@ -869,147 +881,128 @@ public class Match {
 
 
     // under construction
-    public void subtractPoint(Player winner, Player looser, ImageView winnerScoring, ImageView looserScoring,
-                         ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD,
-                         ImageView firstSet, ImageView secondSet, ImageView thirdSet,
-                         ImageView fourthSet, ImageView fifthSet, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight,
-                         BorderPane borderPane, ImageView challengeLeft, ImageView challengeRight, Menu match, Menu player1Menu, Menu player2Menu){
-        gameStarted = true;
-        winner.setFaultsInRow(0);
-        looser.setFaultsInRow(0);
-        winner.incrementTotalPoints();
-        if(winner.getGames() == looser.getGames() && winner.getGames() == 6){
+    public void replayPoint(Player player1, Player player2, ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight){
 
-            if(winner.getPoints() == 0 && looser.getPoints() == 0){
-                winner.incrementChallenges();
-                looser.incrementChallenges();
-                challengeLeft.setImage(MainWindowController.getChallengeImage(copiedPlayer1.getChallenges()));
-                challengeRight.setImage(MainWindowController.getChallengeImage(copiedPlayer2.getChallenges()));
+            if(!isTieBreakNow){
+                if((player1.getPoints() + player2.getPoints()) != 0){
+                    changeDeuceAdvantageSides(leftDE, leftAD, rightDE, rightAD);
 
-//                if(winner.isServing()){
-//                    games.add(new Game (winner, true));
-//                }
-//                else{
-//                    games.add(new Game(looser, true));
-//                }
-            }
-
-            winner.addPoint();
-            winnerScoring.setImage(MainWindowController.getTieBreakScoring(winner.getPoints()));
-            changeDeuceAdvantageSides(leftDE, leftAD, rightDE, rightAD);
-            if((winner.getPoints() + looser.getPoints()) % 6 == 0) changeSides(leftDE, leftAD, rightDE, rightAD);
-
-
-            if((winner.getPoints() + looser.getPoints()) % 2 == 1){
-                changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
-                updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
-                if(winner.isServing()){
-                    winner.setServing(false);
-                    looser.setServing(true);
+                    player1.setPoints(player1.getPointsBackUp());
+                    player2.setPoints(player2.getPointsBackUp());
                 }
                 else{
-                    winner.setServing(true);
-                    looser.setServing(false);
-                }
-            }
 
+                    if(player1.isServing()){
+                        player1.setServing(false);
+                        player2.setServing(true);
+                    }
+                    else if(player2.isServing()){
+                        player1.setServing(true);
+                        player2.setServing(false);
+                    }
+                    else{
+                        System.out.println("No-one is serving?");
+                    }
 
-            if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 7){
+                    changeServer(player1, player2, servingBallGraphicLeft, servingBallGraphicRight);
+                    updateAvatar(player1, player2, leftDE ,leftAD, rightDE, rightAD);
 
-                winner.setPoints(0); looser.setPoints(0);
-                winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
-                looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), winner.getPoints()));
+                    if((player1.getGames() + player2.getGames()) != 0){
+                        player1.setPoints(player1.getPointsBackUp());
+                        player2.setPoints(player2.getPointsBackUp());
 
-                winner.addGame();
-                changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
+                        player1.setGames(player1.getGamesBackUp());
+                        player2.setGames(player2.getGamesBackUp());
 
-//                if(winner.isServing() && games.get(games.size()-1).getServer().equals(winner)){
-//                    changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
-//                    updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
-//                }
-//                else if(looser.isServing() && games.get(games.size()-1).getServer().equals(looser)){
-//                    changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
-//                    updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
-//                }
-                changeSides(leftDE, leftAD, rightDE, rightAD);
-                resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
-
-//                games.get(games.size()-1).setWinner(winner);
-
-
-                if(winner.getGames() == 7){
-                    winner.getSavedSets().add(winner.getGames());
-                    looser.getSavedSets().add(looser.getGames());
-
-                    winner.setGames(0); looser.setGames(0);
-                    winner.addSet();
-
-                    if(winner.getSets() == ((grandSlam)? 3 : 2)){
-                        endMatch(winner, borderPane, List.of(match, player1Menu, player2Menu), false);
-                        updateStats();
 
                     }
+                    else{
+
+                        if((player1.getSets() + player2.getSets()) != 0){
+                            player1.setPoints(player1.getPointsBackUp());
+                            player2.setPoints(player2.getPointsBackUp());
+
+                            player1.setGames(player1.getGamesBackUp());
+                            player2.setGames(player2.getGamesBackUp());
+
+                            player1.setSets(player1.getSetsBackUp());
+                            player2.setSets(player2.getSetsBackUp());
+
+                            player1.getSavedSets().remove(player1.getSavedSets().size()-1);
+                            player2.getSavedSets().remove(player2.getSavedSets().size()-1);
+                        }
+                        else{
+                            System.out.println("First point?????");
+                        }
+                    }
+
+                    if((player1.getGames() + player2.getGames()) % 2 == 0){
+                        changeSides(leftDE, leftAD, rightDE, rightAD);
+                    }
+
+                    if((player1.getPoints() + player2.getPoints()) % 2 == 0){
+                        leftDE.setVisible(true);
+                        leftAD.setVisible(false);
+                        rightDE.setVisible(true);
+                        rightAD.setVisible(false);
+                    }
+                    else{
+                        leftDE.setVisible(false);
+                        leftAD.setVisible(true);
+                        rightDE.setVisible(false);
+                        rightAD.setVisible(true);
+                    }
+
                 }
             }
-        }
-        else{
+            else{
+                if((player1.getPoints() + player2.getPoints()) != 0){
+                    changeDeuceAdvantageSides(leftDE, leftAD, rightDE, rightAD);
 
-            if(winner.getPoints() == 0 && looser.getPoints() == 0){
-//                if(winner.isServing()){
-//                    games.add(new Game (winner, false));
-//                }
-//                else{
-//                    games.add(new Game(looser, false));
-//                }
-            }
+                    player1.setPoints(player1.getPointsBackUp());
+                    player2.setPoints(player2.getPointsBackUp());
 
-            winner.addPoint();
-            winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
-            looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), winner.getPoints()));
-            changeDeuceAdvantageSides(leftDE, leftAD, rightDE, rightAD);
-
-            if(winner.getPoints()-looser.getPoints() >= 2 && winner.getPoints() >= 4){
-
-                winner.setPoints(0); looser.setPoints(0);
-                winnerScoring.setImage(MainWindowController.get15_30_40Image(winner.getPoints(), looser.getPoints()));
-                looserScoring.setImage(MainWindowController.get15_30_40Image(looser.getPoints(), winner.getPoints()));
-
-                winner.addGame();
-                changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
-                changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
-                updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
-                if((winner.getGames() + looser.getGames()) % 2 == 1){
-                    changeSides(leftDE, leftAD, rightDE, rightAD);
-                }
-                resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
-
-//                games.get(games.size()-1).setWinner(winner);
-
-                if(winner.isServing()){
-                    winner.setServing(false);
-                    looser.setServing(true);
+                    if((player1.getPoints()+player2.getPoints()) % 2 == 0){
+                        changeServer(player1, player2, servingBallGraphicLeft, servingBallGraphicRight);
+                        updateAvatar(player1, player2, leftDE ,leftAD, rightDE, rightAD);
+                    }
+                    if((player1.getPoints()+player2.getPoints()) % 6 == 5){
+                        changeSides(leftDE, leftAD, rightDE, rightAD);
+                    }
                 }
                 else{
-                    winner.setServing(true);
-                    looser.setServing(false);
-                }
+                    isTieBreakNow = false;
+                    player1.setPoints(player1.getPointsBackUp());
+                    player2.setPoints(player2.getPointsBackUp());
 
-                if(winner.getGames() - looser.getGames() >= 2 && winner.getGames() >= 6){
-                    winner.getSavedSets().add(winner.getGames());
-                    looser.getSavedSets().add(looser.getGames());
+                    player1.setGames(player1.getGamesBackUp());
+                    player2.setGames(player2.getGamesBackUp());
 
-                    winner.setGames(0); looser.setGames(0);
-                    winner.addSet();
-
-                    if(winner.getSets() == ((grandSlam)? 3 : 2)){
-                        endMatch(winner, borderPane, List.of(match, player1Menu, player2Menu), false);
-                        updateStats();
+                    if(player1.isServing()){
+                        player1.setServing(false);
+                        player2.setServing(true);
                     }
+                    else if(player2.isServing()){
+                        player1.setServing(true);
+                        player2.setServing(false);
+                    }
+                    else{
+                        System.out.println("no-one is serving lol");
+                    }
+                    changeServer(player1, player2, servingBallGraphicLeft, servingBallGraphicRight);
+                    updateAvatar(player1, player2, leftDE ,leftAD, rightDE, rightAD);
+
                 }
             }
-        }
+
+
+
+        System.out.println("BackUp player1: %d : %d : %d".formatted(copiedPlayer1.getPointsBackUp(), copiedPlayer1.getGamesBackUp(), copiedPlayer1.getSetsBackUp()) );
+        System.out.println("BackUp player2: %d : %d : %d".formatted(copiedPlayer2.getPointsBackUp(), copiedPlayer2.getGamesBackUp(), copiedPlayer2.getSetsBackUp()) );
+
 
     }
+
 
 
 }

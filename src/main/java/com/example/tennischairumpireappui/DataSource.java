@@ -98,6 +98,12 @@ public class DataSource {
 
     public static final String STATS_COLUMN_TIE_BREAK_SERVER = "tieBreakServer";
     public static final String STATS_COLUMN_IS_TIE_BREAK_NOW = "isTieBreakNow";
+    public static final String STATS_COLUMN_PLAYER1_POINTS_BACKUP = "player1PointsBackUp";
+    public static final String STATS_COLUMN_PLAYER2_POINTS_BACKUP = "player2PointsBackUp";
+    public static final String STATS_COLUMN_PLAYER1_GAMES_BACKUP = "player1GamesBackUp";
+    public static final String STATS_COLUMN_PLAYER2_GAMES_BACKUP = "player2GamesBackUp";
+    public static final String STATS_COLUMN_PLAYER1_SETS_BACKUP = "player1SetsBackUp";
+    public static final String STATS_COLUMN_PLAYER2_SETS_BACKUP = "player2SetsBackUp";
     public static final String INSERT_INTO_STATS = "INSERT INTO " + TABLE_STATS + " (" + STATS_COLUMN_MATCH + ") VALUES (?)";
     public static final String UPDATE_STATS = "UPDATE " + TABLE_STATS + " SET " +
             STATS_COLUMN_PLAYER1_POINTS + " = ?," +
@@ -138,8 +144,14 @@ public class DataSource {
             STATS_COLUMN_PLAYER2_FAULTS_IN_ROW + " = ?," +
             STATS_COLUMN_PLAYER1_POINT_CONCEDED + " = ?," +
             STATS_COLUMN_PLAYER2_POINT_CONCEDED + " = ?, " +
-            STATS_COLUMN_TIE_BREAK_SERVER + " = ?," +
-            STATS_COLUMN_IS_TIE_BREAK_NOW + " = ? " +
+            STATS_COLUMN_TIE_BREAK_SERVER + " = ?, " +
+            STATS_COLUMN_IS_TIE_BREAK_NOW + " = ?, " +
+            STATS_COLUMN_PLAYER1_POINTS_BACKUP + " = ?, " +
+            STATS_COLUMN_PLAYER2_POINTS_BACKUP + " = ?, " +
+            STATS_COLUMN_PLAYER1_GAMES_BACKUP + " = ?, " +
+            STATS_COLUMN_PLAYER2_GAMES_BACKUP + " = ?, " +
+            STATS_COLUMN_PLAYER1_SETS_BACKUP + " = ?, " +
+            STATS_COLUMN_PLAYER2_SETS_BACKUP + " = ? " +
             " WHERE " + STATS_COLUMN_MATCH + " = ?";
 
     public static final String QUERY_STATS = "SELECT " +
@@ -184,7 +196,13 @@ public class DataSource {
             STATS_COLUMN_PLAYER1_POINT_CONCEDED + "," +
             STATS_COLUMN_PLAYER2_POINT_CONCEDED + "," +
             STATS_COLUMN_TIE_BREAK_SERVER + "," +
-            STATS_COLUMN_IS_TIE_BREAK_NOW +
+            STATS_COLUMN_IS_TIE_BREAK_NOW + "," +
+            STATS_COLUMN_PLAYER1_POINTS_BACKUP + "," +
+            STATS_COLUMN_PLAYER2_POINTS_BACKUP + "," +
+            STATS_COLUMN_PLAYER1_GAMES_BACKUP + "," +
+            STATS_COLUMN_PLAYER2_GAMES_BACKUP + "," +
+            STATS_COLUMN_PLAYER1_SETS_BACKUP + "," +
+            STATS_COLUMN_PLAYER2_SETS_BACKUP +
             " FROM " + TABLE_STATS + " WHERE " + STATS_COLUMN_MATCH + " = ?";
 
 
@@ -328,7 +346,13 @@ public class DataSource {
                         results.getInt(39),
                         results.getInt(40),
                         results.getInt(41),
-                        results.getInt(42)
+                        results.getInt(42),
+                        results.getInt(43),
+                        results.getInt(44),
+                        results.getInt(45),
+                        results.getInt(46),
+                        results.getInt(47),
+                        results.getInt(48)
                 );
                 return stats;
             }
@@ -641,7 +665,14 @@ public class DataSource {
                 updateStats.setInt(40,0);
             }
 
-            updateStats.setInt(41, match.getID());
+            updateStats.setInt(41, match.getCopiedPlayer1().getPointsBackUp());
+            updateStats.setInt(42, match.getCopiedPlayer2().getPointsBackUp());
+            updateStats.setInt(43, match.getCopiedPlayer1().getGamesBackUp());
+            updateStats.setInt(44, match.getCopiedPlayer2().getGamesBackUp());
+            updateStats.setInt(45, match.getCopiedPlayer1().getSetsBackUp());
+            updateStats.setInt(46, match.getCopiedPlayer2().getSetsBackUp());
+
+            updateStats.setInt(47, match.getID());
 
 
             if(updateStats.executeUpdate() > 0) return 1;

@@ -91,8 +91,8 @@ public class MainWindowController {
     @FXML
     public Label heightLeft, heightRight;
     @FXML
-    public Button player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation, player1MedicalTimeOut, player1Hindrance,
-            player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation, player2MedicalTimeOut, player2Hindrance,
+    public Button player1AddPoint, player1Challenge, player1CodeViolation, player1TimeViolation, player1MedicalTimeOut, player1Hindrance,
+            player2AddPoint, player2Challenge, player2CodeViolation, player2TimeViolation, player2MedicalTimeOut, player2Hindrance,
             aceButton, faultButton, letButton, suspendMatch, endMatch, resumeMatchButton;
     @FXML
     private ImageView leftAD, leftDE, rightAD, rightDE, scoringLeft, scoringRight,
@@ -101,9 +101,9 @@ public class MainWindowController {
             challengeLeft, codeViolationLeft, timeViolationLeft,
             challengeRight, codeViolationRight, timeViolationRight;
     @FXML
-    private MenuItem menuItemPlayer1AddPoint, menuItemPlayer1SubtractPoint, menuItemPlayer1MedTimeOut, menuItemPlayer1Hindrance,
+    private MenuItem menuItemPlayer1AddPoint, menuItemPlayer1MedTimeOut, menuItemPlayer1Hindrance,
             menuItemPlayer1Challenge, menuItemPlayer1TimeViolation, menuItemPlayer1CodeViolation,
-            menuItemPlayer2AddPoint, menuItemPlayer2SubtractPoint, menuItemPlayer2MedTimeOut, menuItemPlayer2Hindrance,
+            menuItemPlayer2AddPoint, menuItemPlayer2MedTimeOut, menuItemPlayer2Hindrance,
             menuItemPlayer2Challenge, menuItemPlayer2TimeViolation, menuItemPlayer2CodeViolation, hindrance;
     @FXML
     private MenuBar menuBar;
@@ -112,8 +112,8 @@ public class MainWindowController {
     public void initialize() throws IOException {
 
         List<Control> controls = new ArrayList<>();
-        controls.addAll(List.of(player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
-                player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
+        controls.addAll(List.of(player1AddPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
+                player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
                 player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch, menuBar));
         controls.forEach(s -> s.setDisable(true));
 
@@ -280,58 +280,58 @@ public class MainWindowController {
         }
 
         List<Control> listOfControls = new ArrayList<>();
-        listOfControls.addAll(List.of(player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
-                player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
+        listOfControls.addAll(List.of(player1AddPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
+                player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
                 player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch, menuBar));
         listOfControls.forEach(s -> s.setDisable(false));
 
         tennisCourt.setVisible(true);
 
 //         down there code to create matches in database, commented coz now there is no need to do so
-        int grandSlam;
-        String date = java.time.LocalDate.now().toString();
-        if(data.getMatch().isGrandSlam()) {
-            grandSlam = 1;
-        }else{
-            grandSlam = 0;
-        }
-
-        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
-        Alert alertError = new Alert(Alert.AlertType.ERROR);
-        int matchID = dataSource.insertIntoMatches(dataSource.queryPlayerID(data.getMatch().getCopiedPlayer1().getSurname()),
-                dataSource.queryPlayerID(data.getMatch().getCopiedPlayer2().getSurname()), date,
-                grandSlam, data.getMatch().getSurface());
-
-        if(matchID != -1){
-
-            alertInfo.setTitle("Database information");
-            alertInfo.setHeaderText(null);
-            alertInfo.setContentText("Match successfully added to the database");
-            alertInfo.showAndWait();
-
-            data.getMatch().setID(matchID);
-
-            int statsID = dataSource.insertIntoStats(matchID);
-
-            if(statsID != -1){
-                alertInfo.setTitle("Database information");
-                alertInfo.setHeaderText(null);
-                alertInfo.setContentText("Stats successfully added to the database");
-                alertInfo.showAndWait();
-            }
-            else{
-                alertError.setTitle("Database information");
-                alertError.setHeaderText(null);
-                alertError.setContentText("Error occurred while adding stats to the database");
-                alertError.showAndWait();
-            }
-        }
-        else{
-            alertError.setTitle("Database information");
-            alertError.setHeaderText(null);
-            alertError.setContentText("Error occurred while adding match to the database");
-            alertError.showAndWait();
-        }
+//        int grandSlam;
+//        String date = java.time.LocalDate.now().toString();
+//        if(data.getMatch().isGrandSlam()) {
+//            grandSlam = 1;
+//        }else{
+//            grandSlam = 0;
+//        }
+//
+//        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
+//        Alert alertError = new Alert(Alert.AlertType.ERROR);
+//        int matchID = dataSource.insertIntoMatches(dataSource.queryPlayerID(data.getMatch().getCopiedPlayer1().getSurname()),
+//                dataSource.queryPlayerID(data.getMatch().getCopiedPlayer2().getSurname()), date,
+//                grandSlam, data.getMatch().getSurface());
+//
+//        if(matchID != -1){
+//
+//            alertInfo.setTitle("Database information");
+//            alertInfo.setHeaderText(null);
+//            alertInfo.setContentText("Match successfully added to the database");
+//            alertInfo.showAndWait();
+//
+//            data.getMatch().setID(matchID);
+//
+//            int statsID = dataSource.insertIntoStats(matchID);
+//
+//            if(statsID != -1){
+//                alertInfo.setTitle("Database information");
+//                alertInfo.setHeaderText(null);
+//                alertInfo.setContentText("Stats successfully added to the database");
+//                alertInfo.showAndWait();
+//            }
+//            else{
+//                alertError.setTitle("Database information");
+//                alertError.setHeaderText(null);
+//                alertError.setContentText("Error occurred while adding stats to the database");
+//                alertError.showAndWait();
+//            }
+//        }
+//        else{
+//            alertError.setTitle("Database information");
+//            alertError.setHeaderText(null);
+//            alertError.setContentText("Error occurred while adding match to the database");
+//            alertError.showAndWait();
+//        }
 
         dataSource.close();
     }
@@ -626,6 +626,8 @@ public class MainWindowController {
 
     private void handleChallenge(Player player, ImageView challenge){
 
+        DataSingleton data = DataSingleton.getInstance();
+
         if(player.getChallenges() > 0){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
             alert.setTitle("Challenge");
@@ -642,6 +644,8 @@ public class MainWindowController {
 
                 if(result2.isPresent() && result2.get().equals(ButtonType.YES)){
                     // !!!!! FUNCTION TO REPLAY THE POINT !!!!!!!!!!!
+                    data.getMatch().replayPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(), leftDE, leftAD, rightDE, rightAD, servingBallGraphicLeft, servingBallGraphicRight);
+                    updateGraphicsAfterResume(data.getMatch());
                     System.out.println("Function to replay the point");
                 }
 
@@ -752,7 +756,19 @@ public class MainWindowController {
 
     @FXML
     private void onSubtractPointClick(ActionEvent actionEvent){
+        DataSingleton data = DataSingleton.getInstance();
 
+//        if(actionEvent.getSource().equals(player1SubtractPoint) || actionEvent.getSource().equals(menuItemPlayer1SubtractPoint)){
+//            data.getMatch().subtractPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
+//                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+//        }
+//        else if(actionEvent.getSource().equals(player2SubtractPoint) || actionEvent.getSource().equals(menuItemPlayer2SubtractPoint)){
+//            data.getMatch().subtractPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
+//                    fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+//        }
+//        else{
+//            System.out.println("No button found");
+//        }
     }
 
     @FXML
@@ -1110,8 +1126,8 @@ public class MainWindowController {
         }
 
         List<Control> listOfControls = new ArrayList<>();
-        listOfControls.addAll(List.of(player1AddPoint, player1SubtractPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
-                player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2SubtractPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
+        listOfControls.addAll(List.of(player1AddPoint, player1Challenge, player1CodeViolation, player1TimeViolation,
+                player1MedicalTimeOut, player1Hindrance,player2AddPoint, player2Challenge, player2CodeViolation, player2TimeViolation,
                 player2MedicalTimeOut, player2Hindrance, aceButton, letButton, faultButton, suspendMatch, endMatch, menuBar));
         listOfControls.forEach(s -> s.setDisable(false));
 
