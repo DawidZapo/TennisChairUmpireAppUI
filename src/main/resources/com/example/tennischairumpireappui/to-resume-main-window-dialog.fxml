@@ -18,6 +18,10 @@
             <MenuItem text="Let" onAction="#onLetClick"/>
             <MenuItem text="Fault" onAction="#onFaultClick"/>
             <MenuItem fx:id="hindrance" text="Hindrance" onAction="#onHindranceClick"/>
+            <MenuItem text="Replay point" fx:id="replayPoint" onAction="#onReplayPointClick" />
+            <MenuItem text="Switch sides" onAction="#onSwitchSidesClick"/>
+            <MenuItem text="Switch de/ad sides" onAction="#onSwitchDeuceAdvantageSidesClick"/>
+            <MenuItem text="Change server" onAction="#onChangeServerClick" />
             <MenuItem text="Suspend"/>
             <MenuItem text="End"/>
             <MenuItem text="Info" onAction="#showInfo"/>

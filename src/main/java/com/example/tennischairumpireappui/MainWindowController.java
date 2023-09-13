@@ -104,7 +104,8 @@ public class MainWindowController {
     private MenuItem menuItemPlayer1AddPoint, menuItemPlayer1MedTimeOut, menuItemPlayer1Hindrance,
             menuItemPlayer1Challenge, menuItemPlayer1TimeViolation, menuItemPlayer1CodeViolation,
             menuItemPlayer2AddPoint, menuItemPlayer2MedTimeOut, menuItemPlayer2Hindrance,
-            menuItemPlayer2Challenge, menuItemPlayer2TimeViolation, menuItemPlayer2CodeViolation, hindrance;
+            menuItemPlayer2Challenge, menuItemPlayer2TimeViolation, menuItemPlayer2CodeViolation, hindrance,
+            replayPoint;
     @FXML
     private MenuBar menuBar;
 
@@ -286,6 +287,9 @@ public class MainWindowController {
         listOfControls.forEach(s -> s.setDisable(false));
 
         tennisCourt.setVisible(true);
+        replayPoint.setDisable(true);
+        player1Challenge.setDisable(true);
+        player2Challenge.setDisable(true);
 
 //         down there code to create matches in database, commented coz now there is no need to do so
 //        int grandSlam;
@@ -398,16 +402,19 @@ public class MainWindowController {
         if(data.getMatch().getCopiedPlayer1().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer1().getAvatarWithBall())){
 
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu,
+                    replayPoint, player1Challenge, player2Challenge);
         }
         else if(data.getMatch().getCopiedPlayer2().getCurrentAvatar().equals(data.getMatch().getCopiedPlayer2().getAvatarWithBall())){
 
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                    fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight,match, player1Menu, player2Menu);
+                    fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight,match, player1Menu, player2Menu,
+                    replayPoint, player1Challenge, player2Challenge);
         }
         else{
             System.out.println("Error");
         }
+
     }
     @FXML
     private void onLetClick(){
@@ -431,7 +438,7 @@ public class MainWindowController {
 
                 if(result2.isPresent() && (result2.get() == ButtonType.YES)){
                     data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                            fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+                            fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu, replayPoint, player1Challenge, player2Challenge);
                 }
             }
 
@@ -454,7 +461,8 @@ public class MainWindowController {
 
                 if(result2.isPresent() && (result2.get() == ButtonType.YES)){
                     data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                            fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+                            fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu,
+                            replayPoint, player1Challenge, player2Challenge);
                 }
             }
 
@@ -488,7 +496,8 @@ public class MainWindowController {
 
                 data.getMatch().getCopiedPlayer1().incrementDoubleFaults();
                 data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu,
+                        replayPoint, player1Challenge, player2Challenge);
 
             }
             else{
@@ -516,7 +525,8 @@ public class MainWindowController {
 
                 data.getMatch().getCopiedPlayer2().incrementDoubleFaults();
                 data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                        fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+                        fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu,
+                        replayPoint, player1Challenge, player2Challenge);
 
             }
             else{
@@ -599,7 +609,8 @@ public class MainWindowController {
             Optional<ButtonType> result = alert2.showAndWait();
             if(result.isPresent() && result.get().equals(ButtonType.YES)){
                 data.getMatch().addPoint(player2, player1, scoring2, scoring1, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu,
+                        replayPoint, player1Challenge, player2Challenge);
                 player1.setPointConceded(true);
             }
         }
@@ -646,7 +657,9 @@ public class MainWindowController {
                     // !!!!! FUNCTION TO REPLAY THE POINT !!!!!!!!!!!
                     data.getMatch().replayPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(), leftDE, leftAD, rightDE, rightAD, servingBallGraphicLeft, servingBallGraphicRight);
                     updateGraphicsAfterResume(data.getMatch());
-                    System.out.println("Function to replay the point");
+                    replayPoint.setDisable(true);
+                    player1Challenge.setDisable(true);
+                    player2Challenge.setDisable(true);
                 }
 
             }
@@ -702,7 +715,8 @@ public class MainWindowController {
 
             if(result.isPresent() && result.get().equals(ButtonType.YES)){
                 data.getMatch().addPoint(player2, player1, scoring2, scoring1, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+                        fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu,
+                        replayPoint, player1Challenge, player2Challenge);
 
             }
         }
@@ -721,7 +735,8 @@ public class MainWindowController {
 
         if(result.isPresent() && result.get().equals(ButtonType.YES)){
             data.getMatch().addPoint(player2, player1, scoring2, scoring1, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu,
+                    replayPoint, player1Challenge, player2Challenge);
         }
 
     }
@@ -743,11 +758,13 @@ public class MainWindowController {
 
         if(actionEvent.getSource().equals(player1AddPoint) || actionEvent.getSource().equals(menuItemPlayer1AddPoint)){
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),scoringLeft,scoringRight, leftDE, leftAD, rightDE, rightAD, firstSetLeft, secondSetLeft, thirdSetLeft,
-                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+                    fourthSetLeft, fifthSetLeft, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu,
+                    replayPoint, player1Challenge, player2Challenge);
         }
         else if(actionEvent.getSource().equals(player2AddPoint) || actionEvent.getSource().equals(menuItemPlayer2AddPoint)){
             data.getMatch().addPoint(data.getMatch().getCopiedPlayer2(), data.getMatch().getCopiedPlayer1(), scoringRight, scoringLeft, leftDE, leftAD, rightDE, rightAD, firstSetRight, secondSetRight, thirdSetRight,
-                   fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu);
+                   fourthSetRight, fifthSetRight, servingBallGraphicLeft, servingBallGraphicRight, borderPane, challengeLeft, challengeRight, match, player1Menu, player2Menu,
+                    replayPoint, player1Challenge, player2Challenge);
         }
         else{
             System.out.println("No button found");
@@ -1132,6 +1149,9 @@ public class MainWindowController {
         listOfControls.forEach(s -> s.setDisable(false));
 
         tennisCourt.setVisible(true);
+        replayPoint.setDisable(true);
+        player1Challenge.setDisable(true);
+        player2Challenge.setDisable(true);
 
         dataSource.close();
     }
@@ -1221,5 +1241,48 @@ public class MainWindowController {
                 fifthSetRight.setImage(getGameImage(match.getCopiedPlayer2().getSavedSets().get(4)));
             }
         }
+    }
+
+    @FXML
+    private void onReplayPointClick(ActionEvent actionEvent) {
+        DataSingleton data = DataSingleton.getInstance();
+
+        data.getMatch().replayPoint(data.getMatch().getCopiedPlayer1(),data.getMatch().getCopiedPlayer2(),
+                leftDE, leftAD, rightDE, rightAD, servingBallGraphicLeft, servingBallGraphicRight);
+        updateGraphicsAfterResume(data.getMatch());
+    }
+
+    @FXML
+    private void onSwitchSidesClick(ActionEvent actionEvent) {
+        DataSingleton data = DataSingleton.getInstance();
+
+        data.getMatch().changeSides(leftDE, leftAD, rightDE, rightAD);
+    }
+    @FXML
+    private void onSwitchDeuceAdvantageSidesClick(ActionEvent actionEvent) {
+        DataSingleton data = DataSingleton.getInstance();
+
+        data.getMatch().changeDeuceAdvantageSides(leftDE, leftAD, rightDE, rightAD);
+    }
+    @FXML
+    private void onChangeServerClick(ActionEvent actionEvent) {
+        DataSingleton data = DataSingleton.getInstance();
+
+        if(data.getMatch().getCopiedPlayer1().isServing()){
+            data.getMatch().getCopiedPlayer1().setServing(false);
+            data.getMatch().getCopiedPlayer2().setServing(true);
+        }
+        else if(data.getMatch().getCopiedPlayer2().isServing()){
+            data.getMatch().getCopiedPlayer1().setServing(true);
+            data.getMatch().getCopiedPlayer2().setServing(false);
+        }
+        else{
+            System.out.println("Error while changing server");
+        }
+
+        data.getMatch().changeServer(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),
+                servingBallGraphicLeft, servingBallGraphicRight);
+        data.getMatch().updateAvatar(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),
+                leftDE, leftAD, rightDE ,rightAD);
     }
 }
