@@ -8,12 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Match {
     private int ID;
@@ -449,16 +444,7 @@ public class Match {
 
 
             if((winner.getPoints() + looser.getPoints()) % 2 == 1){
-                changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
-                updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
-                if(winner.isServing()){
-                    winner.setServing(false);
-                    looser.setServing(true);
-                }
-                else{
-                    winner.setServing(true);
-                    looser.setServing(false);
-                }
+                changeServer(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD, servingBallGraphicLeft, servingBallGraphicRight);
             }
 
 
@@ -473,14 +459,12 @@ public class Match {
                 changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
 
                 if(tieBreakServer.getFullName().equals(winner.getFullName()) && winner.isServing()){
-                    changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
-                    updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+                    changeServer(copiedPlayer1, copiedPlayer2,leftDE, leftAD, rightDE, rightAD, servingBallGraphicLeft, servingBallGraphicRight);
                     winner.setServing(false);
                     looser.setServing(true);
                 }
                 else if(tieBreakServer.getFullName().equals(looser.getFullName()) && looser.isServing()){
-                    changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
-                    updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+                    changeServer(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD, servingBallGraphicLeft, servingBallGraphicRight);
                     looser.setServing(false);
                     winner.setServing(true);
                 }
@@ -499,6 +483,11 @@ public class Match {
 
                     winner.setGames(0); looser.setGames(0);
                     winner.addSet();
+                    winner.setChallenges(3);
+                    looser.setChallenges(3);
+                    challengeLeft.setImage(MainWindowController.getChallengeImage(copiedPlayer1.getChallenges()));
+                    challengeRight.setImage(MainWindowController.getChallengeImage(copiedPlayer2.getChallenges()));
+
 
                     if(winner.getSets() == ((grandSlam)? 3 : 2)){
                         endMatch(winner, borderPane, List.of(match, player1Menu, player2Menu), false);
@@ -532,23 +521,13 @@ public class Match {
 
                 winner.addGame();
                 changeGameImage(winner.getSavedSets().size(), winner.getGames(), firstSet, secondSet, thirdSet, fourthSet, fifthSet);
-                changeServer(copiedPlayer1, copiedPlayer2, servingBallGraphicLeft, servingBallGraphicRight);
-                updateAvatar(copiedPlayer1, copiedPlayer2, leftDE, leftAD, rightDE, rightAD);
+                changeServer(copiedPlayer1, copiedPlayer2,leftDE, leftAD, rightDE, rightAD, servingBallGraphicLeft, servingBallGraphicRight);
                 if((winner.getGames() + looser.getGames()) % 2 == 1){
                     changeSides(leftDE, leftAD, rightDE, rightAD);
                 }
                 resetSidesAfterGame(leftDE, leftAD, rightDE, rightAD);
 
 //                games.get(games.size()-1).setWinner(winner);
-
-                if(winner.isServing()){
-                    winner.setServing(false);
-                    looser.setServing(true);
-                }
-                else{
-                    winner.setServing(true);
-                    looser.setServing(false);
-                }
 
                 // code from upper section, here to update tiebreakServer before addPointClick
                 if((winner.getGames() == looser.getGames()) && winner.getGames() == 6){
@@ -570,6 +549,10 @@ public class Match {
 
                     winner.setGames(0); looser.setGames(0);
                     winner.addSet();
+                    winner.setChallenges(3);
+                    looser.setChallenges(3);
+                    challengeLeft.setImage(MainWindowController.getChallengeImage(copiedPlayer1.getChallenges()));
+                    challengeRight.setImage(MainWindowController.getChallengeImage(copiedPlayer2.getChallenges()));
 
                     if(winner.getSets() == ((grandSlam)? 3 : 2)){
                         endMatch(winner, borderPane, List.of(match, player1Menu, player2Menu), false);
@@ -699,26 +682,7 @@ public class Match {
         dataSource.close();
 
     }
-    public void changeServer(Player player1, Player player2, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight){
-//        if(player1.isServing()){
-//            if(player1.getAvatarWithBall().equals(leftAD.getImage()) || player1.getAvatarWithBall().equals(leftDE.getImage())){
-//                System.out.println("player 1 serving on left");
-//            }
-//            if(player1.getAvatarWithBall().equals(rightAD.getImage()) || player1.getAvatarWithBall().equals(rightDE.getImage())){
-//                System.out.println("player 1 serving on right");
-//            }
-//        }
-//        else if(player2.isServing()){
-//            if(player2.getAvatarWithBall().equals(leftAD.getImage()) || player2.getAvatarWithBall().equals(leftDE.getImage())){
-//                System.out.println("player 2 serving on left");
-//            }
-//            if(player2.getAvatarWithBall().equals(rightAD.getImage()) || player2.getAvatarWithBall().equals(rightDE.getImage())){
-//                System.out.println("player 2 serving on right");
-//            }
-//        }
-//        else{
-//            System.out.println("No-one serving?! HAAAAAAAALOOOOOOOOOO");
-//        }
+    public void changeServer(Player player1, Player player2, ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight){
 
         if(player1.getCurrentAvatar().equals(player1.getAvatarWithBall())){
             player1.setCurrentAvatar(player1.getAvatar());
@@ -736,6 +700,20 @@ public class Match {
         }
         else{
             System.out.println("uppss einen ERrorreren");
+        }
+
+        updateAvatar(player1,player2,leftDE, leftAD, rightDE,rightAD);
+
+        if(player1.isServing()){
+            player1.setServing(false);
+            player2.setServing(true);
+        }
+        else if(player2.isServing()){
+            player1.setServing(true);
+            player2.setServing(false);
+        }
+        else{
+            System.out.println("No-one's serving?");
         }
 
 
@@ -766,7 +744,7 @@ public class Match {
         rightDE.setVisible(true);
         rightAD.setVisible(false);
     }
-    public void updateAvatar(Player player1, Player player2, ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD){
+    private void updateAvatar(Player player1, Player player2, ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD){
         if(player1.getAvatar().equals(leftDE.getImage()) || player1.getAvatar().equals(leftAD.getImage()) ||
                 player1.getAvatarWithBall().equals(leftDE.getImage()) || player1.getAvatarWithBall().equals(leftAD.getImage())){
             leftDE.setImage(player1.getCurrentAvatar());
@@ -821,74 +799,11 @@ public class Match {
         }
     }
 
-    public void codeViolation(Player player, Player opponent){
-        player.incrementCodeViolation();
-
-        if(player.getCodeViolation()==1) System.out.printf("First warning [%s]\n", player.getFullName());
-        else if(player.getCodeViolation()==2){
-            System.out.printf("Second warning [%s]\nPenalty point for [%s]\n", player.getFullName(), opponent.getFullName());
-            addPoint(opponent, player);
-        }
-        else{
-            System.out.printf("Third warning [%s]\nGame over - winner [%s]\n", player.getFullName(), opponent.getFullName());
-            gameOverEarly = true;
-            opponent.setWinner(true);
-        }
-    }
-
-    public void challenge(Player player) throws InterruptedException {
-
-        if(player.getChallenges() > 0){
-            System.out.println("Challenge in progress... [Please wait]");
-            TimeUnit.SECONDS.sleep(5);
-            System.out.print("Was the challenge successful?\n[y] - YES\n[n] - NO\n");
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            String choice= " ";
-
-            do{
-                try{
-                    choice = bufferedReader.readLine();
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-            }
-            while(!choice.equals("y") && !choice.equals("Y") && !choice.equals("N") && !choice.equals("n"));
-
-
-            if(choice.equals("Y") || choice.equals("y")){
-                System.out.println("Challenge successful!");
-                System.out.printf("[%s] challenges remaining: %d\n", player.getFullName(), player.getChallenges());
-            }
-            else{
-                System.out.println("Challenge unsuccessful!");
-                player.decrementChallenges();
-                System.out.printf("[%s] challenges remaining: %d\n", player.getFullName(), player.getChallenges());
-
-            }
-        }
-        else{
-            System.out.println("No more challenges available!");
-            System.out.printf("[%s] challenges remaining: %d\n", player.getFullName(), player.getChallenges());
-        }
-
-
-    }
-
-    public static String getNameOfPlayer(){
-        System.out.println("Enter name of the player:");
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
-    public static String getSurnameOfPlayer(){
-        System.out.println("Enter surname of the player:");
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
-
     // such a fucking mess
     public void replayPoint(Player player1, Player player2, ImageView leftDE, ImageView leftAD, ImageView rightDE, ImageView rightAD, ImageView servingBallGraphicLeft, ImageView servingBallGraphicRight) {
+
+        player1.setTotalPoints(player1.getTotalPoints()-1);
+        player2.setTotalPoints(player2.getTotalPoints()-1);
 
         if(player1.getSavedSets().size() != 0 && ((player1.getSavedSets().get(player1.getSavedSets().size()-1) +
                 player2.getSavedSets().get(player2.getSavedSets().size()-1)) == 13)){
@@ -930,18 +845,7 @@ public class Match {
                 }
                 else{
 
-                    if (player1.isServing()) {
-                        player1.setServing(false);
-                        player2.setServing(true);
-                    } else if (player2.isServing()) {
-                        player1.setServing(true);
-                        player2.setServing(false);
-                    } else {
-                        System.out.println("No-one is serving?");
-                    }
-
-                    changeServer(player1, player2, servingBallGraphicLeft, servingBallGraphicRight);
-                    updateAvatar(player1, player2, leftDE, leftAD, rightDE, rightAD);
+                    changeServer(player1, player2,leftDE, leftAD, rightDE, rightAD, servingBallGraphicLeft, servingBallGraphicRight);
 
                     if ((player1.getGames() + player2.getGames()) != 0) {
                         player1.setPoints(player1.getPointsBackUp());
@@ -995,8 +899,7 @@ public class Match {
                     player2.setPoints(player2.getPointsBackUp());
 
                     if ((player1.getPoints() + player2.getPoints()) % 2 == 0) {
-                        changeServer(player1, player2, servingBallGraphicLeft, servingBallGraphicRight);
-                        updateAvatar(player1, player2, leftDE, leftAD, rightDE, rightAD);
+                        changeServer(player1, player2,leftDE, leftAD, rightDE, rightAD, servingBallGraphicLeft, servingBallGraphicRight);
                     }
                     if ((player1.getPoints() + player2.getPoints()) % 6 == 5) {
                         changeSides(leftDE, leftAD, rightDE, rightAD);
@@ -1009,17 +912,7 @@ public class Match {
                     player1.setGames(player1.getGamesBackUp());
                     player2.setGames(player2.getGamesBackUp());
 
-                    if (player1.isServing()) {
-                        player1.setServing(false);
-                        player2.setServing(true);
-                    } else if (player2.isServing()) {
-                        player1.setServing(true);
-                        player2.setServing(false);
-                    } else {
-                        System.out.println("no-one is serving lol");
-                    }
-                    changeServer(player1, player2, servingBallGraphicLeft, servingBallGraphicRight);
-                    updateAvatar(player1, player2, leftDE, leftAD, rightDE, rightAD);
+                    changeServer(player1, player2,leftDE, leftAD, rightDE, rightAD, servingBallGraphicLeft, servingBallGraphicRight);
 
                 }
             }

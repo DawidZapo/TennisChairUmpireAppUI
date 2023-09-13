@@ -1281,8 +1281,7 @@ public class MainWindowController {
         }
 
         data.getMatch().changeServer(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),
+                leftDE, leftAD, rightDE, rightAD,
                 servingBallGraphicLeft, servingBallGraphicRight);
-        data.getMatch().updateAvatar(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),
-                leftDE, leftAD, rightDE ,rightAD);
     }
 }
