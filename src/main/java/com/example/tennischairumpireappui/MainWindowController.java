@@ -105,7 +105,10 @@ public class MainWindowController {
             menuItemPlayer1Challenge, menuItemPlayer1TimeViolation, menuItemPlayer1CodeViolation,
             menuItemPlayer2AddPoint, menuItemPlayer2MedTimeOut, menuItemPlayer2Hindrance,
             menuItemPlayer2Challenge, menuItemPlayer2TimeViolation, menuItemPlayer2CodeViolation, hindrance,
-            replayPoint;
+            replayPoint, player1EditPoints, player1EditGames, player1EditSets, player1EditMedicalTimeOuts,
+            player1EditHindrances, player1EditChallenges, player1EditTimeViolations, player1EditCodeViolations,
+            player2EditPoints, player2EditGames, player2EditSets, player2EditMedicalTimeOuts,
+            player2EditHindrances, player2EditChallenges, player2EditTimeViolations, player2EditCodeViolations;
     @FXML
     private MenuBar menuBar;
 
@@ -119,15 +122,6 @@ public class MainWindowController {
         controls.forEach(s -> s.setDisable(true));
 
         tennisCourt.setVisible(false);
-
-
-    }
-
-    public void handleOnFaultClick(ActionEvent actionEvent) throws IOException {
-
-        DataSingleton data = DataSingleton.getInstance();
-        System.out.println(data.getServer());
-        System.out.println(data.getSide());
 
 
     }
@@ -752,6 +746,7 @@ public class MainWindowController {
         }
     }
 
+
     @FXML
     private void onAddPointClick(ActionEvent actionEvent) {
         DataSingleton data = DataSingleton.getInstance();
@@ -1283,5 +1278,17 @@ public class MainWindowController {
         data.getMatch().changeServer(data.getMatch().getCopiedPlayer1(), data.getMatch().getCopiedPlayer2(),
                 leftDE, leftAD, rightDE, rightAD,
                 servingBallGraphicLeft, servingBallGraphicRight);
+    }
+
+    @FXML
+    private void onEditMatchScoreClick(ActionEvent event) throws IOException{
+        DataSingleton data = DataSingleton.getInstance();
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("edit-match-score-dialog.fxml"));
+        Scene scene = new Scene(root, 540, 340);
+        stage.setTitle("Edit Match Score");
+        stage.initOwner(data.getStage().getScene().getWindow());
+        stage.setScene(scene);
+        stage.show();
     }
 }

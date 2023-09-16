@@ -186,6 +186,7 @@ public class FirstWindowDialogController {
         stage.setTitle("Tennis Chair Umpire App");
         stage.setScene(scene);
         stage.show();
+
     }
     private String trimToDigitsOnly(String input){
         StringBuilder sb = new StringBuilder();

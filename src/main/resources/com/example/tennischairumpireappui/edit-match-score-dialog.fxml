@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<AnchorPane prefHeight="340.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tennischairumpireappui.EditMatchScoreDialogController">
+
+    <GridPane alignment="CENTER" hgap="10" layoutX="20.0" layoutY="20.0" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #f0f0f0;" vgap="10">
+        <Label prefWidth="200" alignment="CENTER" text="SURNAME" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+            <graphic>
+                <ImageView fitHeight="20" fitWidth="20">
+                    <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\Australia.png" />
+                </ImageView>
+            </graphic>
+            <style>
+                -fx-font-size: 18px;
+                -fx-font-weight: bold;
+                -fx-text-fill: #222222;
+            </style>
+        </Label>
+        <Label prefWidth="200" text="SURNAME" alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+            <graphic>
+                <ImageView fitHeight="20" fitWidth="20">
+                    <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\Australia.png" />
+                </ImageView>
+            </graphic>
+            <style>
+                -fx-font-size: 18px;
+                -fx-font-weight: bold;
+                -fx-text-fill: #222222;
+            </style>
+        </Label>
+
+        <Label alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" prefWidth="100" text="Point" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <style>
+                -fx-font-size: 14px;
+                -fx-text-fill: #555555;
+            </style>
+        </Label>
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player1PointChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="0" />
+                    <String fx:value="15" />
+                    <String fx:value="30" />
+                    <String fx:value="40"/>
+                    <String fx:value="AD" />
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player2PointChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="0" />
+                    <String fx:value="15" />
+                    <String fx:value="30" />
+                    <String fx:value="40"/>
+                    <String fx:value="AD" />
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+
+        <Label alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#1 Set" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player1FirstSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Integer fx:value="0"/>
+                    <Integer fx:value="1" />
+                    <Integer fx:value="2" />
+                    <Integer fx:value="3" />
+                    <Integer fx:value="4"/>
+                    <Integer fx:value="5"/>
+                    <Integer fx:value="6"/>
+                    <Integer fx:value="7"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player2FirstSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Integer fx:value="0"/>
+                    <Integer fx:value="1" />
+                    <Integer fx:value="2" />
+                    <Integer fx:value="3" />
+                    <Integer fx:value="4"/>
+                    <Integer fx:value="5"/>
+                    <Integer fx:value="6"/>
+                    <Integer fx:value="7"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+
+        <Label alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#2 Set" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player1SecondSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Integer fx:value="0"/>
+                    <Integer fx:value="1" />
+                    <Integer fx:value="2" />
+                    <Integer fx:value="3" />
+                    <Integer fx:value="4"/>
+                    <Integer fx:value="5"/>
+                    <Integer fx:value="6"/>
+                    <Integer fx:value="7"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player2SecondSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Integer fx:value="0"/>
+                    <Integer fx:value="1" />
+                    <Integer fx:value="2" />
+                    <Integer fx:value="3" />
+                    <Integer fx:value="4"/>
+                    <Integer fx:value="5"/>
+                    <Integer fx:value="6"/>
+                    <Integer fx:value="7"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+
+        <Label alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#3 Set" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player1ThirdSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Integer fx:value="0"/>
+                    <Integer fx:value="1" />
+                    <Integer fx:value="2" />
+                    <Integer fx:value="3" />
+                    <Integer fx:value="4"/>
+                    <Integer fx:value="5"/>
+                    <Integer fx:value="6"/>
+                    <Integer fx:value="7"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player2ThirdSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Integer fx:value="0"/>
+                    <Integer fx:value="1" />
+                    <Integer fx:value="2" />
+                    <Integer fx:value="3" />
+                    <Integer fx:value="4"/>
+                    <Integer fx:value="5"/>
+                    <Integer fx:value="6"/>
+                    <Integer fx:value="7"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+
+        <Label alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#4 Set" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player1FourthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Integer fx:value="0"/>
+                    <Integer fx:value="1" />
+                    <Integer fx:value="2" />
+                    <Integer fx:value="3" />
+                    <Integer fx:value="4"/>
+                    <Integer fx:value="5"/>
+                    <Integer fx:value="6"/>
+                    <Integer fx:value="7"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player2FurthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Integer fx:value="0"/>
+                    <Integer fx:value="1" />
+                    <Integer fx:value="2" />
+                    <Integer fx:value="3" />
+                    <Integer fx:value="4"/>
+                    <Integer fx:value="5"/>
+                    <Integer fx:value="6"/>
+                    <Integer fx:value="7"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+
+        <Label alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#5 Set" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player1FifthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Integer fx:value="0"/>
+                    <Integer fx:value="1" />
+                    <Integer fx:value="2" />
+                    <Integer fx:value="3" />
+                    <Integer fx:value="4"/>
+                    <Integer fx:value="5"/>
+                    <Integer fx:value="6"/>
+                    <Integer fx:value="7"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player2FifthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Integer fx:value="0"/>
+                    <Integer fx:value="1" />
+                    <Integer fx:value="2" />
+                    <Integer fx:value="3" />
+                    <Integer fx:value="4"/>
+                    <Integer fx:value="5"/>
+                    <Integer fx:value="6"/>
+                    <Integer fx:value="7"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        <Button text="OK" prefWidth="200" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+        <Button text="CANCEL" prefWidth="200" GridPane.rowIndex="8" GridPane.columnIndex="2"/>
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+    </GridPane>
+
+
+</AnchorPane>
