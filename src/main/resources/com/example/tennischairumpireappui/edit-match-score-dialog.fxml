@@ -9,9 +9,9 @@
 <AnchorPane prefHeight="340.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tennischairumpireappui.EditMatchScoreDialogController">
 
     <GridPane alignment="CENTER" hgap="10" layoutX="20.0" layoutY="20.0" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #f0f0f0;" vgap="10">
-        <Label prefWidth="200" alignment="CENTER" text="SURNAME" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        <Label fx:id="player1Surname" prefWidth="200" alignment="CENTER" text="SURNAME" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0">
             <graphic>
-                <ImageView fitHeight="20" fitWidth="20">
+                <ImageView fx:id="player1Country" fitHeight="20" fitWidth="20">
                     <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\Australia.png" />
                 </ImageView>
             </graphic>
@@ -21,9 +21,9 @@
                 -fx-text-fill: #222222;
             </style>
         </Label>
-        <Label prefWidth="200" text="SURNAME" alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        <Label fx:id="player2Surname" prefWidth="200" text="SURNAME" alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
             <graphic>
-                <ImageView fitHeight="20" fitWidth="20">
+                <ImageView fx:id="player2Country" fitHeight="20" fitWidth="20">
                     <Image url="C:\Users\dawid\IdeaProjects\TennisChairUmpireAppUI\src\main\resources\graphics\countries\Australia.png" />
                 </ImageView>
             </graphic>
@@ -168,7 +168,7 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player2FurthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="5">
+        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player2FourthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="5">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <Integer fx:value="0"/>
