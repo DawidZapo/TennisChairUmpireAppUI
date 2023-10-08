@@ -286,50 +286,50 @@ public class MainWindowController {
         player2Challenge.setDisable(true);
 
 //         down there code to create matches in database, commented coz now there is no need to do so
-        int grandSlam;
-        String date = java.time.LocalDate.now().toString();
-        if(data.getMatch().isGrandSlam()) {
-            grandSlam = 1;
-        }else{
-            grandSlam = 0;
-        }
-
-        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
-        Alert alertError = new Alert(Alert.AlertType.ERROR);
-        int matchID = dataSource.insertIntoMatches(dataSource.queryPlayerID(data.getMatch().getCopiedPlayer1().getSurname()),
-                dataSource.queryPlayerID(data.getMatch().getCopiedPlayer2().getSurname()), date,
-                grandSlam, data.getMatch().getSurface());
-
-        if(matchID != -1){
-
-            alertInfo.setTitle("Database information");
-            alertInfo.setHeaderText(null);
-            alertInfo.setContentText("Match successfully added to the database");
-            alertInfo.showAndWait();
-
-            data.getMatch().setID(matchID);
-
-            int statsID = dataSource.insertIntoStats(matchID);
-
-            if(statsID != -1){
-                alertInfo.setTitle("Database information");
-                alertInfo.setHeaderText(null);
-                alertInfo.setContentText("Stats successfully added to the database");
-                alertInfo.showAndWait();
-            }
-            else{
-                alertError.setTitle("Database information");
-                alertError.setHeaderText(null);
-                alertError.setContentText("Error occurred while adding stats to the database");
-                alertError.showAndWait();
-            }
-        }
-        else{
-            alertError.setTitle("Database information");
-            alertError.setHeaderText(null);
-            alertError.setContentText("Error occurred while adding match to the database");
-            alertError.showAndWait();
-        }
+//        int grandSlam;
+//        String date = java.time.LocalDate.now().toString();
+//        if(data.getMatch().isGrandSlam()) {
+//            grandSlam = 1;
+//        }else{
+//            grandSlam = 0;
+//        }
+//
+//        Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
+//        Alert alertError = new Alert(Alert.AlertType.ERROR);
+//        int matchID = dataSource.insertIntoMatches(dataSource.queryPlayerID(data.getMatch().getCopiedPlayer1().getSurname()),
+//                dataSource.queryPlayerID(data.getMatch().getCopiedPlayer2().getSurname()), date,
+//                grandSlam, data.getMatch().getSurface());
+//
+//        if(matchID != -1){
+//
+//            alertInfo.setTitle("Database information");
+//            alertInfo.setHeaderText(null);
+//            alertInfo.setContentText("Match successfully added to the database");
+//            alertInfo.showAndWait();
+//
+//            data.getMatch().setID(matchID);
+//
+//            int statsID = dataSource.insertIntoStats(matchID);
+//
+//            if(statsID != -1){
+//                alertInfo.setTitle("Database information");
+//                alertInfo.setHeaderText(null);
+//                alertInfo.setContentText("Stats successfully added to the database");
+//                alertInfo.showAndWait();
+//            }
+//            else{
+//                alertError.setTitle("Database information");
+//                alertError.setHeaderText(null);
+//                alertError.setContentText("Error occurred while adding stats to the database");
+//                alertError.showAndWait();
+//            }
+//        }
+//        else{
+//            alertError.setTitle("Database information");
+//            alertError.setHeaderText(null);
+//            alertError.setContentText("Error occurred while adding match to the database");
+//            alertError.showAndWait();
+//        }
 
         dataSource.close();
     }
@@ -546,7 +546,7 @@ public class MainWindowController {
         else return null;
     }
 
-    private String getCountryPath(String country){
+    public static String getCountryPath(String country){
         return "C:\\Users\\dawid\\IdeaProjects\\TennisChairUmpireAppUI\\src\\main\\resources\\graphics\\countries\\" + country + ".png";
     }
     private String getCountryAvatarPath(String country, boolean withBall){
@@ -1290,5 +1290,97 @@ public class MainWindowController {
         stage.initOwner(data.getStage().getScene().getWindow());
         stage.setScene(scene);
         stage.show();
+    }
+
+    private Optional<Integer> handleEdit(String label){
+        List<Integer> numbers = new ArrayList<>(List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        ChoiceDialog<Integer> numbersToChoose = new ChoiceDialog<>(1, numbers);
+        numbersToChoose.setTitle("Edit");
+        numbersToChoose.setHeaderText(null);
+        numbersToChoose.setContentText("Edit %s".formatted(label));
+
+        return numbersToChoose.showAndWait();
+
+    }
+    @FXML
+    private void handleOnEditClick(ActionEvent event){
+        DataSingleton data = DataSingleton.getInstance();
+
+        if(event.getSource().equals(player1EditMedicalTimeOuts)){
+            Optional<Integer> results = handleEdit("medical time-outs");
+
+            if(results.isPresent()){
+                data.getMatch().getCopiedPlayer1().setMedicalTimout(results.get());
+            }
+        }
+        else if(event.getSource().equals(player1EditHindrances)){
+            Optional<Integer> results = handleEdit("hindrances");
+
+            if(results.isPresent()){
+                data.getMatch().getCopiedPlayer1().setHindrance(results.get());
+            }
+        }
+        else if(event.getSource().equals(player1EditChallenges)){
+            Optional<Integer> results = handleEdit("challenges");
+
+            if(results.isPresent()){
+                data.getMatch().getCopiedPlayer1().setChallenges(results.get());
+            }
+        }
+        else if(event.getSource().equals(player1EditTimeViolations)){
+            Optional<Integer> results = handleEdit("time violations");
+
+            if(results.isPresent()){
+                data.getMatch().getCopiedPlayer1().setTimeViolation(results.get());
+            }
+        }
+        else if(event.getSource().equals(player1EditCodeViolations)){
+            Optional<Integer> results = handleEdit("code violations");
+
+            if(results.isPresent()){
+                data.getMatch().getCopiedPlayer1().setCodeViolation(results.get());
+            }
+        }
+        else if(event.getSource().equals(player2EditMedicalTimeOuts)){
+            Optional<Integer> results = handleEdit("medical time-outs");
+
+            if(results.isPresent()){
+                data.getMatch().getCopiedPlayer2().setMedicalTimout(results.get());
+            }
+        }
+        else if(event.getSource().equals(player2EditHindrances)){
+            Optional<Integer> results = handleEdit("hindrances");
+
+            if(results.isPresent()){
+                data.getMatch().getCopiedPlayer2().setHindrance(results.get());
+            }
+        }
+        else if(event.getSource().equals(player2EditChallenges)){
+            Optional<Integer> results = handleEdit("challenges");
+
+            if(results.isPresent()){
+                data.getMatch().getCopiedPlayer2().setChallenges(results.get());
+            }
+        }
+        else if(event.getSource().equals(player2EditTimeViolations)){
+            Optional<Integer> results = handleEdit("time violations");
+
+            if(results.isPresent()){
+                data.getMatch().getCopiedPlayer2().setTimeViolation(results.get());
+            }
+        }
+        else if(event.getSource().equals(player2EditCodeViolations)){
+            Optional<Integer> results = handleEdit("code violations");
+
+            if(results.isPresent()){
+                data.getMatch().getCopiedPlayer2().setCodeViolation(results.get());
+            }
+        }
+        else{
+            System.out.println("No button found");
+        }
+
+        updateGraphicsAfterResume(data.getMatch());
+
     }
 }

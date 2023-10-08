@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
+<?import org.controlsfx.control.ToggleSwitch?>
 <AnchorPane prefHeight="340.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tennischairumpireappui.EditMatchScoreDialogController">
 
     <GridPane alignment="CENTER" hgap="10" layoutX="20.0" layoutY="20.0" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: #f0f0f0;" vgap="10">
@@ -34,13 +35,18 @@
             </style>
         </Label>
 
-        <Label alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" prefWidth="100" text="Point" GridPane.columnIndex="0" GridPane.rowIndex="1">
+<!--        <HBox GridPane.columnIndex="0" GridPane.rowIndex="8" alignment="CENTER_RIGHT">-->
+<!--            <ToggleSwitch text="Tie-Break" style="-fx-font-size: 12px; -fx-text-fill: #555555"/>-->
+<!--        </HBox>-->
+
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" prefWidth="100" text="Points">
             <style>
                 -fx-font-size: 14px;
                 -fx-text-fill: #555555;
             </style>
         </Label>
-        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player1PointChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+
+        <ChoiceBox onAction="#handlePossibility" prefWidth="50" GridPane.halignment="CENTER" fx:id="player1PointChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="0" />
@@ -51,7 +57,7 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player2PointChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <ChoiceBox onAction="#handlePossibility" prefWidth="50" GridPane.halignment="CENTER" fx:id="player2PointChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="1">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="0" />
@@ -153,7 +159,7 @@
             </items>
         </ChoiceBox>
 
-        <Label alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#4 Set" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <Label fx:id="fourthSetLabel" alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#4 Set" GridPane.columnIndex="0" GridPane.rowIndex="5" />
         <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player1FourthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <items>
                 <FXCollections fx:factory="observableArrayList">
@@ -183,7 +189,7 @@
             </items>
         </ChoiceBox>
 
-        <Label alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#5 Set" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Label fx:id="fifthSetLabel" alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#5 Set" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <ChoiceBox prefWidth="50" GridPane.halignment="CENTER" fx:id="player1FifthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="6">
             <items>
                 <FXCollections fx:factory="observableArrayList">
@@ -212,8 +218,8 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <Button text="OK" prefWidth="200" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
-        <Button text="CANCEL" prefWidth="200" GridPane.rowIndex="8" GridPane.columnIndex="2"/>
+        <Button fx:id="okButton" text="OK" prefWidth="200" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+        <Button fx:id="cancelButton" text="CANCEL" prefWidth="200" GridPane.rowIndex="8" GridPane.columnIndex="2"/>
       <columnConstraints>
          <ColumnConstraints />
          <ColumnConstraints />

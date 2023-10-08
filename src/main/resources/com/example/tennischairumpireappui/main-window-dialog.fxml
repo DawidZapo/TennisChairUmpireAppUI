@@ -30,19 +30,19 @@
             <MenuItem text="Match Score" onAction="#onEditMatchScoreClick"/>
 
             <Menu text="Player1">
-               <MenuItem fx:id="player1EditMedicalTimeOuts" text="Medical Time-Outs"/>
-               <MenuItem fx:id="player1EditHindrances" text="Hindrances"/>
-               <MenuItem fx:id="player1EditChallenges" text="Challenges"/>
-               <MenuItem fx:id="player1EditTimeViolations" text="Time-Violations"/>
-               <MenuItem fx:id="player1EditCodeViolations" text="Code-Violations"/>
+               <MenuItem fx:id="player1EditMedicalTimeOuts" text="Medical Time-Outs" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player1EditHindrances" text="Hindrances" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player1EditChallenges" text="Challenges" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player1EditTimeViolations" text="Time-Violations" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player1EditCodeViolations" text="Code-Violations" onAction="#handleOnEditClick"/>
             </Menu>
 
             <Menu text="Player2">
-               <MenuItem fx:id="player2EditMedicalTimeOuts" text="Medical Time-Outs"/>
-               <MenuItem fx:id="player2EditHindrances" text="Hindrances"/>
-               <MenuItem fx:id="player2EditChallenges" text="Challenges"/>
-               <MenuItem fx:id="player2EditTimeViolations" text="Time-Violations"/>
-               <MenuItem fx:id="player2EditCodeViolations" text="Code-Violations"/>
+               <MenuItem fx:id="player2EditMedicalTimeOuts" text="Medical Time-Outs" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player2EditHindrances" text="Hindrances" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player2EditChallenges" text="Challenges" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player2EditTimeViolations" text="Time-Violations" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player2EditCodeViolations" text="Code-Violations" onAction="#handleOnEditClick"/>
             </Menu>
 
          </Menu>
