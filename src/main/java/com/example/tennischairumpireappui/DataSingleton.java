@@ -14,7 +14,16 @@ public class DataSingleton {
     private Stage stage;
     private int matchToResumeID;
     private String sideToResumeMatch;
+    private boolean scoringChanged = false;
     private DataSingleton(){}
+
+    public boolean isScoringChanged() {
+        return scoringChanged;
+    }
+
+    public void setScoringChanged(boolean scoringChanged) {
+        this.scoringChanged = scoringChanged;
+    }
 
     public String getSideToResumeMatch() {
         return sideToResumeMatch;

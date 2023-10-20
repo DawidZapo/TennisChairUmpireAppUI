@@ -26,6 +26,26 @@
             <MenuItem text="End"/>
             <MenuItem text="Info" onAction="#showInfo"/>
          </Menu>
+         <Menu fx:id="edit" text="Edit">
+            <MenuItem text="Match Score" onAction="#onEditMatchScoreClick"/>
+
+            <Menu text="Player1">
+               <MenuItem fx:id="player1EditMedicalTimeOuts" text="Medical Time-Outs" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player1EditHindrances" text="Hindrances" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player1EditChallenges" text="Challenges" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player1EditTimeViolations" text="Time-Violations" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player1EditCodeViolations" text="Code-Violations" onAction="#handleOnEditClick"/>
+            </Menu>
+
+            <Menu text="Player2">
+               <MenuItem fx:id="player2EditMedicalTimeOuts" text="Medical Time-Outs" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player2EditHindrances" text="Hindrances" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player2EditChallenges" text="Challenges" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player2EditTimeViolations" text="Time-Violations" onAction="#handleOnEditClick"/>
+               <MenuItem fx:id="player2EditCodeViolations" text="Code-Violations" onAction="#handleOnEditClick"/>
+            </Menu>
+
+         </Menu>
          <Menu fx:id="player1Menu" text="Player 1">
             <MenuItem fx:id="menuItemPlayer1AddPoint" text="Add Point" onAction="#onAddPointClick" />
 <!--            <MenuItem fx:id="menuItemPlayer1SubtractPoint" text="Subtract" />-->
