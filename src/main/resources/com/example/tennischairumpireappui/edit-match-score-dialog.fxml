@@ -73,148 +73,148 @@
         <ChoiceBox onAction="#handlePossibility" value="0" prefWidth="50" GridPane.halignment="CENTER" fx:id="player1FirstSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <Integer fx:value="0"/>
-                    <Integer fx:value="1" />
-                    <Integer fx:value="2" />
-                    <Integer fx:value="3" />
-                    <Integer fx:value="4"/>
-                    <Integer fx:value="5"/>
-                    <Integer fx:value="6"/>
-                    <Integer fx:value="7"/>
+                    <String fx:value="0"/>
+                    <String fx:value="1" />
+                    <String fx:value="2" />
+                    <String fx:value="3" />
+                    <String fx:value="4"/>
+                    <String fx:value="5"/>
+                    <String fx:value="6"/>
+                    <String fx:value="7"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
         <ChoiceBox onAction="#handlePossibility" value="0" prefWidth="50" GridPane.halignment="CENTER" fx:id="player2FirstSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="2">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <Integer fx:value="0"/>
-                    <Integer fx:value="1" />
-                    <Integer fx:value="2" />
-                    <Integer fx:value="3" />
-                    <Integer fx:value="4"/>
-                    <Integer fx:value="5"/>
-                    <Integer fx:value="6"/>
-                    <Integer fx:value="7"/>
+                    <String fx:value="0"/>
+                    <String fx:value="1" />
+                    <String fx:value="2" />
+                    <String fx:value="3" />
+                    <String fx:value="4"/>
+                    <String fx:value="5"/>
+                    <String fx:value="6"/>
+                    <String fx:value="7"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
 
         <Label alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#2 Set" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <ChoiceBox prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player1SecondSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <ChoiceBox onAction="#handlePossibility" prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player1SecondSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <Integer fx:value="0"/>
-                    <Integer fx:value="1" />
-                    <Integer fx:value="2" />
-                    <Integer fx:value="3" />
-                    <Integer fx:value="4"/>
-                    <Integer fx:value="5"/>
-                    <Integer fx:value="6"/>
-                    <Integer fx:value="7"/>
+                    <String fx:value="0"/>
+                    <String fx:value="1" />
+                    <String fx:value="2" />
+                    <String fx:value="3" />
+                    <String fx:value="4"/>
+                    <String fx:value="5"/>
+                    <String fx:value="6"/>
+                    <String fx:value="7"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <ChoiceBox prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player2SecondSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="3">
+        <ChoiceBox onAction="#handlePossibility" prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player2SecondSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="3">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <Integer fx:value="0"/>
-                    <Integer fx:value="1" />
-                    <Integer fx:value="2" />
-                    <Integer fx:value="3" />
-                    <Integer fx:value="4"/>
-                    <Integer fx:value="5"/>
-                    <Integer fx:value="6"/>
-                    <Integer fx:value="7"/>
+                    <String fx:value="0"/>
+                    <String fx:value="1" />
+                    <String fx:value="2" />
+                    <String fx:value="3" />
+                    <String fx:value="4"/>
+                    <String fx:value="5"/>
+                    <String fx:value="6"/>
+                    <String fx:value="7"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
 
         <Label alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#3 Set" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <ChoiceBox prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player1ThirdSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <ChoiceBox onAction="#handlePossibility" prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player1ThirdSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <Integer fx:value="0"/>
-                    <Integer fx:value="1" />
-                    <Integer fx:value="2" />
-                    <Integer fx:value="3" />
-                    <Integer fx:value="4"/>
-                    <Integer fx:value="5"/>
-                    <Integer fx:value="6"/>
-                    <Integer fx:value="7"/>
+                    <String fx:value="0"/>
+                    <String fx:value="1" />
+                    <String fx:value="2" />
+                    <String fx:value="3" />
+                    <String fx:value="4"/>
+                    <String fx:value="5"/>
+                    <String fx:value="6"/>
+                    <String fx:value="7"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <ChoiceBox prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player2ThirdSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="4">
+        <ChoiceBox onAction="#handlePossibility" prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player2ThirdSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="4">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <Integer fx:value="0"/>
-                    <Integer fx:value="1" />
-                    <Integer fx:value="2" />
-                    <Integer fx:value="3" />
-                    <Integer fx:value="4"/>
-                    <Integer fx:value="5"/>
-                    <Integer fx:value="6"/>
-                    <Integer fx:value="7"/>
+                    <String fx:value="0"/>
+                    <String fx:value="1" />
+                    <String fx:value="2" />
+                    <String fx:value="3" />
+                    <String fx:value="4"/>
+                    <String fx:value="5"/>
+                    <String fx:value="6"/>
+                    <String fx:value="7"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
 
         <Label fx:id="fourthSetLabel" alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#4 Set" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-        <ChoiceBox prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player1FourthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <ChoiceBox onAction="#handlePossibility" prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player1FourthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <Integer fx:value="0"/>
-                    <Integer fx:value="1" />
-                    <Integer fx:value="2" />
-                    <Integer fx:value="3" />
-                    <Integer fx:value="4"/>
-                    <Integer fx:value="5"/>
-                    <Integer fx:value="6"/>
-                    <Integer fx:value="7"/>
+                    <String fx:value="0"/>
+                    <String fx:value="1" />
+                    <String fx:value="2" />
+                    <String fx:value="3" />
+                    <String fx:value="4"/>
+                    <String fx:value="5"/>
+                    <String fx:value="6"/>
+                    <String fx:value="7"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <ChoiceBox prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player2FourthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="5">
+        <ChoiceBox onAction="#handlePossibility" prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player2FourthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="5">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <Integer fx:value="0"/>
-                    <Integer fx:value="1" />
-                    <Integer fx:value="2" />
-                    <Integer fx:value="3" />
-                    <Integer fx:value="4"/>
-                    <Integer fx:value="5"/>
-                    <Integer fx:value="6"/>
-                    <Integer fx:value="7"/>
+                    <String fx:value="0"/>
+                    <String fx:value="1" />
+                    <String fx:value="2" />
+                    <String fx:value="3" />
+                    <String fx:value="4"/>
+                    <String fx:value="5"/>
+                    <String fx:value="6"/>
+                    <String fx:value="7"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
 
         <Label fx:id="fifthSetLabel" alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="#5 Set" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <ChoiceBox prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player1FifthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="6">
+        <ChoiceBox onAction="#handlePossibility" prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player1FifthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="6">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <Integer fx:value="0"/>
-                    <Integer fx:value="1" />
-                    <Integer fx:value="2" />
-                    <Integer fx:value="3" />
-                    <Integer fx:value="4"/>
-                    <Integer fx:value="5"/>
-                    <Integer fx:value="6"/>
-                    <Integer fx:value="7"/>
+                    <String fx:value="0"/>
+                    <String fx:value="1" />
+                    <String fx:value="2" />
+                    <String fx:value="3" />
+                    <String fx:value="4"/>
+                    <String fx:value="5"/>
+                    <String fx:value="6"/>
+                    <String fx:value="7"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <ChoiceBox prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player2FifthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="6">
+        <ChoiceBox onAction="#handlePossibility" prefWidth="50" value="0" GridPane.halignment="CENTER" fx:id="player2FifthSetChoiceBox" style="-fx-font-size: 14px;" GridPane.columnIndex="2" GridPane.rowIndex="6">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <Integer fx:value="0"/>
-                    <Integer fx:value="1" />
-                    <Integer fx:value="2" />
-                    <Integer fx:value="3" />
-                    <Integer fx:value="4"/>
-                    <Integer fx:value="5"/>
-                    <Integer fx:value="6"/>
-                    <Integer fx:value="7"/>
+                    <String fx:value="0"/>
+                    <String fx:value="1" />
+                    <String fx:value="2" />
+                    <String fx:value="3" />
+                    <String fx:value="4"/>
+                    <String fx:value="5"/>
+                    <String fx:value="6"/>
+                    <String fx:value="7"/>
                 </FXCollections>
             </items>
         </ChoiceBox>

@@ -7,6 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EditMatchScoreDialogController {
     @FXML
     ImageView player1Country, player2Country;
@@ -15,10 +18,11 @@ public class EditMatchScoreDialogController {
     @FXML
     Button okButton, cancelButton;
     @FXML
-    ChoiceBox<String> player1PointChoiceBox, player2PointChoiceBox;
-    @FXML
-    ChoiceBox<Integer> player1FirstSetChoiceBox, player2FirstSetChoiceBox, player1SecondSetChoiceBox, player2SecondSetChoiceBox, player1ThirdSetChoiceBox, player2ThirdSetChoiceBox,
+    ChoiceBox<String> player1PointChoiceBox, player2PointChoiceBox, player1FirstSetChoiceBox, player2FirstSetChoiceBox, player1SecondSetChoiceBox, player2SecondSetChoiceBox, player1ThirdSetChoiceBox, player2ThirdSetChoiceBox,
     player1FourthSetChoiceBox, player2FourthSetChoiceBox, player1FifthSetChoiceBox, player2FifthSetChoiceBox;
+//    @FXML
+//    ChoiceBox<Integer> player1FirstSetChoiceBox, player2FirstSetChoiceBox, player1SecondSetChoiceBox, player2SecondSetChoiceBox, player1ThirdSetChoiceBox, player2ThirdSetChoiceBox,
+//    player1FourthSetChoiceBox, player2FourthSetChoiceBox, player1FifthSetChoiceBox, player2FifthSetChoiceBox;
 
     @FXML
     private void initialize(){
@@ -47,9 +51,22 @@ public class EditMatchScoreDialogController {
     private void handlePossibility(){
         DataSingleton data = DataSingleton.getInstance();
 
-        // tylko do pierwszego seta, zalazek pomyslu
-        if((player1FirstSetChoiceBox.getValue() == 7 && player2FirstSetChoiceBox.getValue() == 6)
-        || (player1FirstSetChoiceBox.getValue() == 6 && player2FirstSetChoiceBox.getValue() == 7)){
+        List<ChoiceBox<String>> listOfCurrentSets = getLastSetChoiceBoxString(player1FirstSetChoiceBox,player2FirstSetChoiceBox,
+                player1SecondSetChoiceBox, player2SecondSetChoiceBox,
+                player1ThirdSetChoiceBox, player2ThirdSetChoiceBox,
+                player1FourthSetChoiceBox, player2FourthSetChoiceBox,
+                player1FifthSetChoiceBox, player2FifthSetChoiceBox);
+        ChoiceBox<String> player1CurrentSet;
+        ChoiceBox<String> player2CurrentSet;
+
+        if(listOfCurrentSets != null){
+            player1CurrentSet = listOfCurrentSets.get(0);
+            player2CurrentSet = listOfCurrentSets.get(1);
+        }
+        else return;
+
+        if((player1CurrentSet.getValue().equals("6") && player2CurrentSet.getValue().equals("6"))
+        || (player1CurrentSet.getValue().equals("6") && player2CurrentSet.getValue().equals("6"))){
 
             if(!data.isScoringChanged()){
                 player1PointChoiceBox.getItems().clear();
@@ -80,8 +97,121 @@ public class EditMatchScoreDialogController {
             }
 
         }
-
-
     }
+
+    private List<ChoiceBox<String>> getLastSetChoiceBoxString(ChoiceBox<String> player1FirstSetChoiceBox, ChoiceBox<String> player2FirstSetChoiceBox,
+                                                         ChoiceBox<String> player1SecondSetChoiceBox, ChoiceBox<String> player2SecondSetChoiceBox,
+                                                         ChoiceBox<String> player1ThirdSetChoiceBox, ChoiceBox<String> player2ThirdSetChoiceBox,
+                                                         ChoiceBox<String> player1FourthSetChoiceBox, ChoiceBox<String> player2FourthSetChoiceBox,
+                                                         ChoiceBox<String> player1FifthSetChoiceBox, ChoiceBox<String> player2FifthSetChoiceBox) {
+        List<ChoiceBox<String>> list = new ArrayList<>(List.of(player1FirstSetChoiceBox, player2FirstSetChoiceBox,
+                player1SecondSetChoiceBox, player2SecondSetChoiceBox,
+                player1ThirdSetChoiceBox, player2ThirdSetChoiceBox,
+                player1FourthSetChoiceBox, player2FourthSetChoiceBox,
+                player1FifthSetChoiceBox, player2FifthSetChoiceBox));
+        try {
+            if (!player1FirstSetChoiceBox.getValue().equals("0") && !player2FirstSetChoiceBox.getValue().equals("0") &&
+                    player1SecondSetChoiceBox.getValue().equals("0") && player2SecondSetChoiceBox.getValue().equals("0") &&
+                    player1ThirdSetChoiceBox.getValue().equals("0") && player2ThirdSetChoiceBox.getValue().equals("0") &&
+                    player1FourthSetChoiceBox.getValue().equals("0") && player2FourthSetChoiceBox.getValue().equals("0") &&
+                    player1FifthSetChoiceBox.getValue().equals("0") && player2FifthSetChoiceBox.getValue().equals("0")) {
+
+                return new ArrayList<>(List.of(player1FirstSetChoiceBox, player2FirstSetChoiceBox));
+
+            } else if (!player1FirstSetChoiceBox.getValue().equals("0") && !player2FirstSetChoiceBox.getValue().equals("0") &&
+                    !player1SecondSetChoiceBox.getValue().equals("0") && !player2SecondSetChoiceBox.getValue().equals("0") &&
+                    player1ThirdSetChoiceBox.getValue().equals("0") && player2ThirdSetChoiceBox.getValue().equals("0") &&
+                    player1FourthSetChoiceBox.getValue().equals("0") && player2FourthSetChoiceBox.getValue().equals("0") &&
+                    player1FifthSetChoiceBox.getValue().equals("0") && player2FifthSetChoiceBox.getValue().equals("0")) {
+
+                return new ArrayList<>(List.of(player1SecondSetChoiceBox, player2SecondSetChoiceBox));
+
+            } else if (!player1FirstSetChoiceBox.getValue().equals("0") && !player2FirstSetChoiceBox.getValue().equals("0") &&
+                    !player1SecondSetChoiceBox.getValue().equals("0") && !player2SecondSetChoiceBox.getValue().equals("0") &&
+                    !player1ThirdSetChoiceBox.getValue().equals("0") && !player2ThirdSetChoiceBox.getValue().equals("0") &&
+                    player1FourthSetChoiceBox.getValue().equals("0") && player2FourthSetChoiceBox.getValue().equals("0") &&
+                    player1FifthSetChoiceBox.getValue().equals("0") && player2FifthSetChoiceBox.getValue().equals("0")) {
+
+                return new ArrayList<>(List.of(player1ThirdSetChoiceBox, player2ThirdSetChoiceBox));
+
+            } else if (!player1FirstSetChoiceBox.getValue().equals("0") && !player2FirstSetChoiceBox.getValue().equals("0") &&
+                    !player1SecondSetChoiceBox.getValue().equals("0") && !player2SecondSetChoiceBox.getValue().equals("0") &&
+                    !player1ThirdSetChoiceBox.getValue().equals("0") && !player2ThirdSetChoiceBox.getValue().equals("0") &&
+                    !player1FourthSetChoiceBox.getValue().equals("0") && !player2FourthSetChoiceBox.getValue().equals("0") &&
+                    player1FifthSetChoiceBox.getValue().equals("0") && player2FifthSetChoiceBox.getValue().equals("0")) {
+
+                return new ArrayList<>(List.of(player1FourthSetChoiceBox, player2FourthSetChoiceBox));
+
+            } else if (!player1FirstSetChoiceBox.getValue().equals("0") && !player2FirstSetChoiceBox.getValue().equals("0") &&
+                    !player1SecondSetChoiceBox.getValue().equals("0") && !player2SecondSetChoiceBox.getValue().equals("0") &&
+                    !player1ThirdSetChoiceBox.getValue().equals("0") && !player2ThirdSetChoiceBox.getValue().equals("0") &&
+                    !player1FourthSetChoiceBox.getValue().equals("0") && !player2FourthSetChoiceBox.getValue().equals("0") &&
+                    !player1FifthSetChoiceBox.getValue().equals("0") && !player2FifthSetChoiceBox.getValue().equals("0")) {
+
+                return new ArrayList<>(List.of(player1FifthSetChoiceBox, player2FifthSetChoiceBox));
+
+            } else return null;
+        } catch (ClassCastException e) {
+            System.out.println(e.getMessage());
+            for (var a : list) {
+                System.out.println(a.getValue());
+            }
+            return null;
+        }
+    }
+    private List<ChoiceBox<Integer>> getLastSetChoiceBox(ChoiceBox<Integer> player1FirstSetChoiceBox, ChoiceBox<Integer> player2FirstSetChoiceBox,
+                                                         ChoiceBox<Integer> player1SecondSetChoiceBox, ChoiceBox<Integer> player2SecondSetChoiceBox,
+                                                         ChoiceBox<Integer> player1ThirdSetChoiceBox, ChoiceBox<Integer> player2ThirdSetChoiceBox,
+                                                         ChoiceBox<Integer> player1FourthSetChoiceBox, ChoiceBox<Integer> player2FourthSetChoiceBox,
+                                                         ChoiceBox<Integer> player1FifthSetChoiceBox, ChoiceBox<Integer> player2FifthSetChoiceBox) {
+        List<ChoiceBox<Integer>> list = new ArrayList<>(List.of(player1FirstSetChoiceBox, player2FirstSetChoiceBox,
+                player1SecondSetChoiceBox, player2SecondSetChoiceBox,
+                player1ThirdSetChoiceBox, player2ThirdSetChoiceBox,
+                player1FourthSetChoiceBox, player2FourthSetChoiceBox,
+                player1FifthSetChoiceBox, player2FifthSetChoiceBox));
+        try {
+            if (!player1FirstSetChoiceBox.getValue().equals(0) && !player2FirstSetChoiceBox.getValue().equals(0) &&
+                    player1SecondSetChoiceBox.getValue().equals(0) && player2SecondSetChoiceBox.getValue().equals(0) &&
+                    player1ThirdSetChoiceBox.getValue().equals(0) && player2ThirdSetChoiceBox.getValue().equals(0) &&
+                    player1FourthSetChoiceBox.getValue().equals(0) && player2FourthSetChoiceBox.getValue().equals(0) &&
+                    player1FifthSetChoiceBox.getValue().equals(0) && player2FifthSetChoiceBox.getValue().equals(0)) {
+
+                return new ArrayList<>(List.of(player1FirstSetChoiceBox, player2FirstSetChoiceBox));
+            } else if (player1FirstSetChoiceBox.getValue() != 0 && player2FirstSetChoiceBox.getValue() != 0 &&
+                    player1SecondSetChoiceBox.getValue() != 0 && player2SecondSetChoiceBox.getValue() != 0 &&
+                    player1ThirdSetChoiceBox.getValue() == 0 && player2ThirdSetChoiceBox.getValue() == 0 &&
+                    player1FourthSetChoiceBox.getValue() == 0 && player2FourthSetChoiceBox.getValue() == 0 &&
+                    player1FifthSetChoiceBox.getValue() == 0 && player2FifthSetChoiceBox.getValue() == 0) {
+
+                return new ArrayList<>(List.of(player1SecondSetChoiceBox, player2SecondSetChoiceBox));
+            } else if (player1FirstSetChoiceBox.getValue() != 0 && player2FirstSetChoiceBox.getValue() != 0 &&
+                    player1SecondSetChoiceBox.getValue() != 0 && player2SecondSetChoiceBox.getValue() != 0 &&
+                    player1ThirdSetChoiceBox.getValue() != 0 && player2ThirdSetChoiceBox.getValue() != 0 &&
+                    player1FourthSetChoiceBox.getValue() == 0 && player2FourthSetChoiceBox.getValue() == 0 &&
+                    player1FifthSetChoiceBox.getValue() == 0 && player2FifthSetChoiceBox.getValue() == 0) {
+                return new ArrayList<>(List.of(player1ThirdSetChoiceBox, player2ThirdSetChoiceBox));
+            } else if (player1FirstSetChoiceBox.getValue() != 0 && player2FirstSetChoiceBox.getValue() != 0 &&
+                    player1SecondSetChoiceBox.getValue() != 0 && player2SecondSetChoiceBox.getValue() != 0 &&
+                    player1ThirdSetChoiceBox.getValue() != 0 && player2ThirdSetChoiceBox.getValue() != 0 &&
+                    player1FourthSetChoiceBox.getValue() != 0 && player2FourthSetChoiceBox.getValue() != 0 &&
+                    player1FifthSetChoiceBox.getValue() == 0 && player2FifthSetChoiceBox.getValue() == 0) {
+                return new ArrayList<>(List.of(player1FourthSetChoiceBox, player2FourthSetChoiceBox));
+            } else if (player1FirstSetChoiceBox.getValue() != 0 && player2FirstSetChoiceBox.getValue() == 0 &&
+                    player1SecondSetChoiceBox.getValue() != 0 && player2SecondSetChoiceBox.getValue() == 0 &&
+                    player1ThirdSetChoiceBox.getValue() != 0 && player2ThirdSetChoiceBox.getValue() == 0 &&
+                    player1FourthSetChoiceBox.getValue() != 0 && player2FourthSetChoiceBox.getValue() != 0 &&
+                    player1FifthSetChoiceBox.getValue() != 0 && player2FifthSetChoiceBox.getValue() != 0) {
+                return new ArrayList<>(List.of(player1FifthSetChoiceBox, player2FifthSetChoiceBox));
+            } else return null;
+        } catch (ClassCastException e) {
+            System.out.println(e.getMessage());
+            for (var a : list) {
+                System.out.println(a.getValue());
+            }
+            return null;
+        }
+    }
+
+
 
 }
