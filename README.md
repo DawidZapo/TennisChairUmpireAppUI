@@ -1,7 +1,5 @@
 # TennisChairUmpireAppUI
-This application is designed for use by a head tennis umpire during a tennis match, providing comprehensive match management capabilities. 
-The visual aspect of the application was constructed using the JavaFX framework, 
-while the database functionality was implemented through the use of JBDC Driver (SQLITE).
+The desktop application has been implemented in Java, utilizing the JavaFX framework for creating the user interface. The JBDC Driver ensures database functionality, with SQLite serving as the underlying database. Specifically designed for the chief umpire during a tennis match, the application provides comprehensive features for managing the course of the game.
 
 ![image](https://github.com/DawidZapo/TennisChairUmpireAppUI/assets/129291980/67381689-1e31-4e60-9d78-05411b5668ca)
 ![image](https://github.com/DawidZapo/TennisChairUmpireAppUI/assets/129291980/301ccdf0-4734-44c1-9bb8-e9e48b93ecf0)
